@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>모음스쿨 - 초등 교육과정 한글 퀴즈 | Soosooland</title>
+<script src="https://soosooland.com/js/protection.js"></script>
+<style>
+  * {
+      box-sizing: border-box;
+    }
+
+```
+body {
+  font-family: Arial, sans-serif;
+  background: #145454;
+  text-align: center;
+  padding: 30px;
+  margin: 0;
+}
+```
+
+h1 { font-size: 3em; margin-bottom:0; color: #EF0; }
+h2 { font-size:1.2em; color: #EF0; }
+
+header > div {
+color:#fff;
+line-height: 140%;
+margin:30px auto;
+}
+header > div {
+color: #fff;
+line-height: 140%;
+margin: 30px auto;
+}
+
+```
+header {
+  min-height: 380px;
+  margin-bottom: 40px;
+}
+
+h1 {
+  font-size: 3em;
+  margin-bottom: 0;
+  color: #EF0;
+}
+
+h2 {
+  font-size: 1.2em;
+  color: white;
+}
+
+.grade-section {
+  background-color: rgba(14, 117, 109, 0.8);
+  color: white;
+  width: 90%;
+  max-width: 800px;      
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.grade-title {
+  font-size: 1.5em;
+  color: #B4F0F0;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.game_container {
+  background-color: #0E756D;
+  color: white;
+  width: 90%;
+  max-width: 800px;      
+  margin: auto;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.section-title {
+  font-size: 1.3em;
+  color: #FFD6BA;
+  margin-bottom: 15px;
+  margin-top: 20px;
+}
+
+.game-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.game-buttons button {
+  width: 200px;
+  height: 52px;
+  padding: 16px 0;
+  font-size: 1.1em;
+  cursor: pointer;
+  border: none;
+  background-color: #CFF9FF;
+  color: #0A6A79;
+  border-radius: 12px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 5px;
+  transition: all 0.3s ease;
+}
+
+.game-buttons button:hover {
+  background-color: #1baf8f;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(27, 175, 143, 0.3);
+}
+```
+
+.back-button {
+position: absolute;
+top: 20px;
+left: 20px;
+padding: 10px 20px;
+font-size: 1em;
+background-color: #FFD6BA;
+color: #7A2E2E;
+border: none;
+border-radius: 8px;
+cursor: pointer;
+transition: all 0.3s ease;
+z-index: 100;
+}
+
+```
+.back-button:hover {
+    background-color: #FF9494;
+    color: white;
+}
+
+.description {
+  color: #a7fff0;
+  line-height: 1.6;
+  margin: 20px auto;
+  max-width: 700px;
+}
+
+/* 반응형 레이아웃 */
+@media (min-width: 800px) {
+  .game-buttons button {
+    flex: 0 0 calc(33.333% - 20px);
+    max-width: 200px;
+  }
+}
+
+@media (max-width: 799px) and (min-width: 500px) {
+  .game-buttons button {
+    flex: 0 0 calc(50% - 20px);
+    max-width: 200px;
+  }
+}
+
+@media (max-width: 499px) {
+  .game-buttons button {
+    flex: 0 0 calc(100% - 20px);
+    max-width: 280px;
+  }
+  
+  .game_container, .grade-section {
+    width: 95%;
+  }
+
+  h1 {
+    font-size: 2em;
+  }
+}
+```
+
+</style>
+</head>
+<body>
+  <button class="back-button" onclick="location.href='https://soosooland.com/'">
+    ← Soosooland </button>
+
+```
+<header>
+    <div class="moeum-main" id="moeum-main">
+        <h1>모음스쿨</h1>
+    </div>
+    <h2>초등 교육과정 한글 퀴즈</h2>
+
+    <div class="description">
+      <p><strong>게임 방법 / How to Play</strong></p>
+      <p>모음은 모두 공개된 상태에서 게임이 시작됩니다.<br>
+      화면 아래 자음 버튼을 클릭해 해당 자음이 포함되어 있는지 추리합니다.<br>
+      정답 자음은 해당 위치에 표시되고, 오답 자음은 시도 횟수가 차감됩니다.<br>
+      6번의 기회 안에 정답을 맞추면 승리!<br>
+      실패하면 정답이 공개됩니다.</p>
+      
+      <p>The game starts with all vowels revealed.<br>
+      Click the consonant buttons to guess if the consonant is in the sentence.<br>
+      Correct consonants are revealed in their positions.<br>
+      Solve the puzzle within 6 tries to win!</p>
+    </div>
+</header>
+
+<!-- 1학년 섹션 -->
+<div class="grade-section">
+  <div class="grade-title">🌱 1학년 (Grade 1)</div>
+  <div class="game-buttons">
+    <button onclick="playGame('grade1-animals')">🐶 동물</button>
+    <button onclick="playGame('grade1-food')">🍎 음식</button>
+  </div>
+</div>
+
+<!-- 2학년 섹션 -->
+<div class="grade-section">
+  <div class="grade-title">🌿 2학년 (Grade 2)</div>
+  <div class="game-buttons">
+    <button onclick="playGame('grade2-nature')">🌈 자연</button>
+    <button onclick="playGame('grade2-daily-life')">🏠 일상생활</button>
+  </div>
+</div>
+
+<!-- 3학년 섹션 -->
+<div class="grade-section">
+  <div class="grade-title">🌳 3학년 (Grade 3)</div>
+  <div class="game-buttons">
+    <button onclick="playGame('grade3-science')">🔬 과학</button>
+    <button onclick="playGame('grade3-social')">🌍 사회</button>
+  </div>
+</div>
+
+<!-- 기타 게임 섹션 -->
+<div class="game_container">
+  <div class="section-title">🎮 기타 게임 (Other Games)</div>
+  <div class="game-buttons">
+    <button onclick="playGame('riddles')">❓ 수수께끼</button>
+    <button onclick="location.href='https://soosoofile.vercel.app/moeum20.html'">💭 속담</button>
+    <button onclick="location.href='https://soosoofile.vercel.app/moeum09.html'">🍽️ 음식</button>
+    <button onclick="location.href='https://soosoofile.vercel.app/moeum24.html'">🦁 동물</button>
+    <button onclick="location.href='https://soosoofile.vercel.app/moeum17.html'">📚 고유어</button>
+  </div>
+</div>
+```
+
+<script>
+function playGame(wordpool) {
+  // Vercel 게임 파일 주소 (나중에 실제 주소로 변경)
+  const gameUrl = 'https://YOUR-VERCEL-URL/moeum-quiz-game.html';
+  
+  // 워드풀 파일 주소
+  const wordpoolUrl = `https://soosooland.com/moeum-school/wordpools/${wordpool}.json`;
+  
+  // 게임 페이지로 이동 (워드풀 URL을 파라미터로 전달)
+  location.href = `${gameUrl}?wordpool=${encodeURIComponent(wordpoolUrl)}`;
+}
+</script>
+
+</body>
+</html>
