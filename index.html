@@ -256,11 +256,6 @@ z-index: 100;
     <button onclick="playGame('grade2-daily-life', '2학년 - 일상생활 (샘플)')">🏠 일상생활 (샘플)</button>
   </div>
 </div>
-=====
-
-
-
-====    
 <!-- 3학년 섹션 -->
 <div class="grade-section">
   <div class="grade-title">🌳 3학년 (Grade 3)</div>
@@ -289,7 +284,7 @@ z-index: 100;
       
   </div>
 </div>
-
+<script>
 function playGame(wordpool) {
   // Vercel 게임 파일 주소 (나중에 실제 주소로 변경)
   const gameUrl = 'https://soosoofile.vercel.app/school.html';
@@ -300,8 +295,6 @@ function playGame(wordpool) {
   // 게임 페이지로 이동 (워드풀 URL을 파라미터로 전달)
   location.href = `${gameUrl}?wordpool=${encodeURIComponent(wordpoolUrl)}`;
 }
-
-<script>
 function playGame(wordpool, title) {
   // Vercel 게임 파일 주소 (실제 주소로 변경)
   const gameUrl = 'https://YOUR-VERCEL-URL/moeum-quiz-game.html';
