@@ -290,7 +290,6 @@ z-index: 100;
   </div>
 </div>
 
-<script>
 function playGame(wordpool) {
   // Vercel 게임 파일 주소 (나중에 실제 주소로 변경)
   const gameUrl = 'https://soosoofile.vercel.app/school.html';
@@ -301,6 +300,19 @@ function playGame(wordpool) {
   // 게임 페이지로 이동 (워드풀 URL을 파라미터로 전달)
   location.href = `${gameUrl}?wordpool=${encodeURIComponent(wordpoolUrl)}`;
 }
+
+<script>
+function playGame(wordpool, title) {
+  // Vercel 게임 파일 주소 (실제 주소로 변경)
+  const gameUrl = 'https://YOUR-VERCEL-URL/moeum-quiz-game.html';
+  
+  // 워드풀 파일 주소
+  const wordpoolUrl = `https://soosooland.com/moeum-school/wordpools/${wordpool}.json`;
+  
+  // 게임 페이지로 이동 (워드풀 URL과 제목을 파라미터로 전달)
+  location.href = `${gameUrl}?wordpool=${encodeURIComponent(wordpoolUrl)}&title=${encodeURIComponent(title)}`;
+}
+
 </script>
 
 </body>
