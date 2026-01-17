@@ -61,98 +61,6 @@ body {
   padding: 30px;
   margin: 0;
 }
-
-h1 { font-size: 3em; margin-bottom:0; color: #EF0; }
-h2 { font-size:1.2em; color: #EF0; }
-
-header > div {
-color:#fff;
-line-height: 140%;
-margin:30px auto;
-}
-header {
-  min-height: auto;  /* 또는 200px */
-  margin-bottom: 20px;
-}
-
-h1 {
-  font-size: 3em;
-  margin-bottom: 0;
-  color: #EF0;
-}
-
-h2 {
-  font-size: 1.2em;
-  color: white;
-}
-
-.grade-section {
-  background-color: rgba(14, 117, 109, 0.8);
-  color: white;
-  width: 90%;
-  max-width: 800px;      
-  margin: 20px auto;
-  padding: 20px;
-  border-radius: 12px;
-}
-
-.grade-title {
-  font-size: 1.5em;
-  color: #B4F0F0;
-  margin-bottom: 15px;
-  font-weight: bold;
-}
-
-.game_container {
-  background-color: #0E756D;
-  color: white;
-  width: 90%;
-  max-width: 800px;      
-  margin: auto;
-  padding: 20px;
-  border-radius: 12px;
-  margin-bottom: 20px;
-}
-
-.section-title {
-  font-size: 1.3em;
-  color: #FFD6BA;
-  margin-bottom: 15px;
-}
-
-.game-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-  width: 100%;
-}
-
-.game-buttons button {
-  width: 200px;
-  height: 52px;
-  padding: 16px 0;
-  font-size: 1.1em;
-  cursor: pointer;
-  border: none;
-  background-color: #CFF9FF;
-  color: #0A6A79;
-  border-radius: 12px;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  margin: 5px;
-  transition: all 0.3s ease;
-}
-
-.game-buttons button:hover {
-  background-color: #1baf8f;
-  color: #fff;
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(27, 175, 143, 0.3);
-}
-
 .back-button {
 position: absolute;
 top: 20px;
@@ -173,11 +81,105 @@ z-index: 100;
     color: white;
 }
 
-.description {
-  color: #a7fff0;
-  line-height: 1.6;
-  margin: 20px auto;
-  max-width: 700px;
+h1 { font-size: 3em; margin-bottom:0; color: #EF0; }
+h2 { font-size:1.2em; color: #EF0; }
+
+header > div {
+  color:#fff;
+  line-height: 140%;
+  margin:30px auto;
+}
+
+header {
+  min-height: auto;
+  margin-bottom: 20px;
+}
+
+/* 아코디언 헤더 스타일 */
+.accordion-header {
+  background: #0E756D;
+  color: #FFD6BA;
+  padding: 20px;
+  margin: 10px auto;
+  width: 90%;
+  max-width: 800px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1.5em;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.accordion-header:hover {
+  background: #1baf8f;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(27, 175, 143, 0.3);
+}
+
+.accordion-header .arrow {
+  font-size: 1.2em;
+  transition: transform 0.3s ease;
+}
+
+.accordion-header.active .arrow {
+  transform: rotate(180deg);
+}
+
+/* 아코디언 내용 */
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.accordion-content.active {
+  max-height: 2000px; /* 충분히 큰 값 */
+}
+
+.grade-section {
+  background-color: #145454;
+  color: white;
+  width: 90%;
+  max-width: 800px;
+  margin: 0 auto 20px;
+  padding: 20px;
+}
+
+.game-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.game-buttons button {
+  width: 200px;
+  height: 45px;
+  padding: 12px 0;
+  font-size: 1.2em;     
+  font-weight: 500;     
+  cursor: pointer;
+  border: none;
+  background-color: #CFF9FF;
+  color: #0A6A79;
+  border-radius: 12px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 5px;
+  transition: all 0.3s ease;
+}
+
+.game-buttons button:hover {
+  background-color: #1baf8f;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(27, 175, 143, 0.3);
 }
 
 /* 반응형 레이아웃 */
@@ -201,12 +203,16 @@ z-index: 100;
     max-width: 280px;
   }
   
-  .game_container, .grade-section {
+  .grade-section, .accordion-header {
     width: 95%;
   }
 
   h1 {
     font-size: 2em;
+  }
+  
+  .accordion-header {
+    font-size: 1.2em;
   }
 }
 
@@ -215,62 +221,75 @@ z-index: 100;
 <body>
   <button class="back-button" onclick="location.href='https://soosooland.com/'">
     ← Soosooland </button>
-
+  
 <header>
     <div class="moeum-main" id="moeum-main">
         <h1>모음스쿨 (개발중)</h1>
     </div>
-    <h2>초등 교육과정 퀴즈</h2>
-    <div class="description">
-      <p><strong>게임 방법 / How to Play</strong></p>
-      <p>자음을 넣어서 정답을 완성하세요.</p>
-     </div>
 </header>
 
-<!-- 1학년 섹션 -->
-<div class="grade-section">
-  <div class="grade-title">🌱 1학년 (Grade 1)</div>
-  <div class="game-buttons">
-    <button onclick="playGame('life111', '1학년 1학기 물건1')">1학년 1학기 물건1</button>
-    <button onclick="playGame('animal111', '1학년 1학기 동물1')">1학년 1학기 동물1</button>
-    <button onclick="playGame('food111', '1학년 1학기 음식1')">1학년 1학기 음식1</button>
-    <button onclick="playGame('nature112', '1학년 1학기 자연2')">1학년 1학기 자연2</button>
-    <button onclick="playGame('life112', '1학년 1학기 물건2')">1학년 1학기 물건2</button>
-    <button onclick="playGame('animal112', '1학년 1학기 동물2')">1학년 1학기 동물2</button>
-    <button onclick="playGame('food112', '1학년 1학기 음식2')">1학년 1학기 음식2</button>
-    <button onclick="playGame('life113', '1학년 1학기 물건3')">1학년 1학기 물건3</button>
-    <button onclick="playGame('safe113', '1학년 1학기 안전1')">1학년 1학기 안전1</button>
-    <button onclick="playGame('food113', '1학년 1학기 음식3')">1학년 1학기 음식3</button>
-    <button onclick="playGame('life114', '1학년 1학기 물건4')">1학년 1학기 물건4</button>
-    <button onclick="playGame('food114', '1학년 1학기 음식4')">1학년 1학기 음식4</button>
-    <button onclick="playGame('nature114', '1학년 1학기 자연4')">1학년 1학기 자연4</button>
-    <button onclick="playGame('life115', '1학년 1학기 물건5')">1학년 1학기 물건5</button>
-      
+<!-- 1학년 1학기 아코디언 -->
+<div class="accordion-header active" onclick="toggleAccordion(this)">
+  <span>🌱 1학년 1학기</span>
+  <span class="arrow">▼</span>
+</div>
+<div class="accordion-content active">
+  <div class="grade-section">
+    <div class="game-buttons">
+      <button onclick="playGame('life111', '1학년 1학기 물건1')">물건1</button>
+      <button onclick="playGame('animal111', '1학년 1학기 동물1')">동물1</button>
+      <button onclick="playGame('food111', '1학년 1학기 음식1')">음식1</button>
+      <button onclick="playGame('nature112', '1학년 1학기 자연2')">자연2</button>
+      <button onclick="playGame('life112', '1학년 1학기 물건2')">물건2</button>
+      <button onclick="playGame('animal112', '1학년 1학기 동물2')">동물2</button>
+      <button onclick="playGame('food112', '1학년 1학기 음식2')">음식2</button>
+      <button onclick="playGame('life113', '1학년 1학기 물건3')">물건3</button>
+      <button onclick="playGame('safe113', '1학년 1학기 안전1')">안전1</button>
+      <button onclick="playGame('food113', '1학년 1학기 음식3')">음식3</button>
+      <button onclick="playGame('life114', '1학년 1학기 물건4')">물건4</button>
+      <button onclick="playGame('food114', '1학년 1학기 음식4')">음식4</button>
+      <button onclick="playGame('nature114', '1학년 1학기 자연4')">자연4</button>
+      <button onclick="playGame('life115', '1학년 1학기 물건5')">물건5</button>
+    </div>
   </div>
 </div>
 
-<!-- 2학년 섹션 -->
-<div class="grade-section">
-  <div class="grade-title">🌿 2학년 (Grade 2)</div>
-  <div class="game-buttons">
-    <button onclick="playGame('grade2-nature', '2학년 - 자연 (샘플)')">🌈 자연 (샘플)</button>
-    <button onclick="playGame('grade2-daily-life', '2학년 - 일상생활 (샘플)')">🏠 일상생활 (샘플)</button>
-  </div>
+<!-- 1학년 2학기 아코디언 -->
+<div class="accordion-header" onclick="toggleAccordion(this)">
+  <span>🌿 1학년 2학기 (준비중)</span>
+  <span class="arrow">▼</span>
 </div>
-<!-- 3학년 섹션 -->
-<div class="grade-section">
-  <div class="grade-title">🌳 3학년 (Grade 3)</div>
-  <div class="game-buttons">
-    <button onclick="playGame('grade3-science', '3학년 - 과학 (샘플)')">🔬 과학 (샘플)</button>
-    <button onclick="playGame('grade3-social', '3학년 - 사회 (샘플)')">🌍 사회 (샘플)</button>
+<div class="accordion-content">
+  <div class="grade-section">
+    <div class="game-buttons">
+      <button onclick="playGame('sample1', '1학년 2학기 샘플1')">준비중...</button>
+    </div>
   </div>
 </div>
 
-<!-- 기타 게임 섹션 -->
-<div class="game_container">
-<div class="section-title">🎮 쉬는 시간  (Break Time)</div>
-  <div class="game-buttons">
-    <button onclick="playGame('word', '따따한 말')">따뜻한 말</button>
+<!-- 3학년 1학기 아코디언 (샘플) -->
+<div class="accordion-header" onclick="toggleAccordion(this)">
+  <span>🌲 3학년 1학기 (샘플)</span>
+  <span class="arrow">▼</span>
+</div>
+<div class="accordion-content">
+  <div class="grade-section">
+    <div class="game-buttons">
+      <button onclick="playGame('grade3-science', '3학년 - 과학 (샘플)')">🔬 과학 (샘플)</button>
+      <button onclick="playGame('grade3-social', '3학년 - 사회 (샘플)')">🌍 사회 (샘플)</button>
+    </div>
+  </div>
+</div>
+
+<!-- 쉬는 시간 아코디언 -->
+<div class="accordion-header" onclick="toggleAccordion(this)">
+  <span>🎮 쉬는 시간</span>
+  <span class="arrow">▼</span>
+</div>
+<div class="accordion-content">
+  <div class="grade-section">
+    <div class="game-buttons">
+    <button onclick="playGame('word', '따뜻한 말')">따뜻한 말</button>
     <button onclick="playGame('riddles', '수수께끼')">❓ 수수께끼</button>
     <button onclick="playGame('sokdam', '속담 명언')">속담 명언</button>
     <button onclick="playGame('food', '음식')">🍽️ 음식</button>
@@ -287,21 +306,37 @@ z-index: 100;
     <button onclick="playGame('goyu','고유어')">📚 고유어</button>
     <button onclick="playGame('book', '저자와 저서')">저자와 저서</button>
     <button onclick="playGame('proverb', '서양 속담')">서양 속담</button>
-   
+       
+
+
+</div>
   </div>
 </div>
+
 <script>
+function toggleAccordion(header) {
+  const content = header.nextElementSibling;
+  const isActive = header.classList.contains('active');
+  
+  // 모든 아코디언 닫기
+  document.querySelectorAll('.accordion-header').forEach(h => {
+    h.classList.remove('active');
+  });
+  document.querySelectorAll('.accordion-content').forEach(c => {
+    c.classList.remove('active');
+  });
+  
+  // 클릭한 아코디언만 열기 (이미 열려있었으면 닫힌 상태 유지)
+  if (!isActive) {
+    header.classList.add('active');
+    content.classList.add('active');
+  }
+}
+
 function playGame(wordpool, title) {
-  // Vercel 게임 파일 주소
   const gameUrl = 'https://soosoofile.vercel.app/school.html';
-  
-  // 워드풀 파일 주소
   const wordpoolUrl = `https://soosooland.com/school/wordpools/${wordpool}.json`;
-  
-  // 제목이 있으면 title 파라미터 추가, 없으면 빈 문자열
   const titleParam = title ? `&title=${encodeURIComponent(title)}` : '';
-  
-  // 게임 페이지로 이동
   location.href = `${gameUrl}?wordpool=${encodeURIComponent(wordpoolUrl)}${titleParam}`;
 }
 </script>
