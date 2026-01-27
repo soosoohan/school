@@ -659,7 +659,7 @@ async function loadWordpool() {
     // GA4 추적: 어떤 파일을 불러왔는지 기록
     if (typeof gtag !== 'undefined') {
         gtag('event', 'game_start', {
-            'game_name': '모음퀴즈',
+            'game_name': '모음스쿨',
             'wordpool_file': wordpoolUrl,  // 예: '1-1.json' 또는 'wordpool.json'
             'category': categoryTitle       // 예: '초등 1-1' 또는 '워드풀'
         });
