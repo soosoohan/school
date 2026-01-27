@@ -733,9 +733,13 @@ function getDaysDiff(date1, date2) {
 
 // 다음 복습일 계산
 function getNextReviewDate(lastDate, attemptIndex) {
-  if (attemptIndex >= REVIEW_INTERVALS.length) return null;
+  // attemptIndex는 현재 시도 횟수 (1회 완료면 1)
+  // REVIEW_INTERVALS[0]은 1차→2차 간격이므로 -1 필요
+  const intervalIndex = attemptIndex - 1;
   
-  const interval = REVIEW_INTERVALS[attemptIndex];
+  if (intervalIndex < 0 || intervalIndex >= REVIEW_INTERVALS.length) return null;
+  
+  const interval = REVIEW_INTERVALS[intervalIndex];
   const lastDateObj = new Date(lastDate);
   const nextDate = new Date(lastDateObj);
   nextDate.setDate(nextDate.getDate() + interval.recommended);
