@@ -850,7 +850,38 @@ function renderGrade1Semester1() {
   
   container.innerHTML = html;
 }
-
+// 1학년 2학기 버튼 생성
+function renderGrade1Semester2() {
+  const container = document.getElementById('grade1-2-buttons');
+  let html = '';
+  
+  grade1semester2.forEach(item => {
+    const progress = getProgress(item.id);
+    const status = getReviewStatus(item.id);
+    const medal = getMedal(progress.attempts.length);
+    
+    let buttonClass = 'game-button';
+    if (status === 'review-today') {
+      buttonClass += ' review-today';
+    } else if (status.startsWith('completed')) {
+      const count = parseInt(status.split('-')[1]);
+      buttonClass += ` completed-${count}`;
+    }
+    
+    html += `
+      <div class="game-item">
+        <button class="${buttonClass}" onclick="playGame('${item.id}', '${item.title}')">
+          ${medal ? `<span class="medal">${medal}</span>` : ''}${item.title}
+        </button>
+        <div class="progress-boxes">
+          ${createProgressBoxes(item.id)}
+        </div>
+      </div>
+    `;
+  });
+  
+  container.innerHTML = html;
+}
 // 통계 업데이트
 function updateStats() {
   let masterCount = 0;
