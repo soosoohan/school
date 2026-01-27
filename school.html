@@ -648,11 +648,21 @@ let guessedConsonants = new Set();
     let shuffledSentences = [];
     let sentenceIndex = 0;
     
-   // 워드풀 로딩 함수
-    async function loadWordpool() {
+ 
+ // 워드풀 로딩 함수
+async function loadWordpool() {
     if (!wordpoolUrl) {
         alert('워드풀 주소가 지정되지 않았습니다.');
         return false;
+    }
+
+    // GA4 추적: 어떤 파일을 불러왔는지 기록
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'game_start', {
+            'game_name': '모음퀴즈',
+            'wordpool_file': wordpoolUrl,  // 예: '1-1.json' 또는 'wordpool.json'
+            'category': categoryTitle       // 예: '초등 1-1' 또는 '워드풀'
+        });
     }
 
     try {
