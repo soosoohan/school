@@ -891,7 +891,23 @@ function updateStats() {
   let inProgressCount = 0;
   let reviewTodayCount = 0;
   
+  //1학년 1학기 통계
   grade1semester1.forEach(item => {
+    const progress = getProgress(item.id);
+    const attemptCount = progress.attempts.length;
+    const status = getReviewStatus(item.id);
+    
+    if (attemptCount >= 5) masterCount++;
+    else if (attemptCount === 4) goldCount++;
+    else if (attemptCount === 3) silverCount++;
+    else if (attemptCount === 2) bronzeCount++;
+    else if (attemptCount === 1) inProgressCount++;
+    
+    if (status === 'review-today') reviewTodayCount++;
+  });
+  
+  //1학년 2학기 통계 
+  grade1semester2.forEach(item => {
     const progress = getProgress(item.id);
     const attemptCount = progress.attempts.length;
     const status = getReviewStatus(item.id);
@@ -912,10 +928,10 @@ function updateStats() {
   document.getElementById('inProgressCount').textContent = inProgressCount;
   document.getElementById('reviewTodayCount').textContent = reviewTodayCount;
 }
-
 // 페이지 로드 시 실행
 window.addEventListener('load', () => {
   renderGrade1Semester1();
+  renderGrade1Semester2();  
   updateStats();
 });
 </script>
