@@ -488,12 +488,13 @@ header {
 
 <!-- 1학년 2학기 아코디언 -->
 <div class="accordion-header" onclick="toggleAccordion(this)">
-  <span>🌿 1학년 2학기 (준비중)</span>
+  <span>🌿 1학년 2학기</span>
   <span class="arrow">▼</span>
 </div>
 <div class="accordion-content">
   <div class="grade-section">
     <div class="game-buttons" id="grade1-2-buttons">
+      <!-- 버튼들이 여기에 동적으로 생성됩니다 -->
     </div>
   </div>
 </div>
@@ -598,6 +599,7 @@ const dailyThemes = {
     name: '일요일'
 }
 };
+
 // 페이지 로드 시 요일별 테마 적용
 function applyDailyTheme() {
     const today = new Date().getDay();
@@ -647,10 +649,12 @@ const grade1semester1 = [
   { id: 'safety117', title: '26. 🛡️ 안전' },
   { id: 'korea117', title: '27. 🇰🇷 애국가' }
 ];
+
 // 1학년 2학기 문제 목록
 const grade1semester2 = [
-  { id: 'emotion121', title: '1. 감정' }
+  { id: 'emotion121', title: '1. 😊 감정' }
 ];
+
 // 복습 간격 (일)
 const REVIEW_INTERVALS = [
   { min: 2, max: 4, recommended: 3 },   // 1차 -> 2차
@@ -850,6 +854,7 @@ function renderGrade1Semester1() {
   
   container.innerHTML = html;
 }
+
 // 1학년 2학기 버튼 생성
 function renderGrade1Semester2() {
   const container = document.getElementById('grade1-2-buttons');
@@ -882,6 +887,7 @@ function renderGrade1Semester2() {
   
   container.innerHTML = html;
 }
+
 // 통계 업데이트
 function updateStats() {
   let masterCount = 0;
@@ -891,7 +897,7 @@ function updateStats() {
   let inProgressCount = 0;
   let reviewTodayCount = 0;
   
-  //1학년 1학기 통계
+  // 1학년 1학기 통계
   grade1semester1.forEach(item => {
     const progress = getProgress(item.id);
     const attemptCount = progress.attempts.length;
@@ -906,7 +912,7 @@ function updateStats() {
     if (status === 'review-today') reviewTodayCount++;
   });
   
-  //1학년 2학기 통계 
+  // 1학년 2학기 통계 추가
   grade1semester2.forEach(item => {
     const progress = getProgress(item.id);
     const attemptCount = progress.attempts.length;
@@ -928,10 +934,11 @@ function updateStats() {
   document.getElementById('inProgressCount').textContent = inProgressCount;
   document.getElementById('reviewTodayCount').textContent = reviewTodayCount;
 }
+
 // 페이지 로드 시 실행
 window.addEventListener('load', () => {
   renderGrade1Semester1();
-  renderGrade1Semester2();  
+  renderGrade1Semester2();
   updateStats();
 });
 </script>
