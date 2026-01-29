@@ -250,26 +250,32 @@ margin-left: 10px;
 }
 
 .hint-section {
-background: var(--sub-color);  /* 2% - sub */
-color: var(--white-color);
-padding: 15px;
-margin-bottom: 10px;
-text-align: center;
+  background: var(--sub-color);
+  color: var(--white-color);
+  padding: 15px;
+  margin-bottom: 10px;
+  text-align: center;
 }
 
 .hint-title {
-font-size: 1.2em;
-color: var(--white-color);
-font-weight: bold;
-margin-bottom: 5px;
-display:inline;
+  font-size: 1.2em;
+  color: var(--white-color);
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: inline;
 }
 
 .hint-text {
-font-size: 1.3em;
-color: var(--white-color);
-font-weight: bold;
-display:inline;
+  font-size: 1.3em;
+  color: var(--white-color);
+  font-weight: bold;
+  display: inline;
+}
+
+/* 힌트 텍스트 내의 이모지만 크기 키우기 */
+.hint-text .emoji {
+  font-size: 2em;
+  vertical-align: middle;
 }
 
 .consonant-section {
@@ -624,6 +630,11 @@ function applyDailyTheme() {
 
 // 페이지 로드 시 즉시 실행
 applyDailyTheme();
+
+function wrapEmojis(text) {
+  const emojiRegex = /(\p{Emoji_Presentation}|\p{Extended_Pictographic})/gu;
+  return text.replace(emojiRegex, '<span class="emoji">$1</span>');
+}
 
     // 워드풀 URL 파라미터에서 가져오기
 const urlParams = new URLSearchParams(window.location.search);
@@ -1000,8 +1011,8 @@ function startRound() {
     document.getElementById('winMessage').style.display = 'none';
     document.getElementById('loseMessage').style.display = 'none';
     document.getElementById('finalMessage').style.display = 'none';
-    document.getElementById('hintText').textContent = currentHint;
-    
+    document.getElementById('hintText').innerHTML = wrapEmojis(currentHint);
+
     // startRound에서
 document.getElementById('roundDisplay').textContent = 
     `문제 ${sentenceIndex}/${totalQuestions}`;
