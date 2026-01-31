@@ -1004,7 +1004,11 @@ function showFinalScore() {
     document.querySelector('.game-board').style.display = 'none';
     document.getElementById('finalMessage').style.display = 'block';
     
-    const saved = saveProgress();
+    // ✅ 틀린 문제가 0개일 때만 진도 저장!
+    let saved = false;
+    if (wrongCount === 0) {
+        saved = saveProgress();
+    }
     
     if (wrongCount === 0 && !saved) {
         const finalAlert = document.querySelector('.final-alert');
