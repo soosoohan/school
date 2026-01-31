@@ -243,7 +243,7 @@ header {
 
 .game-item {
   display: flex;
-  flex-wrap: wrap; /* 이 줄 추가 */
+  flex-wrap: wrap;
   align-items: center;
   gap: 10px;
   background-color: #1a6060;
@@ -271,7 +271,7 @@ header {
 
 .game-button:hover {
   background-color: var(--sub-color);
-  color: (--black-color);
+  color: var(--black-color);
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(27, 175, 143, 0.3);
 }
@@ -425,24 +425,20 @@ header {
   외국어 학습과 장기기억에 매우 효과적입니다.</p>
 
   <ul>
-    <li>✅ <span class="highlight">모든 문제를 맞추면</span> 날짜가 기록됩니다</li>
-    <li>📅 권장 복습 일정:
+    <li>🏆 <span class="highlight">첫 시도에 100점을 맞으면</span> 트로피 획득! 복습 면제!</li>
+    <li>📝 <span class="highlight">첫 시도에 틀리면</span> 복습 일정이 저장됩니다</li>
+    <li>📅 복습 일정 (틀린 문제만):
       <ul>
-        <li>📝1차 공부 → <span class="highlight">2~4일 후</span> 2차 복습</li>
-        <li>🥉2차 복습 → <span class="highlight">6~8일 후</span> 3차 복습</li>
-        <li>🥈3차 복습 → <span class="highlight">13~15일 후</span> 4차 복습</li>
-        <li>🥇4차 복습 → <span class="highlight">26~30일 후</span> 5차 복습</li>
-        <li>🏆5차 복습 → <span class="highlight">장기기억 저장 완료</span></li>
-        <li>⚠️ 한 번에 몰아서 공부하지 마세요 - 뇌가 힘들어요</li>
-        <li>🎯 날짜를 지켜서 반복하면 오래 기억됩니다</li>
-        <li>⏰ 복습 날짜가 되면 알림이 표시됩니다</li>
+        <li>3일 후 → 7일 후 → 14일 후 → 28일 후</li>
+        <li>총 4번의 복습으로 장기기억 완성!</li>
       </ul>
-  <p style="text-align: center; margin-top: 15px;  animation: blink 1s infinite; ">
+    </li>
+    <li>⚠️ 한 번에 몰아서 공부하지 마세요 - 뇌가 힘들어요</li>
+    <li>🎯 날짜를 지켜서 반복하면 오래 기억됩니다</li>
+  </ul>
+  <p style="text-align: center; margin-top: 15px; animation: blink 1s infinite;">
     <span class="highlight">⏰ 오늘 복습할 문제: <span id="reviewTodayCount">0</span>개</span> 
   </p>
-</div>
-
-
 </div>
 
 <!-- 통계 섹션 -->
@@ -451,23 +447,11 @@ header {
   <div class="stats-grid">
     <div class="stat-item">
       <div class="stat-number" id="inProgressCount">0</div>
-      <div class="stat-label">📝1차 공부</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-number" id="bronzeCount">0</div>
-      <div class="stat-label">🥉2차 복습</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-number" id="silverCount">0</div>
-      <div class="stat-label">🥈3차 복습</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-number" id="goldCount">0</div>
-      <div class="stat-label">🥇4차 복습</div>
+      <div class="stat-label">📝 학습중</div>
     </div>
     <div class="stat-item">
       <div class="stat-number" id="masterCount">0</div>
-      <div class="stat-label">🏆5차 복습</div>
+      <div class="stat-label">🏆 완료</div>
     </div>
   </div>
 </div>
@@ -622,7 +606,7 @@ const grade1semester1 = [
 
 // 1학년 2학기 문제 목록
 const grade1semester2 = [
-   { id: '1-2-01-emotion', title: '1-2  1. 감정' },
+  { id: '1-2-01-emotion', title: '1-2  1. 감정' },
   { id: '1-2-02-cat', title: '1-2  2. 흉내내는 말' },
   { id: '1-2-03-cat', title: '1-2  3. 흉내내는 말' },
   { id: '1-2-04-action', title: '1-2  4. 행동' }, 
@@ -649,16 +633,6 @@ const grade1semester2 = [
   { id: '1-2-25', title: '1-2  25. 장소' },
   { id: '1-2-26', title: '1-2  26. 식물' },
   { id: '1-2-27', title: '1-2  27. 학교' }
-    
-    
-];
-
-// 복습 간격 (일)
-const REVIEW_INTERVALS = [
-  { min: 2, max: 4, recommended: 3 },   // 1차 -> 2차
-  { min: 6, max: 8, recommended: 7 },   // 2차 -> 3차
-  { min: 13, max: 15, recommended: 14 }, // 3차 -> 4차
-  { min: 26, max: 30, recommended: 28 }  // 4차 -> 5차
 ];
 
 function toggleAccordion(header) {
@@ -683,23 +657,25 @@ function toggleAccordion(header) {
 function playGame(wordpool, title) {
   const progress = getProgress(wordpool);
   
-  // 5회 완료 후 - 연습 모드로 가능
+  // 🏆 트로피 획득 (첫판 100점) - 연습 모드 가능
   if (progress.attempts.length >= 5) {
-    const confirm5 = window.confirm('🏆 이미 완벽하게 학습한 문제입니다!\n\n연습용으로 풀 수 있지만 기록되지 않습니다.\n그래도 하시겠어요?');
+    const confirm5 = window.confirm('🏆 완벽하게 학습 완료!\n\n연습용으로 풀 수 있지만 기록되지 않습니다.\n그래도 하시겠어요?');
     if (!confirm5) return;
   }
-  // 권장 시기 확인 (1~4회차)
+  // 복습 일정 확인
   else if (progress.attempts.length > 0) {
-    const lastAttempt = progress.attempts[progress.attempts.length - 1];
-    const today = new Date().toISOString().split('T')[0];
-    const daysSince = getDaysDiff(lastAttempt.date, today);
-    const nextReview = getNextReviewDate(lastAttempt.date, progress.attempts.length);
-    
-    if (nextReview && daysSince < nextReview.minDays) {
-      // 권장 시기 전 - 차단
-      const daysLeft = nextReview.minDays - daysSince;
-      alert(`⏰ 아직 복습 시기가 아닙니다!\n\n권장 복습일: ${daysLeft}일 후\n간격을 지켜야 효과적으로 기억할 수 있어요.`);
-      return;
+    const reviews = getReviews(wordpool);
+    if (reviews && reviews.length > 0) {
+      const today = new Date().toISOString().split('T')[0];
+      const nextReviewDate = reviews[0];
+      const daysSince = getDaysDiff(progress.attempts[progress.attempts.length - 1].date, today);
+      
+      // 복습 날짜 전인지 확인
+      if (today < nextReviewDate) {
+        const daysLeft = getDaysDiff(today, nextReviewDate);
+        alert(`⏰ 아직 복습 시기가 아닙니다!\n\n다음 복습일: ${daysLeft}일 후 (${nextReviewDate})\n간격을 지켜야 효과적으로 기억할 수 있어요.`);
+        return;
+      }
     }
   }
   
@@ -720,6 +696,27 @@ function getProgress(wordpoolId) {
   }
 }
 
+// localStorage에서 복습 일정 가져오기
+function getReviews(wordpoolId) {
+  try {
+    const allReviews = JSON.parse(localStorage.getItem('moeumschool_reviews') || '{}');
+    const reviewData = allReviews[wordpoolId];
+    
+    if (!reviewData || reviewData.length === 0) return null;
+    
+    // 가장 최근 복습 데이터 가져오기
+    const latestReview = reviewData[reviewData.length - 1];
+    
+    // 완료한 복습 횟수만큼 제외한 남은 복습 일정
+    const remainingReviews = latestReview.reviews.slice(latestReview.completedReviews || 0);
+    
+    return remainingReviews.length > 0 ? remainingReviews : null;
+  } catch (error) {
+    console.error('복습 일정 불러오기 실패:', error);
+    return null;
+  }
+}
+
 // 날짜 차이 계산 (일 단위)
 function getDaysDiff(date1, date2) {
   const d1 = new Date(date1);
@@ -729,66 +726,54 @@ function getDaysDiff(date1, date2) {
   return diffDays;
 }
 
-// 다음 복습일 계산
-function getNextReviewDate(lastDate, attemptIndex) {
-  // attemptIndex는 현재 시도 횟수 (1회 완료면 1)
-  // REVIEW_INTERVALS[0]은 1차→2차 간격이므로 -1 필요
-  const intervalIndex = attemptIndex - 1;
-  
-  if (intervalIndex < 0 || intervalIndex >= REVIEW_INTERVALS.length) return null;
-  
-  const interval = REVIEW_INTERVALS[intervalIndex];
-  const lastDateObj = new Date(lastDate);
-  const nextDate = new Date(lastDateObj);
-  nextDate.setDate(nextDate.getDate() + interval.recommended);
-  
-  return {
-    date: nextDate.toISOString().split('T')[0],
-    minDays: interval.min,
-    maxDays: interval.max,
-    recommended: interval.recommended
-  };
-}
-
 // 복습 상태 확인
 function getReviewStatus(wordpoolId) {
   const progress = getProgress(wordpoolId);
+  
+  // 아직 시작 안 함
   if (progress.attempts.length === 0) return 'not-started';
+  
+  // 🏆 트로피 (5회 완료 = 첫판 100점)
   if (progress.attempts.length >= 5) return 'completed-5';
   
-  const lastAttempt = progress.attempts[progress.attempts.length - 1];
-  const today = new Date().toISOString().split('T')[0];
-  const daysSinceLastAttempt = getDaysDiff(lastAttempt.date, today);
-  
-  const nextReview = getNextReviewDate(lastAttempt.date, progress.attempts.length);
-  if (!nextReview) return `completed-${progress.attempts.length}`;
-  
-  // 복습 기간 확인
-  if (daysSinceLastAttempt >= nextReview.minDays && daysSinceLastAttempt <= nextReview.maxDays) {
-    return 'review-today';
-  } else if (daysSinceLastAttempt < nextReview.minDays) {
+  // 복습 일정 확인
+  const reviews = getReviews(wordpoolId);
+  if (!reviews || reviews.length === 0) {
+    // 복습 일정이 없으면 진행 중 상태
     return `in-progress-${progress.attempts.length}`;
+  }
+  
+  const today = new Date().toISOString().split('T')[0];
+  const nextReviewDate = reviews[0];
+  
+  // 오늘이 복습 날짜인지 확인
+  if (today >= nextReviewDate) {
+    return 'review-today';
   } else {
-    // 권장 기간 지남
-    return `review-late-${progress.attempts.length}`;
+    return `in-progress-${progress.attempts.length}`;
   }
 }
 
 // 메달 가져오기
-function getMedal(attemptCount) {
-  if (attemptCount >= 5) return '🏆';
-  if (attemptCount >= 4) return '🥇';
-  if (attemptCount >= 3) return '🥈';
-  if (attemptCount >= 2) return '🥉';
+function getMedal(attemptCount, status) {
+  if (attemptCount >= 5 || status === 'completed-5') return '🏆';
   return '';
 }
 
 // 진도 박스 생성
 function createProgressBoxes(wordpoolId) {
   const progress = getProgress(wordpoolId);
+  const reviews = getReviews(wordpoolId);
   const today = new Date().toISOString().split('T')[0];
+  
+  // 🏆 트로피 케이스 (5개 박스 모두 완료)
+  if (progress.attempts.length >= 5) {
+    return Array(5).fill('<div class="progress-box completed">✓</div>').join('');
+  }
+  
   const boxes = [];
   
+  // 진행 중인 경우
   for (let i = 0; i < 5; i++) {
     const attempt = progress.attempts[i];
     let boxClass = 'progress-box';
@@ -799,21 +784,17 @@ function createProgressBoxes(wordpoolId) {
       const date = attempt.date.substring(5); // MM-DD만 표시
       content = date;
     } else if (i === progress.attempts.length) {
-      // 다음 복습할 칸
+      // 다음 할 박스
       if (progress.attempts.length === 0) {
-        // 아직 한 번도 안 푼 경우 - 첫 번째 칸 초록색
+        // 첫 시작
         boxClass += ' review-soon';
         content = '시작';
-      } else {
-        // 복습 시기 확인
-        const lastAttempt = progress.attempts[progress.attempts.length - 1];
-        const nextReview = getNextReviewDate(lastAttempt.date, i);
-        if (nextReview) {
-          const daysSince = getDaysDiff(lastAttempt.date, today);
-          if (daysSince >= nextReview.minDays && daysSince <= nextReview.maxDays) {
-            boxClass += ' review-soon';
-            content = '⏰';
-          }
+      } else if (reviews && reviews.length > 0) {
+        // 복습 일정이 있는 경우
+        const nextReviewDate = reviews[0];
+        if (today >= nextReviewDate) {
+          boxClass += ' review-soon';
+          content = '⏰';
         }
       }
     }
@@ -832,14 +813,13 @@ function renderGrade1Semester1() {
   grade1semester1.forEach(item => {
     const progress = getProgress(item.id);
     const status = getReviewStatus(item.id);
-    const medal = getMedal(progress.attempts.length);
+    const medal = getMedal(progress.attempts.length, status);
     
     let buttonClass = 'game-button';
     if (status === 'review-today') {
       buttonClass += ' review-today';
-    } else if (status.startsWith('completed')) {
-      const count = parseInt(status.split('-')[1]);
-      buttonClass += ` completed-${count}`;
+    } else if (status === 'completed-5') {
+      buttonClass += ' completed-5';
     }
     
     html += `
@@ -865,14 +845,13 @@ function renderGrade1Semester2() {
   grade1semester2.forEach(item => {
     const progress = getProgress(item.id);
     const status = getReviewStatus(item.id);
-    const medal = getMedal(progress.attempts.length);
+    const medal = getMedal(progress.attempts.length, status);
     
     let buttonClass = 'game-button';
     if (status === 'review-today') {
       buttonClass += ' review-today';
-    } else if (status.startsWith('completed')) {
-      const count = parseInt(status.split('-')[1]);
-      buttonClass += ` completed-${count}`;
+    } else if (status === 'completed-5') {
+      buttonClass += ' completed-5';
     }
     
     html += `
@@ -893,46 +872,42 @@ function renderGrade1Semester2() {
 // 통계 업데이트
 function updateStats() {
   let masterCount = 0;
-  let goldCount = 0;
-  let silverCount = 0;
-  let bronzeCount = 0;
   let inProgressCount = 0;
   let reviewTodayCount = 0;
   
   // 1학년 1학기 통계
   grade1semester1.forEach(item => {
     const progress = getProgress(item.id);
-    const attemptCount = progress.attempts.length;
     const status = getReviewStatus(item.id);
     
-    if (attemptCount >= 5) masterCount++;
-    else if (attemptCount === 4) goldCount++;
-    else if (attemptCount === 3) silverCount++;
-    else if (attemptCount === 2) bronzeCount++;
-    else if (attemptCount === 1) inProgressCount++;
+    if (progress.attempts.length >= 5 || status === 'completed-5') {
+      masterCount++;
+    } else if (progress.attempts.length > 0) {
+      inProgressCount++;
+    }
     
-    if (status === 'review-today') reviewTodayCount++;
+    if (status === 'review-today') {
+      reviewTodayCount++;
+    }
   });
   
   // 1학년 2학기 통계 추가
   grade1semester2.forEach(item => {
     const progress = getProgress(item.id);
-    const attemptCount = progress.attempts.length;
     const status = getReviewStatus(item.id);
     
-    if (attemptCount >= 5) masterCount++;
-    else if (attemptCount === 4) goldCount++;
-    else if (attemptCount === 3) silverCount++;
-    else if (attemptCount === 2) bronzeCount++;
-    else if (attemptCount === 1) inProgressCount++;
+    if (progress.attempts.length >= 5 || status === 'completed-5') {
+      masterCount++;
+    } else if (progress.attempts.length > 0) {
+      inProgressCount++;
+    }
     
-    if (status === 'review-today') reviewTodayCount++;
+    if (status === 'review-today') {
+      reviewTodayCount++;
+    }
   });
   
   document.getElementById('masterCount').textContent = masterCount;
-  document.getElementById('goldCount').textContent = goldCount;
-  document.getElementById('silverCount').textContent = silverCount;
-  document.getElementById('bronzeCount').textContent = bronzeCount;
   document.getElementById('inProgressCount').textContent = inProgressCount;
   document.getElementById('reviewTodayCount').textContent = reviewTodayCount;
 }
