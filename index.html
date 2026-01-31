@@ -70,7 +70,6 @@ body {
   padding: 30px;
   margin: 0;
 }
-
 .back-button {
 position: absolute;
 top: 20px;
@@ -338,6 +337,7 @@ header {
   color: var(--white-color);
   font-weight: bold;
 }
+
 .progress-box.review-soon {
   background-color: var(--accent-color);
   border-color: var(--accent-color);
@@ -778,15 +778,15 @@ function createProgressBoxes(wordpoolId) {
   
   const boxes = [];
   
-  // 진행 중인 경우
+  // 실제 완료한 횟수만큼만 표시
   for (let i = 0; i < 5; i++) {
-    const attempt = progress.attempts[i];
     let boxClass = 'progress-box';
     let content = '';
     
-    if (attempt) {
+    if (i < progress.attempts.length) {
+      // 이미 완료한 박스
       boxClass += ' completed';
-      const date = attempt.date.substring(5); // MM-DD만 표시
+      const date = progress.attempts[i].date.substring(5); // MM-DD만 표시
       content = date;
     } else if (i === progress.attempts.length) {
       // 다음 할 박스
