@@ -45,7 +45,7 @@
     }
 
 body {
-font-family: ‘Malgun Gothic’, sans-serif;
+font-family: 'Malgun Gothic', sans-serif;
 background: var(--bg-color);  /* 60% - 칠판색 배경 */
 min-height: 100vh;
 padding: 20px;
@@ -142,7 +142,7 @@ font-weight: bold;
 
 .retry-wrong-btn {
 background: var(--accent-color);
-color: var(--black-color);
+color: var(--white-color);
 padding: 12px 24px;
 border: none;
 border-radius: 8px;
@@ -191,7 +191,7 @@ min-width: 1em;
 height: 1.2em;
 text-align: center;
 vertical-align: baseline;
-font-family: ‘Malgun Gothic’, sans-serif;
+font-family: 'Malgun Gothic', sans-serif;
 }
 
 .incomplete-char {
@@ -317,7 +317,7 @@ text-align: center;
 border: 2px solid var(--primary-color);
 border-radius: 8px;
 padding: 5px;
-font-family: ‘Malgun Gothic’, sans-serif;
+font-family: 'Malgun Gothic', sans-serif;
 background: white;
 color: var(--black-color);
 }
@@ -389,7 +389,7 @@ color: var(--primary-color);
 
 .new-game-btn {
 background: var(--accent-color);
-color: var(--black-color);
+color: var(--white-color);
 padding: 10px 20px;
 border: none;
 border-radius: 8px;
@@ -649,15 +649,18 @@ const consonants = ['ㄱ', 'ㄴ', 'ㄷ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅅ', 'ㅇ', 'ㅈ
 let totalQuestions = 0;
 let wrongCount = 0; 
 let wrongAnswers = [];
-let inputListenerAdded = false;  // 중복 방지
+let firstAttemptWrongAnswers = [];  // ← 새로 추가: 첫판에서 틀린 문제들
+let inputListenerAdded = false;
 let guessedConsonants = new Set();
-    let wrongConsonants = new Set();
-    let gameWon = false;
-    let gameLost = false; 
-    let charStates = [];
-    let currentHint = '';
-    let shuffledSentences = [];
-    let sentenceIndex = 0;
+let wrongConsonants = new Set();
+let gameWon = false;
+let gameLost = false; 
+let charStates = [];
+let currentHint = '';
+let currentSentence = '';
+let shuffledSentences = [];
+let sentenceIndex = 0;
+let isFirstAttempt = true;  // ← 새로 추가: 첫판 여부 체크
     
  
  // 워드풀 로딩 함수
@@ -671,8 +674,8 @@ async function loadWordpool() {
     if (typeof gtag !== 'undefined') {
         gtag('event', 'game_start', {
             'game_name': '모음스쿨',
-            'wordpool_file': wordpoolUrl,  // 예: '1-1.json' 또는 'wordpool.json'
-            'category': categoryTitle       // 예: '초등 1-1' 또는 '워드풀'
+            'wordpool_file': wordpoolUrl,
+            'category': categoryTitle
         });
     }
 
@@ -702,12 +705,12 @@ function shuffleSentences() {
         [shuffledSentences[i], shuffledSentences[j]] = [shuffledSentences[j], shuffledSentences[i]];
     }
     sentenceIndex = 0;
-    totalQuestions = shuffledSentences.length;  // ← 이 줄만 추가!
+    totalQuestions = shuffledSentences.length;
 }
 
 function getNextSentence() {
     if (sentenceIndex >= shuffledSentences.length) {
-        return null;  // ← 원본: shuffleSentences() 다시 호출
+        return null;
     }
     return shuffledSentences[sentenceIndex++];
 }
@@ -767,17 +770,14 @@ function getNextSentence() {
         return String.fromCharCode(code);
     }
 
-    // 종성이 완전히 맞춰졌는지 확인하는 개선된 함수
     function isJongComplete(charData) {
         if (!charData.jong) return true;
         
-    // 쌍받침 처리 (ㄲ, ㅆ)
-    const doubleConsonantMap = {
+        const doubleConsonantMap = {
             'ㄲ': 'ㄱ', 'ㅆ': 'ㅅ'
         };
         
         if (doubleConsonantMap[charData.jong]) {
-            // 쌍받침: 기본 자음이 맞춰지면 완료
             const baseConsonant = doubleConsonantMap[charData.jong];
             return charData.foundJongComponents.has(baseConsonant) || charData.foundJongComponents.has(charData.jong);
         }
@@ -806,24 +806,20 @@ function createConsonantButtons() {
         grid.appendChild(button);
     });
     
-  // 자음 입력창 이벤트 리스너
     const input = document.getElementById('consonantInput');
     if (input) {
         input.addEventListener('input', function(e) {
             const value = e.target.value;
             if (value) {
-                // 자음인지 확인
                 if (consonants.includes(value)) {
                     handleConsonantClick(value);
                 }
-                // 100ms 후에 입력창 비우기
                 setTimeout(() => {
                     e.target.value = '';
                 }, 100);
             }
         });
         
-        // 입력창에 자동 포커스
         setTimeout(() => {
             input.focus();
         }, 100);
@@ -859,7 +855,6 @@ function createConsonantButtons() {
     function getFoundJongDisplay(charData) {
         if (!charData.jong) return '';
         
-        // 쌍받침 처리 (ㄲ, ㅆ)
         const doubleConsonantMap = {
             'ㄲ': 'ㄱ', 'ㅆ': 'ㅅ'
         };
@@ -867,24 +862,20 @@ function createConsonantButtons() {
         if (doubleConsonantMap[charData.jong]) {
             const baseConsonant = doubleConsonantMap[charData.jong];
             if (charData.foundJongComponents.has(baseConsonant) || charData.foundJongComponents.has(charData.jong)) {
-                return charData.jong; // 전체 쌍받침 표시
+                return charData.jong;
             }
             return '';
         }
         
         const components = getComplexConsonantComponents(charData.jong);
         if (!components) {
-            // 단일 종성
             return charData.foundJongComponents.has(charData.jong) ? charData.jong : '';
         } else {
-            // 겹받침: 발견된 자음들만 조합
             const foundParts = components.filter(comp => charData.foundJongComponents.has(comp));
             if (foundParts.length === 0) return '';
             if (foundParts.length === components.length) {
-                // 모든 구성요소가 발견되면 원래 겹받침 반환
                 return charData.jong;
             } else {
-                // 일부만 발견되면 찾은 자음들만 반환
                 return foundParts.join('');
             }
         }
@@ -966,17 +957,23 @@ function createConsonantButtons() {
                 charData.isSpace || charData.isNonHangul || isCharComplete(charData)
             );
 
-if (allComplete) {
-    gameWon = true;
-    
-    // 2개 이상 틀렸을 때만 오답으로 카운트
-    if (wrongConsonants.size >= 2) {
-        wrongAnswers.push({text: currentSentence, hint: currentHint});
-        wrongCount++;
-    }
-    
-    document.getElementById('winMessage').style.display = 'block';
-}
+            if (allComplete) {
+                gameWon = true;
+                
+                // ✨ 새로운 로직: 첫판에서 틀렸으면 복습 대상에 추가
+                if (isFirstAttempt && wrongConsonants.size > 0) {
+                    firstAttemptWrongAnswers.push({text: currentSentence, hint: currentHint});
+                    saveForReview(currentSentence, currentHint);
+                }
+                
+                // 틀린 문제 리스트 (바로 다시 풀기용)
+                if (wrongConsonants.size > 0) {
+                    wrongAnswers.push({text: currentSentence, hint: currentHint});
+                    wrongCount++;
+                }
+                
+                document.getElementById('winMessage').style.display = 'block';
+            }
 
         } else { 
             wrongConsonants.add(consonant);
@@ -991,6 +988,49 @@ if (allComplete) {
             `맞춘 자음: ${guessedConsonants.size}개 | 틀린 자음: ${wrongConsonants.size}개`;
     }
 
+// ✨ 새로운 함수: 복습 일정 저장
+function saveForReview(text, hint) {
+    try {
+        const wordpoolName = wordpoolUrl.split('/').pop().replace('.json', '');
+        const today = new Date();
+        
+        const reviewSchedule = {
+            text: text,
+            hint: hint,
+            firstAttemptDate: today.toISOString().split('T')[0],
+            reviews: [
+                addDays(today, 3).toISOString().split('T')[0],
+                addDays(today, 7).toISOString().split('T')[0],
+                addDays(today, 14).toISOString().split('T')[0],
+                addDays(today, 28).toISOString().split('T')[0]
+            ],
+            completedReviews: 0  // 완료한 복습 횟수
+        };
+        
+        // localStorage에서 기존 복습 데이터 가져오기
+        const allReviews = JSON.parse(localStorage.getItem('moeumschool_reviews') || '{}');
+        if (!allReviews[wordpoolName]) {
+            allReviews[wordpoolName] = [];
+        }
+        
+        // 중복 방지 (같은 문제가 이미 있는지 확인)
+        const exists = allReviews[wordpoolName].some(item => item.text === text);
+        if (!exists) {
+            allReviews[wordpoolName].push(reviewSchedule);
+            localStorage.setItem('moeumschool_reviews', JSON.stringify(allReviews));
+            console.log('복습 일정 저장:', text);
+        }
+    } catch (error) {
+        console.error('복습 일정 저장 실패:', error);
+    }
+}
+
+// 날짜 더하기 함수
+function addDays(date, days) {
+    const result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result;
+}
 
 function startRound() {
     const randomSentenceData = getNextSentence();
@@ -1013,11 +1053,10 @@ function startRound() {
     document.getElementById('finalMessage').style.display = 'none';
     document.getElementById('hintText').innerHTML = wrapEmojis(currentHint);
 
-    // startRound에서
-document.getElementById('roundDisplay').textContent = 
-    `문제 ${sentenceIndex}/${totalQuestions}`;
-document.getElementById('scoreDisplay').textContent = 
-    `오답: ${wrongCount}개`;
+    document.getElementById('roundDisplay').textContent = 
+        `문제 ${sentenceIndex}/${totalQuestions}`;
+    document.getElementById('scoreDisplay').textContent = 
+        `오답: ${wrongCount}개`;
    
     for (let char of currentSentence) {
         if (char === ' ') {
@@ -1049,47 +1088,37 @@ document.getElementById('scoreDisplay').textContent =
 
 function nextRound() {
     startRound();
-    // 다음 문제 시작 시 입력창에 포커스
     setTimeout(() => {
         const input = document.getElementById('consonantInput');
         if (input) input.focus();
     }, 200);
 }
 
-// localStorage에 진도 저장
+// localStorage에 진도 저장 (100점일 때만)
 function saveProgress() {
     try {
-        // 틀린 문제가 0개일 때만 저장 (진짜 100점)
-        if (wrongCount !== 0) return false;
+        // 첫판에서 틀린 문제가 0개일 때만 저장 (진짜 100점)
+        if (firstAttemptWrongAnswers.length !== 0) return false;
         
-        // wordpool URL에서 파일명 추출 (예: life111.json -> life111)
         const wordpoolName = wordpoolUrl.split('/').pop().replace('.json', '');
-        
-        // 기존 진도 불러오기
         const allProgress = JSON.parse(localStorage.getItem('moeumschool_progress') || '{}');
-        
-        // 해당 문제의 진도 가져오기
         const progress = allProgress[wordpoolName] || { attempts: [] };
+        const today = new Date().toISOString().split('T')[0];
         
-        // 현재 날짜
-        const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
-        
-        // 5회 미만일 때만 저장
         if (progress.attempts.length < 5) {
             progress.attempts.push({
                 date: today,
                 accuracy: 100
             });
             
-            // 전체 진도 업데이트
             allProgress[wordpoolName] = progress;
             localStorage.setItem('moeumschool_progress', JSON.stringify(allProgress));
             
             console.log('진도 저장 완료:', wordpoolName, progress);
-            return true; // 저장 성공
+            return true;
         } else {
             console.log('이미 5회 완료 - 연습 모드');
-            return false; // 저장 안 함
+            return false;
         }
     } catch (error) {
         console.error('진도 저장 실패:', error);
@@ -1109,12 +1138,10 @@ function showFinalScore() {
     document.querySelector('.game-board').style.display = 'none';
     document.getElementById('finalMessage').style.display = 'block';
     
-    // 틀린 문제가 0개일 때만 localStorage에 저장 시도
+    // 첫판에서 100점일 때만 진도 저장
     const saved = saveProgress();
     
-    // 저장 여부에 따라 메시지 추가
     if (wrongCount === 0 && !saved) {
-        // 5회 완료 후 연습 모드
         const finalAlert = document.querySelector('.final-alert');
         const practiceMsg = document.createElement('div');
         practiceMsg.style.marginTop = '15px';
@@ -1137,6 +1164,7 @@ function retryWrongAnswers() {
     sentences = [...wrongAnswers];
     wrongAnswers = [];
     wrongCount = 0;
+    isFirstAttempt = false;  // ← 복습 모드
     
     shuffleSentences();
     
@@ -1150,6 +1178,8 @@ function restartGame() {
     sentences = [...originalSentences];
     wrongCount = 0;
     wrongAnswers = [];
+    firstAttemptWrongAnswers = [];
+    isFirstAttempt = true;  // ← 첫판 초기화
     
     shuffleSentences();
     
