@@ -1105,19 +1105,23 @@ function saveProgress() {
         const progress = allProgress[wordpoolName] || { attempts: [] };
         const today = new Date().toISOString().split('T')[0];
         
-        if (progress.attempts.length < 5) {
-            progress.attempts.push({
-                date: today,
-                accuracy: 100
-            });
+        if (progress.attempts.length === 0) {
+            // 🏆 첫판 100점 = 즉시 5회 완료!
+            progress.attempts = [
+                { date: today, accuracy: 100 },
+                { date: today, accuracy: 100 },
+                { date: today, accuracy: 100 },
+                { date: today, accuracy: 100 },
+                { date: today, accuracy: 100 }
+            ];
             
             allProgress[wordpoolName] = progress;
             localStorage.setItem('moeumschool_progress', JSON.stringify(allProgress));
             
-            console.log('진도 저장 완료:', wordpoolName, progress);
+            console.log('🏆 첫판 100점! 트로피 획득!', wordpoolName);
             return true;
         } else {
-            console.log('이미 5회 완료 - 연습 모드');
+            console.log('이미 진행 중 - 연습 모드');
             return false;
         }
     } catch (error) {
