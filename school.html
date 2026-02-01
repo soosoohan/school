@@ -725,14 +725,29 @@ function createConsonantButtons() {
     
     const input = document.getElementById('consonantInput');
     if (input) {
-        input.addEventListener('input', function(e) {
+        // 기존 이벤트 리스너 제거 (중복 방지)
+        const newInput = input.cloneNode(true);
+        input.parentNode.replaceChild(newInput, input);
+        
+        newInput.addEventListener('input', function(e) {
             const value = e.target.value;
             if (value && consonants.includes(value)) {
                 handleConsonantClick(value);
                 setTimeout(() => { e.target.value = ''; }, 100);
             }
         });
-        setTimeout(() => { input.focus(); }, 100);
+        
+        // 엔터키 이벤트 추가
+        newInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                if (gameWon) {
+                    nextRound();
+                }
+            }
+        });
+        
+        setTimeout(() => { newInput.focus(); }, 100);
     }
 }
 
