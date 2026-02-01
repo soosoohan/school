@@ -418,32 +418,52 @@ header {
 </header>
 
 <!-- 학습 안내 -->
-
 <div class="learning-guide">
-  <h3>📚 효과적인 기억법 - 간격 반복 학습</h3>
-  <p>독일 심리학자 헤르만 에빙하우스가 발견한 과학적 학습법입니다.<br>
-  외국어 학습과 장기기억에 매우 효과적입니다.</p>
-
-  <ul>
-    <li>🏆 <span class="highlight">첫 시도에 100점을 맞으면</span> 트로피 획득! 복습 면제!</li>
-    <li>📝 <span class="highlight">첫 시도에 틀린 문제가 있으면</span>
-      <ul>
-        <li>틀린 문제만 바로 다시 풀기 (전부 맞춰야 완료)</li>
-        <li>첫판에서 틀린 문제만 복습 일정에 저장됩니다</li>
-      </ul>
-    </li>
-    <li>📅 복습 일정 (첫판에서 틀린 문제만):
-      <ul>
-        <li>3일 후 → 7일 후 → 14일 후 → 28일 후</li>
-        <li>총 4번의 복습으로 장기기억 완성!</li>
-      </ul>
-    </li>
-    <li>⚠️ 한 번에 몰아서 공부하지 마세요 - 뇌가 힘들어요</li>
-    <li>🎯 날짜를 지켜서 반복하면 오래 기억됩니다</li>
-  </ul>
-  <p style="text-align: center; margin-top: 15px; animation: blink 1s infinite;">
-    <span class="highlight">⏰ 오늘 복습할 문제: <span id="reviewTodayCount">0</span>개</span> 
-  </p>
+  <h3>
+    <button id="langToggle" onclick="toggleLanguage()" style="padding: 5px 12px; cursor: pointer; font-size: 14px; margin-right: 10px; border-radius: 5px; font-weight: bold;">
+      EN
+    </button>
+    <span id="titleKo">📚 효과적인 기억법 - 간격 반복 학습</span>
+    <span id="titleEn" style="display: none;">📚 Effective Learning - Spaced Repetition</span>
+  </h3>
+  
+  <div id="korean" class="lang-content">
+    <p>독일 심리학자 헤르만 에빙하우스가 발견한 과학적 학습법입니다.<br>
+    외국어 학습과 장기기억에 매우 효과적입니다.</p>
+    <ul>
+      <li>🏆 <span class="highlight">첫 학습에서 100점을 맞으면</span> 트로피 획득! 복습 면제!</li>
+      <li>📝 <span class="highlight">첫 학습에서 틀린 문제가 있으면</span><br>
+        틀린 문제만 바로 다시 풀면 학습이 완료됩니다.</li>
+      <li>첫 학습에서 틀린 문제만 복습 일정에 저장됩니다</li>
+      <li>📅 복습 일정 (첫판에서 틀린 문제만):</li>
+      <li>3일 후 → 7일 후 → 14일 후 → 28일 후</li>
+      <li>총 4번의 복습으로 장기기억 완성!</li>
+      <li>⚠️ 한 번에 몰아서 공부하지 마세요 - 뇌가 힘들어요</li>
+      <li>🎯 날짜를 지켜서 반복하면 오래 기억됩니다</li>
+    </ul>
+    <p style="text-align: center; margin-top: 15px; animation: blink 1s infinite;">
+      <span class="highlight">⏰ 오늘 복습할 문제: <span id="reviewTodayCount">0</span>개</span> 
+    </p>
+  </div>
+  
+  <div id="english" class="lang-content" style="display: none;">
+    <p>A scientifically proven learning method discovered by German psychologist Hermann Ebbinghaus.<br>
+    Highly effective for language learning and long-term memory.</p>
+    <ul>
+      <li>🏆 <span class="highlight">Get 100% on first attempt?</span> Trophy earned! Review exempted!</li>
+      <li>📝 <span class="highlight">Made mistakes on first attempt?</span><br>
+        Retry only the incorrect problems to complete the lesson.</li>
+      <li>Only incorrect problems are saved to review schedule</li>
+      <li>📅 Review Schedule (incorrect problems only):</li>
+      <li>After 3 days → 7 days → 14 days → 28 days</li>
+      <li>4 reviews complete = Long-term memory achieved!</li>
+      <li>⚠️ Don't cram - Your brain needs breaks</li>
+      <li>🎯 Follow the schedule for lasting memory</li>
+    </ul>
+    <p style="text-align: center; margin-top: 15px; animation: blink 1s infinite;">
+      <span class="highlight">⏰ Problems to review today: <span id="reviewTodayCount">0</span></span> 
+    </p>
+  </div>
 </div>
 
 <!-- 통계 섹션 -->
@@ -587,59 +607,81 @@ function applyDailyTheme() {
 // 페이지 로드 시 즉시 실행
 applyDailyTheme();
 
+function toggleLanguage() {
+  const korean = document.getElementById('korean');
+  const english = document.getElementById('english');
+  const titleKo = document.getElementById('titleKo');
+  const titleEn = document.getElementById('titleEn');
+  const button = document.getElementById('langToggle');
+  
+  if (korean.style.display === 'none') {
+    korean.style.display = 'block';
+    english.style.display = 'none';
+    titleKo.style.display = 'inline';
+    titleEn.style.display = 'none';
+    button.textContent = 'EN';
+  } else {
+    korean.style.display = 'none';
+    english.style.display = 'block';
+    titleKo.style.display = 'none';
+    titleEn.style.display = 'inline';
+    button.textContent = '한';
+  }
+}
+
 // 1학년 1학기 문제 목록
 const grade1semester1 = [
-  { id: '1-1-01-life', title: '1-1  1. 📦 물건' },
-  { id: '1-1-02-animal', title: '1-1  2. 🐶 동물' },
-  { id: '1-1-03-food', title: '1-1  3. 🍎 음식' },
-  { id: '1-1-04-life', title: '1-1  4. ✏️ 물건' },
-  { id: '1-1-05-animal', title: '1-1  5. 🦁 동물' },
-  { id: '1-1-06-food', title: '1-1  6. 🍕 음식' },
-  { id: '1-1-07-animal', title: '1-1  7. 🦁 동물' },
-  { id: '1-1-08-life', title: '1-1  8. ⚽ 물건' },
-  { id: '1-1-09-food', title: '1-1  9. 🍰 음식' },
-  { id: '1-1-10-place', title: '1-1  10. 🏫 장소' },
-  { id: '1-1-11-nature', title: '1-1  11. 🌳 자연' },
-  { id: '1-1-12-life', title: '1-1  12. ⚽ 물건' },
-  { id: '1-1-13-place', title: '1-1  13. 🏪 장소' },
-  { id: '1-1-14-food', title: '1-1  14. 🍰 음식' },
-  { id: '1-1-15-place', title: '1-1  15. 🏪 장소' },
-  { id: '1-1-16-job', title: '1-1  16. 👨‍⚕️ 직업' },
-  { id: '1-1-17-action', title: '1-1  17. 🏃 행동' },
-  { id: '1-1-18-nature', title: '1-1  18. 🌸 자연' },
-  { id: '1-1-20-life', title: '1-1  19. 🎮 물건' },
-  { id: '1-1-21-food', title: '1-1  20. 🍲 음식' },
-  { id: '1-1-22-nature', title: '1-1  21. 🌸 자연' },
-  { id: '1-1-23-body', title: '1-1  22. 👋 신체' },
-  { id: '1-1-24-people', title: '1-1  23. 👨‍👩‍👧‍👦 사람' },
-  { id: '1-1-25-life', title: '1-1  24. 🎨 물건' },
-  { id: '1-1-26-greeting', title: '1-1  25. 👋 인사' },
-  { id: '1-1-27-korea', title: '1-1  26. 🇰🇷 우리나라' },
-  { id: '1-1-28-money', title: '1-1  27. 💰 화폐' },
-  { id: '1-1-29-exploration', title: '1-1  28. 🚀 탐험' },
-  { id: '1-1-30-onoma', title: '1-1  29. 🎵 의성어의태어' },
-  { id: '1-1-31-korea', title: '1-1  30. 🇰🇷 애국가' }
+  { id: '1-1-01', title: '1-1  1. 📦 물건' },
+  { id: '1-1-02', title: '1-1  2. 🐶 동물' },
+  { id: '1-1-03', title: '1-1  3. 🍎 음식' },
+  { id: '1-1-04', title: '1-1  4. ✏️ 물건' },
+  { id: '1-1-05', title: '1-1  5. 🦁 동물' },
+  { id: '1-1-06', title: '1-1  6. 🍕 음식' },
+  { id: '1-1-07', title: '1-1  7. 🦁 동물' },
+  { id: '1-1-08', title: '1-1  8. ⚽ 물건' },
+  { id: '1-1-09', title: '1-1  9. 🍰 음식' },
+  { id: '1-1-10', title: '1-1  10. 🏫 장소' },
+  { id: '1-1-11', title: '1-1  11. 🌳 자연' },
+  { id: '1-1-12', title: '1-1  12. ⚽ 물건' },
+  { id: '1-1-13', title: '1-1  13. 🏪 장소' },
+  { id: '1-1-14', title: '1-1  14. 🍰 음식' },
+  { id: '1-1-15', title: '1-1  15. 🏪 장소' },
+  { id: '1-1-16', title: '1-1  16. 👨‍⚕️ 직업' },
+  { id: '1-1-17', title: '1-1  17. 🏃 행동' },
+  { id: '1-1-18', title: '1-1  18. 🌸 자연' },
+  { id: '1-1-20', title: '1-1  19. 🎮 물건' },
+  { id: '1-1-21', title: '1-1  20. 🍲 음식' },
+  { id: '1-1-22', title: '1-1  21. 🌸 자연' },
+  { id: '1-1-23', title: '1-1  22. 👋 신체' },
+  { id: '1-1-24', title: '1-1  23. 👨‍👩‍👧‍👦 사람' },
+  { id: '1-1-25', title: '1-1  24. 🎨 물건' },
+  { id: '1-1-26', title: '1-1  25. 👋 인사' },
+  { id: '1-1-27', title: '1-1  26. 🇰🇷 우리나라' },
+  { id: '1-1-28', title: '1-1  27. 💰 화폐' },
+  { id: '1-1-29', title: '1-1  28. 🚀 탐험' },
+  { id: '1-1-30', title: '1-1  29. 🎵 의성어의태어' },
+  { id: '1-1-31', title: '1-1  30. 🇰🇷 애국가' }
 ];
 
 // 1학년 2학기 문제 목록
 const grade1semester2 = [
-  { id: '1-2-01-emotion', title: '1-2  1. 감정' },
-  { id: '1-2-02-cat', title: '1-2  2. 흉내내는 말' },
-  { id: '1-2-03-cat', title: '1-2  3. 흉내내는 말' },
-  { id: '1-2-04-action', title: '1-2  4. 행동' }, 
-  { id: '1-2-05-job', title: '1-2  5. 직업' },
-  { id: '1-2-06-action', title: '1-2  6. 행동' },  
-  { id: '1-2-07-object', title: '1-2  7. 물건' },
-  { id: '1-2-08-place', title: '1-2  8. 장소' },
-  { id: '1-2-09-play', title: '1-2  9. 행동' },  
-  { id: '1-2-10-cat', title: '1-2  10. 상태' },  
-  { id: '1-2-11-emo', title: '1-2  11. 감정' },  
-  { id: '1-2-12-act', title: '1-2  12. 행동' },  
-  { id: '1-2-13-cat', title: '1-2  13. 안전' },  
-  { id: '1-2-14-obo', title: '1-2  14. 물건' },
-  { id: '1-2-15-cat', title: '1-2  15. 상태' },
-  { id: '1-2-16-art', title: '1-2  16. 미술' },
-  { id: '1-2-17-act', title: '1-2  17. 행동' },
+  { id: '1-2-01', title: '1-2  1. 감정' },
+  { id: '1-2-02', title: '1-2  2. 흉내내는 말' },
+  { id: '1-2-03', title: '1-2  3. 흉내내는 말' },
+  { id: '1-2-04', title: '1-2  4. 행동' }, 
+  { id: '1-2-05', title: '1-2  5. 직업' },
+  { id: '1-2-06', title: '1-2  6. 행동' },  
+  { id: '1-2-07', title: '1-2  7. 물건' },
+  { id: '1-2-08', title: '1-2  8. 장소' },
+  { id: '1-2-09', title: '1-2  9. 행동' },  
+  { id: '1-2-10', title: '1-2  10. 상태' },  
+  { id: '1-2-11', title: '1-2  11. 감정' },  
+  { id: '1-2-12', title: '1-2  12. 행동' },  
+  { id: '1-2-13', title: '1-2  13. 안전' },  
+  { id: '1-2-14', title: '1-2  14. 물건' },
+  { id: '1-2-15', title: '1-2  15. 상태' },
+  { id: '1-2-16', title: '1-2  16. 미술' },
+  { id: '1-2-17', title: '1-2  17. 행동' },
   { id: '1-2-18', title: '1-2  18. 명절 국경일' },
   { id: '1-2-19', title: '1-2  19. 하루 일과' },
   { id: '1-2-20', title: '1-2  20. 하루 일과' },
