@@ -836,11 +836,12 @@ function createProgressBoxes(wordpoolId) {
   const progress = getProgress(wordpoolId);
   const reviews = getReviews(wordpoolId);
   const today = new Date().toISOString().split('T')[0];
-  
-  // 🏆 트로피 케이스 (5개 박스 모두 완료)
-  if (progress.attempts.length >= 5) {
-    return Array(5).fill('<div class="progress-box completed">✓</div>').join('');
-  }
+if (progress.attempts.length >= 5) {
+    return progress.attempts.slice(0, 5).map(attempt => {
+      const date = attempt.date.substring(5); // MM-DD만 표시
+      return `<div class="progress-box completed">${date}</div>`;
+    }).join('');
+}
   
   const boxes = [];
   
