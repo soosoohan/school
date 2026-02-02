@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="ko">
 <head>
 <!-- Google tag (gtag.js) -->
@@ -14,11 +15,13 @@
 <title>모음스쿨 Moeum School - 초등학교 교육과정 학습용 퀴즈 | Soosooland</title>
 
 <!-- SEO Meta Tags -->
+
 <meta name="description" content="초등학생 학습 퀴즈. Korean language quiz based on elementary school curriculum for grades 1-6.">
 <meta name="keywords" content="초등학교, 한글 퀴즈, 학년별 학습, elementary school, Korean quiz, curriculum, educational game">
 <meta name="author" content="Soosooland">
 
 <!-- Open Graph (페이스북 카카오톡) -->
+
 <meta property="og:title" content="모음스쿨 - 초등학생 학습 퀴즈 | Soosooland">
 <meta property="og:description" content="초등학교 교육과정 학습 퀴즈. Korean language quiz based on elementary school curriculum for grades 1-6.">
 <meta property="og:type" content="website">
@@ -27,11 +30,12 @@
 <meta property="og:site_name" content="Soosooland">
 
 <!-- 트위터 -->
+
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://soosooland.com/images/moeum.jpeg">
 <meta name="twitter:title" content="모음스쿨 - 초등 교육과정 한글 퀴즈">
 <meta name="twitter:description" content="초등학교 교육과정 기반 한글 퀴즈. Korean language quiz based on elementary school curriculum.">
-    
+
 <link rel="canonical" href="https://soosooland.com/school/">
 <link rel="stylesheet" href="https://soosooland.com/css/protection.css">
 <script type="application/ld+json">
@@ -57,18 +61,21 @@
             --primary-color: #6F8FA3;     /* 주조색 */
             --sub-color: #2F4B5C;         /* 어두운 주조색 */
             --accent-color: #2F4B5C;      /* 주조색과 120도 선명하고 밝음 */
-       
-        }
-* {
-      box-sizing: border-box;
+
+```
     }
+```
+
+- {
+  box-sizing: border-box;
+  }
 
 body {
-  font-family: Arial, sans-serif;
-  background: var(--bg-color);
-  text-align: center;
-  padding: 30px;
-  margin: 0;
+font-family: Arial, sans-serif;
+background: var(–bg-color);
+text-align: center;
+padding: 30px;
+margin: 0;
 }
 .back-button {
 position: absolute;
@@ -76,8 +83,8 @@ top: 20px;
 left: 20px;
 padding: 10px 20px;
 font-size: 1em;
-background: var(--accent-color);
-color: var(--black-color);
+background: var(–accent-color);
+color: var(–black-color);
 border: none;
 border-radius: 8px;
 cursor: pointer;
@@ -86,322 +93,322 @@ z-index: 100;
 }
 
 .back-button:hover {
-    background-color: #FF9494;
-    color: white;
+background-color: #FF9494;
+color: white;
 }
 
-h1 { font-size: 2.3em; margin-bottom:0; color: var(--primary-color); }
-h2 { font-size:1.3em; color: var(--primary-color); }
+h1 { font-size: 2.3em; margin-bottom:0; color: var(–primary-color); }
+h2 { font-size:1.3em; color: var(–primary-color); }
 
 header > div {
-  color:var(--black-color);
-  line-height: 140%;
-  margin:30px auto;
+color:var(–black-color);
+line-height: 140%;
+margin:30px auto;
 }
 
 header {
-  min-height: auto;
-  margin-bottom: 20px;
+min-height: auto;
+margin-bottom: 20px;
 }
 
 /* 학습 안내 섹션 */
 .learning-guide {
-  background: var(--white-color);
-  border: 10px solid var(--primary-color);
-  border-radius: 12px;
-  padding: 20px;
-  margin: 20px auto;
-  max-width: 800px;
-  text-align: left;
-  color: var(--black-color);
+background: var(–white-color);
+border: 10px solid var(–primary-color);
+border-radius: 12px;
+padding: 20px;
+margin: 20px auto;
+max-width: 800px;
+text-align: left;
+color: var(–black-color);
 }
 
 .learning-guide h3 {
-  color: var(--black-color);
-  font-size: 1.5em;
-  margin-bottom: 15px;
-  text-align: center;
+color: var(–black-color);
+font-size: 1.5em;
+margin-bottom: 15px;
+text-align: center;
 }
 
 .learning-guide p {
-  line-height: 1.8;
-  margin: 10px 0;
-  font-size: 1.2em;
+line-height: 1.8;
+margin: 10px 0;
+font-size: 1.2em;
 }
 
 .learning-guide ul {
-  margin: 10px 0;
-  padding-left: 25px;
+margin: 10px 0;
+padding-left: 25px;
 }
 
 .learning-guide li {
-  margin: 8px 0;
-  font-size: 1.1em;
-  line-height: 1.6;
+margin: 8px 0;
+font-size: 1.1em;
+line-height: 1.6;
 }
 
 .highlight {
-  color: var(--sub-color);
-  font-weight: bold;
+color: var(–sub-color);
+font-weight: bold;
 }
 
 /* 통계 섹션 */
 .stats-section {
-  background: var(--primary-color);
-  border-radius: 12px;
-  padding: 15px;
-  margin: 20px auto;
-  max-width: 800px;
-  color: var(--black-color);
+background: var(–primary-color);
+border-radius: 12px;
+padding: 15px;
+margin: 20px auto;
+max-width: 800px;
+color: var(–black-color);
 }
 
 .stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  gap: 15px;
-  margin-top: 10px;
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+gap: 15px;
+margin-top: 10px;
 }
 
 .stat-item {
-  background: var(--white-color);
-  padding: 10px;
-  border-radius: 8px;
-  text-align: center;
+background: var(–white-color);
+padding: 10px;
+border-radius: 8px;
+text-align: center;
 }
 
 .stat-number {
-  font-size: 1.2em;
-  font-weight: bold;
-  color: var(--sub-color);
+font-size: 1.2em;
+font-weight: bold;
+color: var(–sub-color);
 }
 
 .stat-label {
-  font-size: 1.2em;
-  margin-top: 5px;
+font-size: 1.2em;
+margin-top: 5px;
 }
 
 /* 아코디언 헤더 스타일 */
 .accordion-header {
-  background: var(--accent-color);
-  color: var(--black-color);
-  padding: 20px;
-  margin: 10px auto;
-  width: 90%;
-  max-width: 800px;
-  border-radius: 12px;
-  cursor: pointer;
-  font-size: 1.3em;
-  font-weight: bold;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: all 0.3s ease;
+background: var(–accent-color);
+color: var(–black-color);
+padding: 20px;
+margin: 10px auto;
+width: 90%;
+max-width: 800px;
+border-radius: 12px;
+cursor: pointer;
+font-size: 1.3em;
+font-weight: bold;
+display: flex;
+justify-content: space-between;
+align-items: center;
+transition: all 0.3s ease;
 }
 
 .accordion-header:hover {
-  background: var(--primary-color);
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(27, 175, 143, 0.3);
+background: var(–primary-color);
+transform: translateY(-2px);
+box-shadow: 0 5px 15px rgba(27, 175, 143, 0.3);
 }
 
 .accordion-header .arrow {
-  font-size: 1.3em;
-  transition: transform 0.3s ease;
+font-size: 1.3em;
+transition: transform 0.3s ease;
 }
 
 .accordion-header.active .arrow {
-  transform: rotate(180deg);
+transform: rotate(180deg);
 }
 
 /* 아코디언 내용 */
 .accordion-content {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease;
+max-height: 0;
+overflow: hidden;
+transition: max-height 0.3s ease;
 }
 
 .accordion-content.active {
-  max-height: 5000px;
+max-height: 5000px;
 }
 
 .grade-section {
-  background-color: var(--bg-color);
-  color: var(--white-color);
-  width: 90%;
-  max-width: 800px;
-  border-radius: 12px;
-  margin: 0 auto 20px;
-  padding: 20px;
+background-color: var(–bg-color);
+color: var(–white-color);
+width: 90%;
+max-width: 800px;
+border-radius: 12px;
+margin: 0 auto 20px;
+padding: 20px;
 }
 
 .game-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: 100%;
+display: flex;
+flex-direction: column;
+gap: 10px;
+width: 100%;
 }
 
 .game-item {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
-  background-color: #1a6060;
-  padding: 10px;
-  border-radius: 8px;
+display: flex;
+flex-wrap: wrap;
+align-items: center;
+gap: 10px;
+background-color: #1a6060;
+padding: 10px;
+border-radius: 8px;
 }
 
 .game-button {
-  flex: 0 0 200px;
-  height: 45px;
-  padding: 12px 0;
-  font-size: 1.2em;     
-  font-weight: 500;     
-  cursor: pointer;
-  border: none;
-  background-color: var(--primary-color);
-  color: var(--black-color);
-  border-radius: 12px;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  transition: all 0.3s ease;
+flex: 0 0 200px;
+height: 45px;
+padding: 12px 0;
+font-size: 1.2em;  
+font-weight: 500;  
+cursor: pointer;
+border: none;
+background-color: var(–primary-color);
+color: var(–black-color);
+border-radius: 12px;
+display: inline-flex;
+justify-content: center;
+align-items: center;
+text-align: center;
+transition: all 0.3s ease;
 }
 
 .game-button:hover {
-  background-color: var(--sub-color);
-  color: var(--black-color);
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(27, 175, 143, 0.3);
+background-color: var(–sub-color);
+color: var(–black-color);
+transform: translateY(-2px);
+box-shadow: 0 5px 15px rgba(27, 175, 143, 0.3);
 }
 
 .game-button.completed-5 {
-  background: linear-gradient(135deg, #FFD700, #FFA500);
-  color: #000;
-  animation: shimmer 2s infinite;
+background: linear-gradient(135deg, #FFD700, #FFA500);
+color: #000;
+animation: shimmer 2s infinite;
 }
 
 .game-button.completed-4 {
-  background: linear-gradient(135deg, #FFD700, #FFED4E);
-  color: #000;
+background: linear-gradient(135deg, #FFD700, #FFED4E);
+color: #000;
 }
 
 .game-button.completed-3 {
-  background: linear-gradient(135deg, #C0C0C0, #E8E8E8);
-  color: #000;
+background: linear-gradient(135deg, #C0C0C0, #E8E8E8);
+color: #000;
 }
 
 .game-button.completed-2 {
-  background: linear-gradient(135deg, #CD7F32, #E8956F);
-  color: #fff;
+background: linear-gradient(135deg, #CD7F32, #E8956F);
+color: #fff;
 }
 
 .game-button.review-today {
-  border: 3px solid #FFD700;
-  animation: pulse 1.5s infinite;
+border: 3px solid #FFD700;
+animation: pulse 1.5s infinite;
 }
 
 @keyframes shimmer {
-  0%, 100% { filter: brightness(1); }
-  50% { filter: brightness(1.2); }
+0%, 100% { filter: brightness(1); }
+50% { filter: brightness(1.2); }
 }
 
 @keyframes pulse {
-  0%, 100% { box-shadow: 0 0 10px #FFD700; }
-  50% { box-shadow: 0 0 20px #FFD700; }
+0%, 100% { box-shadow: 0 0 10px #FFD700; }
+50% { box-shadow: 0 0 20px #FFD700; }
 }
 
 .progress-boxes {
-  display: flex;
-  gap: 5px;
-  align-items: center;
+display: flex;
+gap: 5px;
+align-items: center;
 }
 
 .progress-box {
-  width: 60px;
-  height: 35px;
-  border: 2px solid var(--primary-color);
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.75em;
-  color: var(--primary-color);
-  background-color: rgba(255, 255, 255, 0.1);
+width: 60px;
+height: 35px;
+border: 2px solid var(–primary-color);
+border-radius: 6px;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 0.75em;
+color: var(–primary-color);
+background-color: rgba(255, 255, 255, 0.1);
 }
 
 .progress-box.completed {
-  background-color: var(--bg-color);
-  border-color: var(--primary-color);
-  color: var(--white-color);
-  font-weight: bold;
+background-color: var(–bg-color);
+border-color: var(–primary-color);
+color: var(–white-color);
+font-weight: bold;
 }
 
 .progress-box.review-soon {
-  background-color: var(--accent-color);
-  border-color: var(--accent-color);
-  color: white;
-  animation: blink 1s infinite;
+background-color: var(–accent-color);
+border-color: var(–accent-color);
+color: white;
+animation: blink 1s infinite;
 }
 
 @keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.6; }
+0%, 100% { opacity: 1; }
+50% { opacity: 0.6; }
 }
 
 .medal {
-  font-size: 1.5em;
-  margin-right: 5px;
+font-size: 1.5em;
+margin-right: 5px;
 }
 
 /* 반응형 레이아웃 */
 @media (max-width: 799px) {
-  .game-item {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  
-  .game-button {
-    flex: 1;
-    width: 100%;
-  }
-  
-  .progress-boxes {
-    justify-content: center;
-  }
-  
-  .progress-box {
-    width: 50px;
-    height: 30px;
-    font-size: 0.7em;
-  }
+.game-item {
+flex-direction: column;
+align-items: stretch;
+}
+
+.game-button {
+flex: 1;
+width: 100%;
+}
+
+.progress-boxes {
+justify-content: center;
+}
+
+.progress-box {
+width: 50px;
+height: 30px;
+font-size: 0.7em;
+}
 }
 
 @media (max-width: 499px) {
-  .grade-section, .accordion-header {
-    width: 95%;
-  }
+.grade-section, .accordion-header {
+width: 95%;
+}
 
-  h1 {
-    font-size: 2em;
-  }
-  
-  .accordion-header {
-    font-size: 1.2em;
-  }
-  
-  .learning-guide {
-    padding: 15px;
-  }
-  
-  .learning-guide p, .learning-guide li {
-    font-size: 1em;
-  }
-  
-  .stat-number {
-    font-size: 1.5em;
-  }
+h1 {
+font-size: 2em;
+}
+
+.accordion-header {
+font-size: 1.2em;
+}
+
+.learning-guide {
+padding: 15px;
+}
+
+.learning-guide p, .learning-guide li {
+font-size: 1em;
+}
+
+.stat-number {
+font-size: 1.5em;
+}
 }
 
 </style>
@@ -418,52 +425,32 @@ header {
 </header>
 
 <!-- 학습 안내 -->
+
 <div class="learning-guide">
-  <h3>
-    <button id="langToggle" onclick="toggleLanguage()" style="padding: 5px 12px; cursor: pointer; font-size: 14px; margin-right: 10px; border-radius: 5px; font-weight: bold;">
-      EN
-    </button>
-    <span id="titleKo">📚 효과적인 기억법 - 간격 반복 학습</span>
-    <span id="titleEn" style="display: none;">📚 Effective Learning - Spaced Repetition</span>
-  </h3>
-  
-  <div id="korean" class="lang-content">
-    <p>독일 심리학자 헤르만 에빙하우스가 발견한 과학적 학습법입니다.<br>
-    외국어 학습과 장기기억에 매우 효과적입니다.</p>
-    <ul>
-      <li>🏆 <span class="highlight">첫 학습에서 100점을 맞으면</span> 트로피 획득! 복습 면제!</li>
-      <li>📝 <span class="highlight">첫 학습에서 틀린 문제가 있으면</span><br>
-        틀린 문제만 바로 다시 풀면 학습이 완료됩니다.</li>
-      <li>첫 학습에서 틀린 문제만 복습 일정에 저장됩니다</li>
-      <li>📅 복습 일정 (첫판에서 틀린 문제만):</li>
-      <li>3일 후 → 7일 후 → 14일 후 → 28일 후</li>
-      <li>총 4번의 복습으로 장기기억 완성!</li>
-      <li>⚠️ 한 번에 몰아서 공부하지 마세요 - 뇌가 힘들어요</li>
-      <li>🎯 날짜를 지켜서 반복하면 오래 기억됩니다</li>
-    </ul>
-    <p style="text-align: center; margin-top: 15px; animation: blink 1s infinite;">
-      <span class="highlight">⏰ 오늘 복습할 문제: <span id="reviewTodayCount">0</span>개</span> 
-    </p>
-  </div>
-  
-  <div id="english" class="lang-content" style="display: none;">
-    <p>A scientifically proven learning method discovered by German psychologist Hermann Ebbinghaus.<br>
-    Highly effective for language learning and long-term memory.</p>
-    <ul>
-      <li>🏆 <span class="highlight">Get 100% on first attempt?</span> Trophy earned! Review exempted!</li>
-      <li>📝 <span class="highlight">Made mistakes on first attempt?</span><br>
-        Retry only the incorrect problems to complete the lesson.</li>
-      <li>Only incorrect problems are saved to review schedule</li>
-      <li>📅 Review Schedule (incorrect problems only):</li>
-      <li>After 3 days → 7 days → 14 days → 28 days</li>
-      <li>4 reviews complete = Long-term memory achieved!</li>
-      <li>⚠️ Don't cram - Your brain needs breaks</li>
-      <li>🎯 Follow the schedule for lasting memory</li>
-    </ul>
-    <p style="text-align: center; margin-top: 15px; animation: blink 1s infinite;">
-      <span class="highlight">⏰ Problems to review today: <span id="reviewTodayCount">0</span></span> 
-    </p>
-  </div>
+  <h3>📚 효과적인 기억법 - 간격 반복 학습</h3>
+  <p>독일 심리학자 헤르만 에빙하우스가 발견한 과학적 학습법입니다.<br>
+  외국어 학습과 장기기억에 매우 효과적입니다.</p>
+
+  <ul>
+    <li>🏆 <span class="highlight">첫 시도에 100점을 맞으면</span> 트로피 획득! 복습 면제!</li>
+    <li>📝 <span class="highlight">첫 시도에 틀린 문제가 있으면</span>
+      <ul>
+        <li>틀린 문제만 바로 다시 풀기 (전부 맞춰야 완료)</li>
+        <li>첫판에서 틀린 문제만 복습 일정에 저장됩니다</li>
+      </ul>
+    </li>
+    <li>📅 복습 일정 (첫판에서 틀린 문제만):
+      <ul>
+        <li>3일 후 → 7일 후 → 14일 후 → 28일 후</li>
+        <li>총 4번의 복습으로 장기기억 완성!</li>
+      </ul>
+    </li>
+    <li>⚠️ 한 번에 몰아서 공부하지 마세요 - 뇌가 힘들어요</li>
+    <li>🎯 날짜를 지켜서 반복하면 오래 기억됩니다</li>
+  </ul>
+  <p style="text-align: center; margin-top: 15px; animation: blink 1s infinite;">
+    <span class="highlight">⏰ 오늘 복습할 문제: <span id="reviewTodayCount">0</span>개</span> 
+  </p>
 </div>
 
 <!-- 통계 섹션 -->
@@ -508,6 +495,7 @@ header {
 </div>
 
 <!-- 1학년 2학기 아코디언 -->
+
 <div class="accordion-header" onclick="toggleAccordion(this)">
   <span>🌿 1학년 2학기</span>
   <span class="arrow">▼</span>
@@ -607,103 +595,69 @@ function applyDailyTheme() {
 // 페이지 로드 시 즉시 실행
 applyDailyTheme();
 
-function toggleLanguage() {
-  const korean = document.getElementById('korean');
-  const english = document.getElementById('english');
-  const titleKo = document.getElementById('titleKo');
-  const titleEn = document.getElementById('titleEn');
-  const button = document.getElementById('langToggle');
-  
-  if (korean.style.display === 'none') {
-    korean.style.display = 'block';
-    english.style.display = 'none';
-    titleKo.style.display = 'inline';
-    titleEn.style.display = 'none';
-    button.textContent = 'EN';
-  } else {
-    korean.style.display = 'none';
-    english.style.display = 'block';
-    titleKo.style.display = 'none';
-    titleEn.style.display = 'inline';
-    button.textContent = '한';
-  }
-}
-
 // 1학년 1학기 문제 목록
 const grade1semester1 = [
-  { id: '1-1-01', title: '1-1  1. 📦 물건' },
-  { id: '1-1-02', title: '1-1  2. 🐶 동물' },
-  { id: '1-1-03', title: '1-1  3. 🍎 음식' },
-  { id: '1-1-04', title: '1-1  4. ✏️ 물건' },
-  { id: '1-1-05', title: '1-1  5. 🦁 동물' },
-  { id: '1-1-06', title: '1-1  6. 🍕 음식' },
-  { id: '1-1-07', title: '1-1  7. 🦁 동물' },
-  { id: '1-1-08', title: '1-1  8. ⚽ 물건' },
-  { id: '1-1-09', title: '1-1  9. 🍰 음식' },
-  { id: '1-1-10', title: '1-1  10. 🏫 장소' },
-  { id: '1-1-11', title: '1-1  11. 🌳 자연' },
-  { id: '1-1-12', title: '1-1  12. ⚽ 물건' },
-  { id: '1-1-13', title: '1-1  13. 🏪 장소' },
-  { id: '1-1-14', title: '1-1  14. 🍰 음식' },
-  { id: '1-1-15', title: '1-1  15. 🏪 장소' },
-  { id: '1-1-16', title: '1-1  16. 👨‍⚕️ 직업' },
-  { id: '1-1-17', title: '1-1  17. 🏃 행동' },
-  { id: '1-1-18', title: '1-1  18. 🌸 자연' },
-  { id: '1-1-20', title: '1-1  19. 🎮 물건' },
-  { id: '1-1-21', title: '1-1  20. 🍲 음식' },
-  { id: '1-1-22', title: '1-1  21. 🌸 자연' },
-  { id: '1-1-23', title: '1-1  22. 👋 신체' },
-  { id: '1-1-24', title: '1-1  23. 👨‍👩‍👧‍👦 사람' },
-  { id: '1-1-25', title: '1-1  24. 🎨 물건' },
-  { id: '1-1-26', title: '1-1  25. 👋 인사' },
-  { id: '1-1-27', title: '1-1  26. 🇰🇷 우리나라' },
-  { id: '1-1-28', title: '1-1  27. 💰 화폐' },
-  { id: '1-1-29', title: '1-1  28. 🚀 탐험' },
-  { id: '1-1-30', title: '1-1  29. 🎵 의성어의태어' },
-  { id: '1-1-31', title: '1-1  30. 🇰🇷 애국가' }
+  { id: '1-1-01-life', title: '1-1  1. 📦 물건' },
+  { id: '1-1-02-animal', title: '1-1  2. 🐶 동물' },
+  { id: '1-1-03-food', title: '1-1  3. 🍎 음식' },
+  { id: '1-1-04-life', title: '1-1  4. ✏️ 물건' },
+  { id: '1-1-05-animal', title: '1-1  5. 🦁 동물' },
+  { id: '1-1-06-food', title: '1-1  6. 🍕 음식' },
+  { id: '1-1-07-animal', title: '1-1  7. 🦁 동물' },
+  { id: '1-1-08-life', title: '1-1  8. ⚽ 물건' },
+  { id: '1-1-09-food', title: '1-1  9. 🍰 음식' },
+  { id: '1-1-10-place', title: '1-1  10. 🏫 장소' },
+  { id: '1-1-11-nature', title: '1-1  11. 🌳 자연' },
+  { id: '1-1-12-life', title: '1-1  12. ⚽ 물건' },
+  { id: '1-1-13-place', title: '1-1  13. 🏪 장소' },
+  { id: '1-1-14-food', title: '1-1  14. 🍰 음식' },
+  { id: '1-1-15-place', title: '1-1  15. 🏪 장소' },
+  { id: '1-1-16-job', title: '1-1  16. 👨‍⚕️ 직업' },
+  { id: '1-1-17-action', title: '1-1  17. 🏃 행동' },
+  { id: '1-1-18-nature', title: '1-1  18. 🌸 자연' },
+  { id: '1-1-20-life', title: '1-1  19. 🎮 물건' },
+  { id: '1-1-21-food', title: '1-1  20. 🍲 음식' },
+  { id: '1-1-22-nature', title: '1-1  21. 🌸 자연' },
+  { id: '1-1-23-body', title: '1-1  22. 👋 신체' },
+  { id: '1-1-24-people', title: '1-1  23. 👨‍👩‍👧‍👦 사람' },
+  { id: '1-1-25-life', title: '1-1  24. 🎨 물건' },
+  { id: '1-1-26-greeting', title: '1-1  25. 👋 인사' },
+  { id: '1-1-27-korea', title: '1-1  26. 🇰🇷 우리나라' },
+  { id: '1-1-28-money', title: '1-1  27. 💰 화폐' },
+  { id: '1-1-29-exploration', title: '1-1  28. 🚀 탐험' },
+  { id: '1-1-30-onoma', title: '1-1  29. 🎵 의성어의태어' },
+  { id: '1-1-31-korea', title: '1-1  30. 🇰🇷 애국가' }
 ];
 
 // 1학년 2학기 문제 목록
 const grade1semester2 = [
-  { id: '1-2-01', title: '1-2  1. 감정' },
-  { id: '1-2-02', title: '1-2  2. 흉내내는 말' },
-  { id: '1-2-03', title: '1-2  3. 흉내내는 말' },
-  { id: '1-2-04', title: '1-2  4. 행동' }, 
-  { id: '1-2-05', title: '1-2  5. 직업' },
-  { id: '1-2-06', title: '1-2  6. 행동' },  
-  { id: '1-2-07', title: '1-2  7. 물건' },
-  { id: '1-2-08', title: '1-2  8. 장소' },
-  { id: '1-2-09', title: '1-2  9. 행동' },  
-  { id: '1-2-10', title: '1-2  10. 상태' },  
-  { id: '1-2-11', title: '1-2  11. 감정' },  
-  { id: '1-2-12', title: '1-2  12. 행동' },  
-  { id: '1-2-13', title: '1-2  13. 안전' },  
-  { id: '1-2-14', title: '1-2  14. 물건' },
-  { id: '1-2-15', title: '1-2  15. 상태' },
-  { id: '1-2-16', title: '1-2  16. 미술' },
-  { id: '1-2-17', title: '1-2  17. 행동' },
+  { id: '1-2-01-emotion', title: '1-2  1. 감정' },
+  { id: '1-2-02-cat', title: '1-2  2. 흉내내는 말' },
+  { id: '1-2-03-cat', title: '1-2  3. 흉내내는 말' },
+  { id: '1-2-04-action', title: '1-2  4. 행동' }, 
+  { id: '1-2-05-job', title: '1-2  5. 직업' },
+  { id: '1-2-06-action', title: '1-2  6. 행동' },  
+  { id: '1-2-07-object', title: '1-2  7. 물건' },
+  { id: '1-2-08-place', title: '1-2  8. 장소' },
+  { id: '1-2-09-play', title: '1-2  9. 행동' },  
+  { id: '1-2-10-cat', title: '1-2  10. 상태' },  
+  { id: '1-2-11-emo', title: '1-2  11. 감정' },  
+  { id: '1-2-12-act', title: '1-2  12. 행동' },  
+  { id: '1-2-13-cat', title: '1-2  13. 안전' },  
+  { id: '1-2-14-obo', title: '1-2  14. 물건' },
+  { id: '1-2-15-cat', title: '1-2  15. 상태' },
+  { id: '1-2-16-art', title: '1-2  16. 미술' },
+  { id: '1-2-17-act', title: '1-2  17. 행동' },
   { id: '1-2-18', title: '1-2  18. 명절 국경일' },
-  { id: '1-2-19', title: '1-2  19. 하루' },
-  { id: '1-2-20', title: '1-2  20. 하루' },
-  { id: '1-2-21', title: '1-2  21. 하루' },
+  { id: '1-2-19', title: '1-2  19. 하루 일과' },
+  { id: '1-2-20', title: '1-2  20. 하루 일과' },
+  { id: '1-2-21', title: '1-2  21. 하루 일과' },
   { id: '1-2-22', title: '1-2  22. 행동' },
-  { id: '1-2-23', title: '1-2  23. 상태' },
+  { id: '1-2-23', title: '1-2  24. 상태' },
   { id: '1-2-24', title: '1-2  24. 자연' },
   { id: '1-2-25', title: '1-2  25. 장소' },
   { id: '1-2-26', title: '1-2  26. 식물' },
-  { id: '1-2-27', title: '1-2  27. 학교' },
-  { id: '1-2-28', title: '1-2  28. 물건' },
-  { id: '1-2-29', title: '1-2  29. 물건' },
-  { id: '1-2-30', title: '1-2  30. 물건' },
-  { id: '1-2-31', title: '1-2  31. 감정' },
-  { id: '1-2-32', title: '1-2  32. 행동' },
-  { id: '1-2-33', title: '1-2  33. 행동' },
-  { id: '1-2-34', title: '1-2  34. 권리' },
-  { id: '1-2-35', title: '1-2  35. 사회' },
-  { id: '1-2-36', title: '1-2  36. 사회' },
-  { id: '1-2-37', title: '1-2  37. 일기' },
-  { id: '1-2-38', title: '1-2  38. 환경' }
-    
+  { id: '1-2-27', title: '1-2  27. 학교' }
 ];
 
 function toggleAccordion(header) {
