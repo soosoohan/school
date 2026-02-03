@@ -908,6 +908,21 @@ if (progress.attempts.length >= 5) {
 // 1학년 1학기 버튼 생성
 function renderGrade1Semester1() {
   const container = document.getElementById('grade1-1-buttons');
+ 
+  const reviewToday = [];
+  const others = [];
+  
+  grade1semester1.forEach(item => {
+    const status = getReviewStatus(item.id);
+    if (status === 'review-today') {
+      reviewToday.push(item);
+    } else {
+      others.push(item);
+    }
+  });
+  
+  const sortedItems = [...reviewToday, ...others];
+  
   let html = '';
   
   grade1semester1.forEach(item => {
@@ -940,6 +955,21 @@ function renderGrade1Semester1() {
 // 1학년 2학기 버튼 생성
 function renderGrade1Semester2() {
   const container = document.getElementById('grade1-2-buttons');
+ 
+  const reviewToday = [];
+  const others = [];
+  
+  grade1semester1.forEach(item => {
+    const status = getReviewStatus(item.id);
+    if (status === 'review-today') {
+      reviewToday.push(item);
+    } else {
+      others.push(item);
+    }
+  });
+  
+  const sortedItems = [...reviewToday, ...others];
+  
   let html = '';
   
   grade1semester2.forEach(item => {
