@@ -691,11 +691,15 @@ function playGame(wordpool, title) {
     const confirm5 = window.confirm('🏆 완벽하게 학습 완료!\n\n연습용으로 풀 수 있지만 기록되지 않습니다.\n그래도 하시겠어요?');
     if (!confirm5) return;
   }
-  // 복습 일정 확인
-  else if (progress.attempts.length > 0) {
+
+// 복습 일정 확인
+else if (progress.attempts.length > 0) {
     const reviews = getReviews(wordpool);
     if (reviews && reviews.length > 0) {
-      const today = new Date().toISOString().split('T')[0];
+      const now = new Date();
+      const koreaTime = new Date(now.getTime() + (9 * 60 * 60 * 1000));
+      const today = koreaTime.toISOString().split('T')[0];
+      
       const nextReviewDate = reviews[0];
       const daysSince = getDaysDiff(progress.attempts[progress.attempts.length - 1].date, today);
       
@@ -707,6 +711,7 @@ function playGame(wordpool, title) {
       }
     }
   }
+
   
   const gameUrl = 'https://soosooland.com/school/school.html';
   const wordpoolUrl = `https://soosooland.com/school/wordpools/${wordpool}.json`;
@@ -764,15 +769,18 @@ function getReviewStatus(wordpoolId) {
   
   // 🏆 트로피 (5회 완료 = 첫판 100점)
   if (progress.attempts.length >= 5) return 'completed-5';
-  
-  // 복습 일정 확인
+ 
+// 복습 일정 확인
   const reviews = getReviews(wordpoolId);
   if (!reviews || reviews.length === 0) {
     // 복습 일정이 없으면 진행 중 상태
     return `in-progress-${progress.attempts.length}`;
   }
   
-  const today = new Date().toISOString().split('T')[0];
+  const now = new Date();
+  const koreaTime = new Date(now.getTime() + (9 * 60 * 60 * 1000));
+  const today = koreaTime.toISOString().split('T')[0];
+  
   const nextReviewDate = reviews[0];
   
   // 오늘이 복습 날짜인지 확인
