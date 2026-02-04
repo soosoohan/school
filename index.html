@@ -440,9 +440,7 @@ header {
       <li>총 4번의 복습으로 장기기억 완성!</li>
       <li>⚠️ 한 번에 몰아서 공부하지 마세요 - 뇌가 힘들어요</li>
       <li>🎯 날짜를 지켜서 반복하면 오래 기억됩니다</li>
-      <li> <span class="highlight"> 🌏 날짜는 세계표준시(UTC) 기준입니다.</span> </li>
-      <li> <span class="highlight"> 🌏 한국에서는 오전9시에 날짜가 바뀝니다.</span> </li>  
-
+      
     </ul>
     <p style="text-align: center; margin-top: 15px; animation: blink 1s infinite;">
       <span class="highlight">⏰ 오늘 복습할 문제: <span id="reviewTodayCount">0</span>개</span> 
@@ -462,7 +460,7 @@ header {
       <li>4 reviews complete = Long-term memory achieved!</li>
       <li>⚠️ Don't cram - Your brain needs breaks</li>
       <li>🎯 Follow the schedule for lasting memory</li>
-      <li><span class="highlight">🌏 Dates are based on UTC (Coordinated Universal Time)</span></li>
+      
     </ul>
     <p style="text-align: center; margin-top: 15px; animation: blink 1s infinite;">
       <span class="highlight">⏰ Problems to review today: <span id="reviewTodayCount">0</span></span> 
@@ -863,7 +861,11 @@ function getMedal(attemptCount, status) {
 function createProgressBoxes(wordpoolId) {
   const progress = getProgress(wordpoolId);
   const reviews = getReviews(wordpoolId);
-  const today = new Date().toISOString().split('T')[0];
+  
+const now = new Date();
+const koreaTime = new Date(now.getTime() + (9 * 60 * 60 * 1000));
+const today = koreaTime.toISOString().split('T')[0];
+
 if (progress.attempts.length >= 5) {
     return progress.attempts.slice(0, 5).map(attempt => {
       const date = attempt.date.substring(5); // MM-DD만 표시
