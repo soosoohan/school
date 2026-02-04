@@ -866,21 +866,23 @@ function updateStats() {
     document.getElementById('gameStats').innerHTML =
         `맞춘 자음: ${guessedConsonants.size}개 | 틀린 자음: ${wrongConsonants.size}개`;
 }
-
+ 
 function saveForReview(text, hint) {
     try {
         const wordpoolName = wordpoolUrl.split('/').pop().replace('.json', '');
-const now = new Date();
-const today = new Date(now.getTime() + (9 * 60 * 60 * 1000));
+        const now = new Date();
+        const koreaTime = new Date(now.getTime() + (9 * 60 * 60 * 1000));
+        const today = koreaTime.toISOString().split('T')[0]; 
+        
         const reviewSchedule = {
             text: text,
             hint: hint,
-            firstAttemptDate: today.toISOString().split('T')[0],
+            firstAttemptDate: today,  
             reviews: [
-                addDays(today, 3).toISOString().split('T')[0],
-                addDays(today, 7).toISOString().split('T')[0],
-                addDays(today, 14).toISOString().split('T')[0],
-                addDays(today, 28).toISOString().split('T')[0]
+                addDays(today, 3),
+                addDays(today, 7),
+                addDays(today, 14),
+                addDays(today, 28)
             ],
             completedReviews: 0
         };
