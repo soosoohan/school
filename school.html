@@ -870,8 +870,8 @@ function updateStats() {
 function saveForReview(text, hint) {
     try {
         const wordpoolName = wordpoolUrl.split('/').pop().replace('.json', '');
-        const today = new Date();
-        
+const now = new Date();
+const today = new Date(now.getTime() + (9 * 60 * 60 * 1000));
         const reviewSchedule = {
             text: text,
             hint: hint,
@@ -969,8 +969,10 @@ function saveProgress() {
         const wordpoolName = wordpoolUrl.split('/').pop().replace('.json', '');
         const allProgress = JSON.parse(localStorage.getItem('moeumschool_progress') || '{}');
         const progress = allProgress[wordpoolName] || { attempts: [] };
-        const today = new Date().toISOString().split('T')[0];
-        
+
+const now = new Date();
+const koreaTime = new Date(now.getTime() + (9 * 60 * 60 * 1000));
+const today = koreaTime.toISOString().split('T')[0];
         // 첫판에서 틀린 문제가 0개일 때 = 🏆 트로피
         if (isFirstAttempt && firstAttemptWrongAnswers.length === 0) {
             progress.attempts = [
