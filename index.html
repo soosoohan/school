@@ -440,7 +440,9 @@ header {
       <li>총 4번의 복습으로 장기기억 완성!</li>
       <li>⚠️ 한 번에 몰아서 공부하지 마세요 - 뇌가 힘들어요</li>
       <li>🎯 날짜를 지켜서 반복하면 오래 기억됩니다</li>
-      
+      <li> <span class="highlight"> 🌏 날짜는 세계표준시(UTC) 기준입니다.</span> </li>
+      <li> <span class="highlight"> 🌏 한국에서는 오전9시에 날짜가 바뀝니다.</span> </li>  
+
     </ul>
     <p style="text-align: center; margin-top: 15px; animation: blink 1s infinite;">
       <span class="highlight">⏰ 오늘 복습할 문제: <span id="reviewTodayCount">0</span>개</span> 
@@ -460,7 +462,7 @@ header {
       <li>4 reviews complete = Long-term memory achieved!</li>
       <li>⚠️ Don't cram - Your brain needs breaks</li>
       <li>🎯 Follow the schedule for lasting memory</li>
-      
+      <li><span class="highlight">🌏 Dates are based on UTC (Coordinated Universal Time)</span></li>
     </ul>
     <p style="text-align: center; margin-top: 15px; animation: blink 1s infinite;">
       <span class="highlight">⏰ Problems to review today: <span id="reviewTodayCount">0</span></span> 
@@ -660,7 +662,9 @@ const grade1semester1 = [
 
 // 1학년 2학기 문제 목록
 const grade1semester2 = [
- { id: '', title: '아직 개발 중입니다.' }
+  { id: '1-2-01', title: '개발중입니다. ' }
+
+
   
 ];
 
@@ -691,15 +695,11 @@ function playGame(wordpool, title) {
     const confirm5 = window.confirm('🏆 완벽하게 학습 완료!\n\n연습용으로 풀 수 있지만 기록되지 않습니다.\n그래도 하시겠어요?');
     if (!confirm5) return;
   }
-
-// 복습 일정 확인
-else if (progress.attempts.length > 0) {
+  // 복습 일정 확인
+  else if (progress.attempts.length > 0) {
     const reviews = getReviews(wordpool);
     if (reviews && reviews.length > 0) {
-      const now = new Date();
-      const koreaTime = new Date(now.getTime() + (9 * 60 * 60 * 1000));
-      const today = koreaTime.toISOString().split('T')[0];
-      
+      const today = new Date().toISOString().split('T')[0];
       const nextReviewDate = reviews[0];
       const daysSince = getDaysDiff(progress.attempts[progress.attempts.length - 1].date, today);
       
@@ -711,7 +711,6 @@ else if (progress.attempts.length > 0) {
       }
     }
   }
-
   
   const gameUrl = 'https://soosooland.com/school/school.html';
   const wordpoolUrl = `https://soosooland.com/school/wordpools/${wordpool}.json`;
@@ -769,18 +768,15 @@ function getReviewStatus(wordpoolId) {
   
   // 🏆 트로피 (5회 완료 = 첫판 100점)
   if (progress.attempts.length >= 5) return 'completed-5';
- 
-// 복습 일정 확인
+  
+  // 복습 일정 확인
   const reviews = getReviews(wordpoolId);
   if (!reviews || reviews.length === 0) {
     // 복습 일정이 없으면 진행 중 상태
     return `in-progress-${progress.attempts.length}`;
   }
   
-  const now = new Date();
-  const koreaTime = new Date(now.getTime() + (9 * 60 * 60 * 1000));
-  const today = koreaTime.toISOString().split('T')[0];
-  
+  const today = new Date().toISOString().split('T')[0];
   const nextReviewDate = reviews[0];
   
   // 오늘이 복습 날짜인지 확인
@@ -801,11 +797,7 @@ function getMedal(attemptCount, status) {
 function createProgressBoxes(wordpoolId) {
   const progress = getProgress(wordpoolId);
   const reviews = getReviews(wordpoolId);
-  
-const now = new Date();
-const koreaTime = new Date(now.getTime() + (9 * 60 * 60 * 1000));
-const today = koreaTime.toISOString().split('T')[0];
-
+  const today = new Date().toISOString().split('T')[0];
 if (progress.attempts.length >= 5) {
     return progress.attempts.slice(0, 5).map(attempt => {
       const date = attempt.date.substring(5); // MM-DD만 표시
