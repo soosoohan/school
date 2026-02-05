@@ -866,23 +866,21 @@ function updateStats() {
     document.getElementById('gameStats').innerHTML =
         `맞춘 자음: ${guessedConsonants.size}개 | 틀린 자음: ${wrongConsonants.size}개`;
 }
- 
+
 function saveForReview(text, hint) {
     try {
         const wordpoolName = wordpoolUrl.split('/').pop().replace('.json', '');
-        const now = new Date();
-        const koreaTime = new Date(now.getTime() + (9 * 60 * 60 * 1000));
-        const today = koreaTime.toISOString().split('T')[0]; 
+        const today = new Date();
         
         const reviewSchedule = {
             text: text,
             hint: hint,
-            firstAttemptDate: today,  
+            firstAttemptDate: today.toISOString().split('T')[0],
             reviews: [
-                addDays(today, 3),
-                addDays(today, 7),
-                addDays(today, 14),
-                addDays(today, 28)
+                addDays(today, 3).toISOString().split('T')[0],
+                addDays(today, 7).toISOString().split('T')[0],
+                addDays(today, 14).toISOString().split('T')[0],
+                addDays(today, 28).toISOString().split('T')[0]
             ],
             completedReviews: 0
         };
@@ -971,10 +969,8 @@ function saveProgress() {
         const wordpoolName = wordpoolUrl.split('/').pop().replace('.json', '');
         const allProgress = JSON.parse(localStorage.getItem('moeumschool_progress') || '{}');
         const progress = allProgress[wordpoolName] || { attempts: [] };
-
-const now = new Date();
-const koreaTime = new Date(now.getTime() + (9 * 60 * 60 * 1000));
-const today = koreaTime.toISOString().split('T')[0];
+        const today = new Date().toISOString().split('T')[0];
+        
         // 첫판에서 틀린 문제가 0개일 때 = 🏆 트로피
         if (isFirstAttempt && firstAttemptWrongAnswers.length === 0) {
             progress.attempts = [
