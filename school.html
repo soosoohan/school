@@ -8,6 +8,17 @@
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-4YZHC1G9FN');
+      const isLocal = window.location.hostname === 'localhost' || 
+                window.location.hostname === '127.0.0.1' ||
+                window.location.hostname.includes('192.168.');
+
+      const originalGtag = gtag;
+      function gtag() {
+      if (isLocal) {
+        return;
+  }
+  originalGtag.apply(this, arguments);
+}
     </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
