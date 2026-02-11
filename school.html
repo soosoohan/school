@@ -978,15 +978,15 @@ function nextRound() {
         if (input) input.focus();
     }, 200);
 }
-
+ 
 function saveProgress() {
     try {
         const wordpoolName = wordpoolUrl.split('/').pop().replace('.json', '');
         const allProgress = JSON.parse(localStorage.getItem('moeumschool_progress') || '{}');
         const progress = allProgress[wordpoolName] || { attempts: [] };
         const today = new Date().toISOString().split('T')[0];
-        
-        // 첫판에서 틀린 문제가 0개일 때 = 🏆 트로피 (5회 완료)
+   
+     // 첫판에서 틀린 문제가 0개일 때 = 🏆 트로피 (5회 완료)
         if (isFirstAttempt && firstAttemptWrongAnswers.length === 0) {
             progress.attempts = [
                 { date: today, accuracy: 100, stage: 0 },  // ⭐ stage 추가
@@ -1000,22 +1000,48 @@ function saveProgress() {
             console.log('🏆 첫판 100점! 트로피 획득!');
             return true;
         }
-        // 첫판에서 틀렸지만, 다시 풀어서 완료 = 1회만 저장
-        else if (isFirstAttempt && firstAttemptWrongAnswers.length > 0) {
-            progress.attempts.push({ date: today, accuracy: 100, stage: 0 });  // ⭐ stage: 0 추가
-            allProgress[wordpoolName] = progress;
-            localStorage.setItem('moeumschool_progress', JSON.stringify(allProgress));
-            
-            // 첫판에서 틀린 문제들 복습 일정 저장
-            firstAttemptWrongAnswers.forEach(item => {
-                saveForReview(item.text, item.hint);
-            });
-            
-            console.log('1회 완료! 복습 일정 저장됨');
-            return true;
-        }
-        
-        return false;
+   
+else if (isFirstAttempt && firstAttemptWrongAnswers.length > 0) {
+    progress.attempts.push({ date: today, accuracy: 100, stage: 0 });
+    allProgress[wordpoolName] = progress;
+    localStorage.setItem('moeumschool_progress', JSON.stringify(allProgress));
+    
+    // 복습 일정 저장
+    firstAttemptWrongAnswers.forEach(item => {
+        saveForReview(item.text, item.hint);
+    });
+    
+    return true;
+}
+// 복습 완료 시 (2차, 3차, 4차, 5차)
+else if (!isFirstAttempt) {
+    const currentStage = progress.attempts.length; // 현재 몇 회차인지
+    progress.attempts.push({ date: today, accuracy: 100, stage: currentStage });
+    allProgress[wordpoolName] = progress;
+    localStorage.setItem('moeumschool_progress', JSON.stringify(allProgress));
+    
+    // ⭐ completedReviews 증가!
+    const allReviews = JSON.parse(localStorage.getItem('moeumschool_reviews') || '{}');
+    if (allReviews[wordpoolName]) {
+        allReviews[wordpoolName].forEach(item => {
+            if (item.completedReviews < 4) {
+                item.completedReviews++;
+            }
+        });
+        localStorage.setItem('moeumschool_reviews', JSON.stringify(allReviews));
+    }
+    
+    console.log(`${currentStage}회 복습 완료!`);
+    
+    // 5회 완료 시 트로피
+    if (currentStage === 4) {
+        console.log('🏆 5회 완료! 트로피 획득!');
+        return 'trophy';
+    }
+    
+    return true;
+}
+
     } catch (error) {
         console.error('진도 저장 실패:', error);
         return false;
