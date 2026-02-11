@@ -721,12 +721,12 @@ function toggleAccordion(header) {
 
 function playGame(wordpool, title) {
   const progress = getProgress(wordpool);
-  
-  // 🏆 트로피 획득 (첫판 100점) - 연습 모드 가능
-  if (progress.attempts.length >= 5) {
+const hasStage4 = progress.attempts.some(a => a.stage === 4);
+if (hasStage4) {
     const confirm5 = window.confirm('🏆 완벽하게 학습 완료!\n\n연습용으로 풀 수 있지만 기록되지 않습니다.\n그래도 하시겠어요?');
     if (!confirm5) return;
-  }
+}
+
   // 복습 일정 확인
   else if (progress.attempts.length > 0) {
     const reviews = getReviews(wordpool);
@@ -797,9 +797,10 @@ function getReviewStatus(wordpoolId) {
   
   // 아직 시작 안 함
   if (progress.attempts.length === 0) return 'not-started';
-  
-  // 🏆 트로피 (5회 완료 = 첫판 100점)
-  if (progress.attempts.length >= 5) return 'completed-5';
+
+const hasStage4 = progress.attempts.some(a => a.stage === 4);
+if (hasStage4) return 'completed-5';
+
   
   // 복습 일정 확인
   const reviews = getReviews(wordpoolId);
@@ -818,22 +819,22 @@ function getReviewStatus(wordpoolId) {
     return `in-progress-${progress.attempts.length}`;
   }
 }
-
-// 메달 가져오기
 function getMedal(attemptCount, status) {
-  if (attemptCount >= 5 || status === 'completed-5') return '🏆';
+  if (status === 'completed-5') return '🏆';
   return '';
 }
-
 // 진도 박스 생성
 function createProgressBoxes(wordpoolId) {
   const progress = getProgress(wordpoolId);
   const reviews = getReviews(wordpoolId);
   const today = new Date().toISOString().split('T')[0];
-if (progress.attempts.length >= 5) {
-    return progress.attempts.slice(0, 5).map(attempt => {
-      const date = attempt.date.substring(5); // MM-DD만 표시
-      return `<div class="progress-box completed">${date}</div>`;
+  const hasStage4 = progress.attempts.some(a => a.stage === 4);
+  if (hasStage4) {
+    // stage 순서대로 정렬
+  const sortedAttempts = [...progress.attempts].sort((a, b) => a.stage - b.stage);
+  return sortedAttempts.slice(0, 5).map(attempt => {
+  const date = attempt.date.substring(5);
+  return `<div class="progress-box completed">${date}</div>`;
     }).join('');
 }
   
