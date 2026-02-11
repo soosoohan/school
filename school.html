@@ -1088,6 +1088,19 @@ window.onload = async function () {
     if (success) {
         document.getElementById('categoryTitle').textContent = categoryTitle;
         createConsonantButtons();
+        
+        // 복습 모드 체크
+        const isReviewMode = localStorage.getItem('current_review_mode') === 'true';
+        if (isReviewMode) {
+            const reviewQuestions = JSON.parse(localStorage.getItem('current_review_questions') || '[]');
+            if (reviewQuestions.length > 0) {
+                // 복습 문제만 로드
+                sentences = reviewQuestions;
+                isFirstAttempt = false; // 복습은 첫 시도 아님
+                console.log('복습 모드:', reviewQuestions.length, '문제');
+            }
+        }
+        
         shuffleSentences();
         restartGame();  
     }
