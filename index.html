@@ -998,13 +998,15 @@ function updateStats() {
     const progress = getProgress(item.id);
     const attemptCount = progress.attempts.length;
     const status = getReviewStatus(item.id);
-    
-    if (attemptCount >= 5 || status === 'completed-5') masterCount++;
-    else if (attemptCount === 4) goldCount++;
-    else if (attemptCount === 3) silverCount++;
-    else if (attemptCount === 2) bronzeCount++;
-    else if (attemptCount === 1) inProgressCount++;
-    
+    const highestStage = progress.attempts.length > 0 
+  ? Math.max(...progress.attempts.map(a => a.stage || 0))
+  : -1;
+
+    if (status === 'completed-5') masterCount++;
+    else if (highestStage === 3) goldCount++;  // 4차 복습
+    else if (highestStage === 2) silverCount++; // 3차 복습
+    else if (highestStage === 1) bronzeCount++; // 2차 복습
+    else if (highestStage === 0) inProgressCount++; // 1차 공부
     if (status === 'review-today') reviewTodayCount++;
   });
   
