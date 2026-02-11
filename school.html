@@ -1,34 +1,48 @@
 <!DOCTYPE html>
-
 <html lang="ko">
 <head>
- <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4YZHC1G9FN"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-4YZHC1G9FN');
-    </script>
-    <meta charset="UTF-8" />
+
+ <!-- Google tag (gtag.js) with local environment check -->
+<script>
+  // 로컬이 아닐 때만 애널리틱스 로드
+  if (window.location.hostname !== 'localhost' && 
+      window.location.hostname !== '127.0.0.1' &&
+      window.location.protocol !== 'file:') {
+    
+    // 애널리틱스 스크립트 동적 로드
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=G-4YZHC1G9FN';
+    document.head.appendChild(script);
+    
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-4YZHC1G9FN');
+    
+    console.log("애널리틱스 활성화됨");
+  } else {
+    console.log("로컬 환경 - 애널리틱스 비활성화됨");
+  }
+</script>
+ 
+ <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <title>모음스쿨 - 초등학생 학습 퀴즈 | Soosooland</title>
-
-<!-- SEO Meta Tags -->
-<meta name="description" content="초등학교 교육과정에서 배우는 내용을 퀴즈로 만들었습니다. 에빙하우스 망각곡선을 적용한 과학적 반복 학습으로 기억력 향상">
-<meta name="keywords" content="기억력 향상, 반복 학습, 초등교육과정, 초등교육, 모음스쿨, 초등퀴즈, 에빙하우스">
-<meta name="author" content="Soosooland">
-
-<!-- Open Graph -->
-<meta property="og:title" content="모음스쿨 - 초등학생 학습 퀴즈">
-<meta property="og:description" content="초등학교 교육과정 기반 학습 퀴즈. 에빙하우스 망각곡선을 적용한 과학적 반복 학습으로 기억력 향상">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://soosooland.com/school/school.html">
-<link rel="canonical" href="https://soosooland.com/school/school.html">
-<link rel="stylesheet" href="https://soosooland.com/css/protection.css">
-<script src="https://soosooland.com/js/protection.js"></script>
-
-
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="초등학교 교육과정에서 배우는 내용을 퀴즈로 만들었습니다. 에빙하우스 망각곡선을 적용한 과학적 반복 학습으로 기억력 향상">
+    <meta name="keywords" content="기억력 향상, 반복 학습, 초등교육과정, 초등교육, 모음스쿨, 초등퀴즈, 에빙하우스">
+    <meta name="author" content="Soosooland">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="모음스쿨 - 초등학생 학습 퀴즈">
+    <meta property="og:description" content="초등학교 교육과정 기반 학습 퀴즈. 에빙하우스 망각곡선을 적용한 과학적 반복 학습으로 기억력 향상">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://soosooland.com/school/school.html">
+    <link rel="canonical" href="https://soosooland.com/school/school.html">
+    <link rel="stylesheet" href="https://soosooland.com/css/protection.css">
+    <script src="https://soosooland.com/js/protection.js"></script>
 <style>
         :root {
             /* 요일별로 변경되는 색상 - 기본값 (월요일) */
@@ -510,10 +524,10 @@ min-height: 80px;
         ❌ 틀린: <span id="wrongCount"></span>개<br>
         정답률: <span id="accuracy"></span>%
 
-<button class="retry-wrong-btn" id="retryWrongBtn" style="display: none;" onclick="retryWrongAnswers()">
-    틀린 문제 <span id="wrongCountForRetry"></span>개 다시 풀기
-</button>
-</div>
+    <button class="retry-wrong-btn" id="retryWrongBtn" style="display: none;" onclick="retryWrongAnswers()">
+        틀린 문제 <span id="wrongCountForRetry"></span>개 다시 풀기
+    </button>
+    </div>
 
 </div>
 </div>
@@ -544,16 +558,6 @@ min-height: 80px;
 </div>
 
 <script>
-// 버전 체크
-const SCHOOL_VERSION = '2.0';
-const savedVersion = localStorage.getItem('moeumschool_version');
-
-if (savedVersion !== SCHOOL_VERSION) {
-    localStorage.removeItem('moeumschool_progress');
-    localStorage.removeItem('moeumschool_reviews');
-    localStorage.setItem('moeumschool_version', SCHOOL_VERSION);
- }
-
 const dailyThemes = {
 1: { bg: '#145454', white: '#F4F6F5', black: '#1B2B2B', primary: '#91b2c7', sub: '#2F4B5C', accent: '#E8956F', name: '월요일' },
 2: { bg: '#145454', white: '#F4F6F5', black: '#1B2B2B', primary: '#7FA89A', sub: '#355F56', accent: '#c18ff2', name: '화요일' },
@@ -605,7 +609,6 @@ let currentSentence = '';
 let shuffledSentences = [];
 let sentenceIndex = 0;
 let isFirstAttempt = true;
-let currentReviewStage = 0;
 
 async function loadWordpool() {
     if (!wordpoolUrl) {
@@ -737,6 +740,7 @@ function createConsonantButtons() {
     
     const input = document.getElementById('consonantInput');
     if (input) {
+        // 기존 이벤트 리스너 제거 (중복 방지)
         const newInput = input.cloneNode(true);
         input.parentNode.replaceChild(newInput, input);
         
@@ -748,6 +752,7 @@ function createConsonantButtons() {
             }
         });
         
+        // 엔터키 이벤트 추가
         newInput.addEventListener('keydown', function(e) {
             if (e.key === 'Enter') {
                 e.preventDefault();
@@ -862,7 +867,6 @@ function handleConsonantClick(consonant) {
             }
             
             document.getElementById('winMessage').style.display = 'block';
-            document.querySelector('.consonant-section').style.display = 'none';
         }
 
     } else { 
@@ -878,58 +882,41 @@ function updateStats() {
         `맞춘 자음: ${guessedConsonants.size}개 | 틀린 자음: ${wrongConsonants.size}개`;
 }
 
-function saveForReview(text, hint, stage) {
+function saveForReview(text, hint) {
     try {
         const wordpoolName = wordpoolUrl.split('/').pop().replace('.json', '');
+        const today = new Date();
+        
+        const reviewSchedule = {
+            text: text,
+            hint: hint,
+            firstAttemptDate: today.toISOString().split('T')[0],
+            reviews: [
+                addDays(today, 3).toISOString().split('T')[0],
+                addDays(today, 7).toISOString().split('T')[0],
+                addDays(today, 14).toISOString().split('T')[0],
+                addDays(today, 28).toISOString().split('T')[0]
+            ],
+            completedReviews: 0
+        };
+        
         const allReviews = JSON.parse(localStorage.getItem('moeumschool_reviews') || '{}');
         if (!allReviews[wordpoolName]) allReviews[wordpoolName] = [];
         
-        const existingIndex = allReviews[wordpoolName].findIndex(item => item.text === text);
-        
-        if (existingIndex === -1) {
-            allReviews[wordpoolName].push({
-                text: text,
-                hint: hint,
-                stage: stage
-            });
-        } else {
-            allReviews[wordpoolName][existingIndex].stage = stage;
+        const exists = allReviews[wordpoolName].some(item => item.text === text);
+        if (!exists) {
+            allReviews[wordpoolName].push(reviewSchedule);
+            localStorage.setItem('moeumschool_reviews', JSON.stringify(allReviews));
         }
-        
-        localStorage.setItem('moeumschool_reviews', JSON.stringify(allReviews));
     } catch (error) {
         console.error('복습 일정 저장 실패:', error);
     }
 }
 
-function getTodayReviews() {
-    try {
-        const wordpoolName = wordpoolUrl.split('/').pop().replace('.json', '');
-        const allReviews = JSON.parse(localStorage.getItem('moeumschool_reviews') || '{}');
-        const reviews = allReviews[wordpoolName] || [];
-        
-        if (reviews.length === 0) return null;
-        
-        const stageGroups = {};
-        reviews.forEach(item => {
-            if (!stageGroups[item.stage]) stageGroups[item.stage] = [];
-            stageGroups[item.stage].push(item);
-        });
-        
-        const stages = Object.keys(stageGroups).map(Number).sort((a, b) => a - b);
-        if (stages.length > 0) {
-            const currentStage = stages[0];
-            return {
-                stage: currentStage,
-                questions: stageGroups[currentStage]
-            };
-        }
-        
-        return null;
-    } catch (error) {
-        console.error('복습 일정 확인 실패:', error);
-        return null;
-    }
+function addDays(date, days) {
+    const result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result;
 }
 
 function startRound() {
@@ -951,7 +938,6 @@ function startRound() {
     document.getElementById('winMessage').style.display = 'none';
     document.getElementById('loseMessage').style.display = 'none';
     document.getElementById('finalMessage').style.display = 'none';
-    document.querySelector('.consonant-section').style.display = 'block';
     document.getElementById('hintText').innerHTML = wrapEmojis(currentHint);
 
     document.getElementById('roundDisplay').textContent = `문제 ${sentenceIndex}/${totalQuestions}`;
@@ -1000,65 +986,33 @@ function saveProgress() {
         const progress = allProgress[wordpoolName] || { attempts: [] };
         const today = new Date().toISOString().split('T')[0];
         
-        // 첫판에서 틀린 문제가 0개일 때 = 🏆 트로피 (5회 완료)
+        // 첫판에서 틀린 문제가 0개일 때 = 🏆 트로피
         if (isFirstAttempt && firstAttemptWrongAnswers.length === 0) {
             progress.attempts = [
-                { date: today, stage: 0 },
-                { date: today, stage: 1 },
-                { date: today, stage: 2 },
-                { date: today, stage: 3 },
-                { date: today, stage: 4 }
+                { date: today, accuracy: 100 },
+                { date: today, accuracy: 100 },
+                { date: today, accuracy: 100 },
+                { date: today, accuracy: 100 },
+                { date: today, accuracy: 100 }
             ];
             allProgress[wordpoolName] = progress;
             localStorage.setItem('moeumschool_progress', JSON.stringify(allProgress));
-            return 'trophy';
+            console.log('🏆 첫판 100점! 트로피 획득!');
+            return true;
         }
-        // 첫판에서 틀렸을 때 = 1회만 저장
+        // 첫판에서 틀렸지만, 다시 풀어서 완료 = 1회 저장
         else if (isFirstAttempt && firstAttemptWrongAnswers.length > 0) {
-            progress.attempts.push({ date: today, stage: 0 });
+            progress.attempts.push({ date: today, accuracy: 100 });
             allProgress[wordpoolName] = progress;
             localStorage.setItem('moeumschool_progress', JSON.stringify(allProgress));
             
+            // 첫판에서 틀린 문제들 복습 일정 저장
             firstAttemptWrongAnswers.forEach(item => {
-                saveForReview(item.text, item.hint, 1);
+                saveForReview(item.text, item.hint);
             });
             
-            return 'stage_0';
-        }
-        // 복습 단계 (stage 1~3)
-        else if (!isFirstAttempt && currentReviewStage > 0 && currentReviewStage < 4) {
-            progress.attempts.push({ date: today, stage: currentReviewStage });
-            allProgress[wordpoolName] = progress;
-            localStorage.setItem('moeumschool_progress', JSON.stringify(allProgress));
-            
-            const nextStage = currentReviewStage + 1;
-            firstAttemptWrongAnswers.forEach(item => {
-                saveForReview(item.text, item.hint, nextStage);
-            });
-            
-            // 현재 stage 복습 완료했으므로 삭제
-            const allReviews = JSON.parse(localStorage.getItem('moeumschool_reviews') || '{}');
-            if (allReviews[wordpoolName]) {
-                allReviews[wordpoolName] = allReviews[wordpoolName].filter(item => item.stage !== currentReviewStage);
-                localStorage.setItem('moeumschool_reviews', JSON.stringify(allReviews));
-            }
-            
-            return `stage_${currentReviewStage}`;
-        }
-        // 마지막 복습 (stage 4)
-        else if (!isFirstAttempt && currentReviewStage === 4) {
-            progress.attempts.push({ date: today, stage: 4 });
-            allProgress[wordpoolName] = progress;
-            localStorage.setItem('moeumschool_progress', JSON.stringify(allProgress));
-            
-            // 모든 복습 완료 - 복습 일정에서 제거
-            const allReviews = JSON.parse(localStorage.getItem('moeumschool_reviews') || '{}');
-            if (allReviews[wordpoolName]) {
-                delete allReviews[wordpoolName];
-                localStorage.setItem('moeumschool_reviews', JSON.stringify(allReviews));
-            }
-            
-            return 'trophy';
+            console.log('1회 완료! 복습 일정 저장됨');
+            return true;
         }
         
         return false;
@@ -1078,34 +1032,22 @@ function showFinalScore() {
     document.getElementById('accuracy').textContent = accuracy;
     
     document.querySelector('.game-board').style.display = 'none';
-    document.querySelector('.consonant-section').style.display = 'none';
     document.getElementById('finalMessage').style.display = 'block';
     
-    const saveResult = saveProgress();
+    // ✅ 틀린 문제가 0개일 때만 진도 저장!
+    let saved = false;
+    if (wrongCount === 0) {
+        saved = saveProgress();
+    }
     
-    const finalAlert = document.querySelector('.final-alert');
-    const existingMsg = finalAlert.querySelector('.stage-message');
-    if (existingMsg) existingMsg.remove();
-    
-    if (saveResult === 'trophy') {
-        const trophyMsg = document.createElement('div');
-        trophyMsg.className = 'stage-message';
-        trophyMsg.style.marginTop = '15px';
-        trophyMsg.style.fontSize = '1.3em';
-        trophyMsg.style.color = '#FF9800';
-        trophyMsg.innerHTML = '🏆 5회 완료! 트로피 획득!';
-        finalAlert.appendChild(trophyMsg);
-    } else if (saveResult && saveResult.startsWith('stage_')) {
-        const stageNum = parseInt(saveResult.split('_')[1]);
-        const stageNames = ['1회', '2회', '3회', '4회', '5회'];
-        
-        const stageMsg = document.createElement('div');
-        stageMsg.className = 'stage-message';
-        stageMsg.style.marginTop = '15px';
-        stageMsg.style.fontSize = '1.1em';
-        stageMsg.style.color = '#4A628A';
-        stageMsg.innerHTML = `📝 ${stageNames[stageNum]} 완료!<br>다음 복습을 기다려주세요`;
-        finalAlert.appendChild(stageMsg);
+    if (wrongCount === 0 && !saved) {
+        const finalAlert = document.querySelector('.final-alert');
+        const practiceMsg = document.createElement('div');
+        practiceMsg.style.marginTop = '15px';
+        practiceMsg.style.fontSize = '1.1em';
+        practiceMsg.style.color = '#FF9800';
+        practiceMsg.innerHTML = '🏆 연습 모드 - 기록되지 않았습니다';
+        finalAlert.appendChild(practiceMsg);
     }
     
     if (wrongCount > 0) {  
@@ -1123,7 +1065,6 @@ function retryWrongAnswers() {
     
     shuffleSentences();
     document.querySelector('.game-board').style.display = 'block';
-    document.querySelector('.consonant-section').style.display = 'block';
     document.getElementById('finalMessage').style.display = 'none';
     startRound();
 }
@@ -1134,11 +1075,9 @@ function restartGame() {
     wrongAnswers = [];
     firstAttemptWrongAnswers = [];
     isFirstAttempt = true;
-    currentReviewStage = 0;
     
     shuffleSentences();
     document.querySelector('.game-board').style.display = 'block';
-    document.querySelector('.consonant-section').style.display = 'block';
     document.getElementById('finalMessage').style.display = 'none';
     startRound();
 }
@@ -1148,24 +1087,10 @@ window.onload = async function () {
     if (success) {
         document.getElementById('categoryTitle').textContent = categoryTitle;
         createConsonantButtons();
-        
-        // 복습 일정 확인 부분 전부 삭제!
-        // const todayReview = getTodayReviews(); ← 삭제
-        // if (todayReview...) { ... } ← 전부 삭제
-        
         shuffleSentences();
         restartGame();  
-        
-        // 엔터키 이벤트 추가
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' && gameWon) {
-                e.preventDefault();
-                nextRound();
-            }
-        });
     }
 };
-
 
 </script>
 
