@@ -739,7 +739,8 @@ function playGame(wordpool, title) {
       // 복습 날짜 전인지 확인
       if (today < nextReviewDate) {
         const daysLeft = getDaysDiff(today, nextReviewDate);
-        alert(`⏰ 아직 복습 시기가 아닙니다!\n\n다음 복습일: ${daysLeft}일 후 (${nextReviewDate})\n간격을 지켜야 효과적으로 기억할 수 있어요.`);
+                    
+alert(`⏰ 아직 복습 시기가 아닙니다!\n\n다음 복습일: ${daysLeft}일 후 (${nextReviewDate})\n간격을 지켜야 효과적으로 기억할 수 있어요.`);
         return;
       }
     }
