@@ -783,13 +783,32 @@ function getReviews(wordpoolId) {
     
     if (!reviewData || reviewData.length === 0) return null;
     
-    // 가장 최근 복습 데이터 가져오기
-    const latestReview = reviewData[reviewData.length - 1];
+    // stage별 복습 날짜 계산
+    const progress = getProgress(wordpoolId);
+    if (progress.attempts.length === 0) return null;
     
-    // 완료한 복습 횟수만큼 제외한 남은 복습 일정
-    const remainingReviews = latestReview.reviews.slice(latestReview.completedReviews || 0);
+    // 첫 공부 날짜 가져오기
+    const firstAttempt = progress.attempts.find(a => a.stage === 0);
+    if (!firstAttempt) return null;
     
-    return remainingReviews.length > 0 ? remainingReviews : null;
+    const firstDate = new Date(firstAttempt.date);
+    
+    // 가장 낮은 stage 찾기 (다음에 해야 할 복습)
+    const stages = reviewData.map(r => r.stage);
+    const nextStage = Math.min(...stages);
+    
+    // stage별 날짜 계산: 1=3일, 2=7일, 3=14일, 4=28일
+    const stageDays = { 1: 3, 2: 7, 3: 14, 4: 28 };
+    const daysToAdd = stageDays[nextStage];
+    
+    if (!daysToAdd) return null;
+    
+    // 복습 날짜 계산
+    const reviewDate = new Date(firstDate);
+    reviewDate.setDate(reviewDate.getDate() + daysToAdd);
+    const reviewDateStr = reviewDate.toISOString().split('T')[0];
+    
+    return [reviewDateStr]; // 배열로 반환 (기존 코드 호환)
   } catch (error) {
     console.error('복습 일정 불러오기 실패:', error);
     return null;
