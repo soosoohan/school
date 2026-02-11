@@ -14,7 +14,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <title>모음스쿨 - 초등학생 학습 퀴즈 | Soosooland</title>
 
-```
 <!-- SEO Meta Tags -->
 <meta name="description" content="초등학교 교육과정에서 배우는 내용을 퀴즈로 만들었습니다. 에빙하우스 망각곡선을 적용한 과학적 반복 학습으로 기억력 향상">
 <meta name="keywords" content="기억력 향상, 반복 학습, 초등교육과정, 초등교육, 모음스쿨, 초등퀴즈, 에빙하우스">
@@ -28,7 +27,7 @@
 <link rel="canonical" href="https://soosooland.com/school/school.html">
 <link rel="stylesheet" href="https://soosooland.com/css/protection.css">
 <script src="https://soosooland.com/js/protection.js"></script>
-```
+
 
 <style>
         :root {
@@ -511,12 +510,10 @@ min-height: 80px;
         ❌ 틀린: <span id="wrongCount"></span>개<br>
         정답률: <span id="accuracy"></span>%
 
-```
 <button class="retry-wrong-btn" id="retryWrongBtn" style="display: none;" onclick="retryWrongAnswers()">
     틀린 문제 <span id="wrongCountForRetry"></span>개 다시 풀기
 </button>
 </div>
-```
 
 </div>
 </div>
@@ -555,8 +552,7 @@ if (savedVersion !== SCHOOL_VERSION) {
     localStorage.removeItem('moeumschool_progress');
     localStorage.removeItem('moeumschool_reviews');
     localStorage.setItem('moeumschool_version', SCHOOL_VERSION);
-    console.log('🔄 버전 업데이트: 데이터 초기화');
-}
+ }
 
 const dailyThemes = {
 1: { bg: '#145454', white: '#F4F6F5', black: '#1B2B2B', primary: '#91b2c7', sub: '#2F4B5C', accent: '#E8956F', name: '월요일' },
@@ -1167,11 +1163,19 @@ window.onload = async function () {
                 hint: q.hint
             }));
         }
-        
         shuffleSentences();
-        restartGame();  
+        restartGame();
+        
+        // 엔터키 이벤트 추가
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && gameWon) {
+                e.preventDefault();
+                nextRound();
+            }
+        });
     }
 };
+
 
 </script>
 
