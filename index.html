@@ -722,11 +722,12 @@ function toggleAccordion(header) {
 function playGame(wordpool, title) {
   const progress = getProgress(wordpool);
   
-  // 🏆 트로피 획득 (첫판 100점) - 연습 모드 가능
-  if (progress.attempts.length >= 5) {
+  // 🏆 트로피 획득 - stage 4 확인
+const hasStage4 = progress.attempts.some(a => a.stage === 4);
+if (hasStage4) {
     const confirm5 = window.confirm('🏆 완벽하게 학습 완료!\n\n연습용으로 풀 수 있지만 기록되지 않습니다.\n그래도 하시겠어요?');
     if (!confirm5) return;
-  }
+}
   // 복습 일정 확인
   else if (progress.attempts.length > 0) {
     const reviews = getReviews(wordpool);
@@ -798,8 +799,9 @@ function getReviewStatus(wordpoolId) {
   // 아직 시작 안 함
   if (progress.attempts.length === 0) return 'not-started';
   
-  // 🏆 트로피 (5회 완료 = 첫판 100점)
-  if (progress.attempts.length >= 5) return 'completed-5';
+  // 🏆 트로피 - stage 4 확인
+const hasStage4 = progress.attempts.some(a => a.stage === 4);
+if (hasStage4) return 'completed-5';
   
   // 복습 일정 확인
   const reviews = getReviews(wordpoolId);
@@ -821,7 +823,7 @@ function getReviewStatus(wordpoolId) {
 
 // 메달 가져오기
 function getMedal(attemptCount, status) {
-  if (attemptCount >= 5 || status === 'completed-5') return '🏆';
+  if (status === 'completed-5') return '🏆';
   return '';
 }
 
