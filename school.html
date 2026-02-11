@@ -640,11 +640,7 @@ async function loadWordpool() {
 }
 
 function shuffleSentences() {
-    shuffledSentences = [...sentences];
-    for (let i = shuffledSentences.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffledSentences[i], shuffledSentences[j]] = [shuffledSentences[j], shuffledSentences[i]];
-    }
+    shuffledSentences = [...sentences];  // 그냥 복사만
     sentenceIndex = 0;
     totalQuestions = shuffledSentences.length;
 }
@@ -986,23 +982,23 @@ function saveProgress() {
         const progress = allProgress[wordpoolName] || { attempts: [] };
         const today = new Date().toISOString().split('T')[0];
         
-        // 첫판에서 틀린 문제가 0개일 때 = 🏆 트로피
+        // 첫판에서 틀린 문제가 0개일 때 = 🏆 트로피 (5회 완료)
         if (isFirstAttempt && firstAttemptWrongAnswers.length === 0) {
             progress.attempts = [
-                { date: today, accuracy: 100 },
-                { date: today, accuracy: 100 },
-                { date: today, accuracy: 100 },
-                { date: today, accuracy: 100 },
-                { date: today, accuracy: 100 }
+                { date: today, accuracy: 100, stage: 0 },  // ⭐ stage 추가
+                { date: today, accuracy: 100, stage: 1 },
+                { date: today, accuracy: 100, stage: 2 },
+                { date: today, accuracy: 100, stage: 3 },
+                { date: today, accuracy: 100, stage: 4 }
             ];
             allProgress[wordpoolName] = progress;
             localStorage.setItem('moeumschool_progress', JSON.stringify(allProgress));
             console.log('🏆 첫판 100점! 트로피 획득!');
             return true;
         }
-        // 첫판에서 틀렸지만, 다시 풀어서 완료 = 1회 저장
+        // 첫판에서 틀렸지만, 다시 풀어서 완료 = 1회만 저장
         else if (isFirstAttempt && firstAttemptWrongAnswers.length > 0) {
-            progress.attempts.push({ date: today, accuracy: 100 });
+            progress.attempts.push({ date: today, accuracy: 100, stage: 0 });  // ⭐ stage: 0 추가
             allProgress[wordpoolName] = progress;
             localStorage.setItem('moeumschool_progress', JSON.stringify(allProgress));
             
@@ -1059,6 +1055,7 @@ function showFinalScore() {
 }
 
 function retryWrongAnswers() {
+    isFirstAttempt = false; // ⭐ 이 줄 추가!
     sentences = [...wrongAnswers];
     wrongAnswers = [];
     wrongCount = 0;
