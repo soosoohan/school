@@ -535,6 +535,21 @@ header {
 </div>
 
 <script>
+// 버전 체크 및 자동 리셋
+const INDEX_VERSION = '2.0';
+const savedIndexVersion = localStorage.getItem('moeumschool_index_version');
+
+if (savedIndexVersion !== INDEX_VERSION) {
+    localStorage.removeItem('moeumschool_progress');
+    localStorage.removeItem('moeumschool_reviews');
+    localStorage.setItem('moeumschool_index_version', INDEX_VERSION);
+    
+    // 사용자에게 한 번만 알림
+    if (savedIndexVersion) {
+        alert('📢 모음스쿨 업데이트!\n\n✨ 복습 시스템이 개선되었습니다\n📝 기존 학습 기록이 초기화됩니다\n🎯 새로운 마음으로 다시 도전하세요!');
+    }
+}
+
 const dailyThemes = {
     
 1: { // 월요일
@@ -726,7 +741,6 @@ if (hasStage4) {
     const confirm5 = window.confirm('🏆 완벽하게 학습 완료!\n\n연습용으로 풀 수 있지만 기록되지 않습니다.\n그래도 하시겠어요?');
     if (!confirm5) return;
 }
-
   // 복습 일정 확인
   else if (progress.attempts.length > 0) {
     const reviews = getReviews(wordpool);
@@ -800,7 +814,6 @@ function getReviewStatus(wordpoolId) {
 
 const hasStage4 = progress.attempts.some(a => a.stage === 4);
 if (hasStage4) return 'completed-5';
-
   
   // 복습 일정 확인
   const reviews = getReviews(wordpoolId);
@@ -819,10 +832,12 @@ if (hasStage4) return 'completed-5';
     return `in-progress-${progress.attempts.length}`;
   }
 }
+
 function getMedal(attemptCount, status) {
   if (status === 'completed-5') return '🏆';
   return '';
 }
+
 // 진도 박스 생성
 function createProgressBoxes(wordpoolId) {
   const progress = getProgress(wordpoolId);
@@ -831,28 +846,31 @@ function createProgressBoxes(wordpoolId) {
   const hasStage4 = progress.attempts.some(a => a.stage === 4);
   if (hasStage4) {
     // stage 순서대로 정렬
-  const sortedAttempts = [...progress.attempts].sort((a, b) => a.stage - b.stage);
-  return sortedAttempts.slice(0, 5).map(attempt => {
-  const date = attempt.date.substring(5);
-  return `<div class="progress-box completed">${date}</div>`;
+    const sortedAttempts = [...progress.attempts].sort((a, b) => a.stage - b.stage);
+    return sortedAttempts.slice(0, 5).map(attempt => {
+      const date = attempt.date.substring(5);
+      return `<div class="progress-box completed">${date}</div>`;
     }).join('');
-}
+  }
   
   const boxes = [];
+  
+  // ✅ 여기도 stage 순서대로 정렬 추가!
+  const sortedAttempts = [...progress.attempts].sort((a, b) => a.stage - b.stage);
   
   // 실제 완료한 횟수만큼만 표시
   for (let i = 0; i < 5; i++) {
     let boxClass = 'progress-box';
     let content = '';
     
-    if (i < progress.attempts.length) {
+    if (i < sortedAttempts.length) {
       // 이미 완료한 박스
       boxClass += ' completed';
-      const date = progress.attempts[i].date.substring(5); // MM-DD만 표시
+      const date = sortedAttempts[i].date.substring(5); // MM-DD만 표시
       content = date;
-    } else if (i === progress.attempts.length) {
+    } else if (i === sortedAttempts.length) {
       // 다음 할 박스
-      if (progress.attempts.length === 0) {
+      if (sortedAttempts.length === 0) {
         // 첫 시작
         boxClass += ' review-soon';
         content = '시작';
