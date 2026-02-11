@@ -722,25 +722,27 @@ function toggleAccordion(header) {
 function playGame(wordpool, title) {
   const progress = getProgress(wordpool);
   
-  // 🏆 트로피 확인
+  // 🏆 트로피 획득 체크
   const hasStage4 = progress.attempts.some(a => a.stage === 4);
   if (hasStage4) {
     const confirm5 = window.confirm('🏆 완벽하게 학습 완료!\n\n연습용으로 풀 수 있지만 기록되지 않습니다.\n그래도 하시겠어요?');
     if (!confirm5) return;
   }
   
-  // 복습 모드 확인
-  const allReviews = JSON.parse(localStorage.getItem('moeumschool_reviews') || '{}');
-  const reviewQuestions = allReviews[wordpool] || [];
-  
-  if (reviewQuestions.length > 0 && progress.attempts.length > 0) {
-    // 복습 모드 - localStorage에 복습 문제 저장
-    localStorage.setItem('current_review_mode', 'true');
-    localStorage.setItem('current_review_questions', JSON.stringify(reviewQuestions));
-  } else {
-    // 일반 모드
-    localStorage.removeItem('current_review_mode');
-    localStorage.removeItem('current_review_questions');
+  // 복습 일정 확인
+  else if (progress.attempts.length > 0) {
+    const reviews = getReviews(wordpool);
+    if (reviews && reviews.length > 0) {
+      const today = new Date().toISOString().split('T')[0];
+      const nextReviewDate = reviews[0];
+      
+      // 복습 날짜 전인지 확인
+      if (today < nextReviewDate) {
+        const daysLeft = getDaysDiff(today, nextReviewDate);
+        alert(`⏰ 아직 복습 시기가 아닙니다!\n\n다음 복습일: ${daysLeft}일 후 (${nextReviewDate})\n간격을 지켜야 효과적으로 기억할 수 있어요.`);
+        return;
+      }
+    }
   }
   
   const gameUrl = 'https://soosooland.com/school/school.html';
