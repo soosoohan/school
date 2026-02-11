@@ -1149,22 +1149,12 @@ window.onload = async function () {
         document.getElementById('categoryTitle').textContent = categoryTitle;
         createConsonantButtons();
         
-        const todayReview = getTodayReviews();
+        // 복습 일정 확인 부분 전부 삭제!
+        // const todayReview = getTodayReviews(); ← 삭제
+        // if (todayReview...) { ... } ← 전부 삭제
         
-        if (todayReview && todayReview.questions.length > 0) {
-            console.log(`복습 모드: stage ${todayReview.stage}, ${todayReview.questions.length}개 문제`);
-            sentences = todayReview.questions;
-            originalSentences = [...sentences];
-            isFirstAttempt = false;
-            currentReviewStage = todayReview.stage;
-            
-            firstAttemptWrongAnswers = todayReview.questions.map(q => ({
-                text: q.text,
-                hint: q.hint
-            }));
-        }
         shuffleSentences();
-        restartGame();
+        restartGame();  
         
         // 엔터키 이벤트 추가
         document.addEventListener('keydown', function(e) {
