@@ -640,7 +640,11 @@ async function loadWordpool() {
 }
 
 function shuffleSentences() {
-    shuffledSentences = [...sentences];  // 그냥 복사만
+    shuffledSentences = [...sentences];
+    for (let i = shuffledSentences.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffledSentences[i], shuffledSentences[j]] = [shuffledSentences[j], shuffledSentences[i]];
+    }
     sentenceIndex = 0;
     totalQuestions = shuffledSentences.length;
 }
