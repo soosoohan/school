@@ -1,10 +1,64 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+<!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4YZHC1G9FN"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-4YZHC1G9FN');
+        const isLocal = window.location.hostname === 'localhost' || 
+                window.location.hostname === '127.0.0.1' ||
+                window.location.hostname.includes('192.168.');
+
+const originalGtag = gtag;
+function gtag() {
+  if (isLocal) {
+    return;
+  }
+  originalGtag.apply(this, arguments);
+}
+    </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>모음스쿨 Moeum School - 초등학교 교육과정 학습용 퀴즈 | Soosooland</title>
 
+<!-- SEO Meta Tags -->
+<meta name="description" content="초등학생 학습 퀴즈. Korean language quiz based on elementary school curriculum for grades 1-6.">
+<meta name="keywords" content="초등학교, 한글 퀴즈, 학년별 학습, elementary school, Korean quiz, curriculum, educational game">
+<meta name="author" content="Soosooland">
+
+<!-- Open Graph (페이스북 카카오톡) -->
+<meta property="og:title" content="모음스쿨 - 초등학생 학습 퀴즈 | Soosooland">
+<meta property="og:description" content="초등학교 교육과정 학습 퀴즈. Korean language quiz based on elementary school curriculum for grades 1-6.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://soosooland.com/school/">
+<meta property="og:image" content="https://soosooland.com/images/moeum.jpeg">
+<meta property="og:site_name" content="Soosooland">
+
+<!-- 트위터 -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://soosooland.com/images/moeum.jpeg">
+<meta name="twitter:title" content="모음스쿨 - 초등 교육과정 한글 퀴즈">
+<meta name="twitter:description" content="초등학교 교육과정 기반 한글 퀴즈. Korean language quiz based on elementary school curriculum.">
+    
+<link rel="canonical" href="https://soosooland.com/school/">
+<link rel="stylesheet" href="https://soosooland.com/css/protection.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoGame",
+  "name": "Moeum School",
+  "description": "Korean language quiz based on elementary school curriculum for grades 1-6.",
+  "url": "https://soosooland.com/school/",
+  "genre": "Puzzle",
+  "gamePlatform": "Web browser",
+  "playMode": "SinglePlayer",
+  "inLanguage": ["ko"]
+}
+</script>
+<script src="https://soosooland.com/js/protection.js"></script>
 <style>
  :root {
             --bg-color: #145454;
@@ -374,7 +428,10 @@ header {
 <!-- 학습 안내 -->
 <div class="learning-guide">
   <h3>
-    <span id="titleKo">📚 효과적인 기억법 - 간격 반복 학습</span>
+    <button id="langToggle" onclick="toggleLanguage()" style="padding: 5px 12px; cursor: pointer; font-size: 14px; margin-right: 10px; border-radius: 5px; font-weight: bold;">
+      EN
+    </button>
+  <span id="titleKo">📚 효과적인 기억법 - 간격 반복 학습</span>
     <span id="titleEn" style="display: none;">📚 Effective Learning - Spaced Repetition</span>
   </h3>
   
@@ -400,7 +457,25 @@ header {
     </p>
   </div>
   
-  
+  <div id="english" class="lang-content" style="display: none;">
+    <p>A scientifically proven learning method discovered by German psychologist Hermann Ebbinghaus.<br>
+    Highly effective for language learning and long-term memory.</p>
+    <ul>
+      <li>🏆 Get 100% on first attempt?Trophy earned! Review exempted!</li>
+      <li>📝 Made mistakes on first attempt?<br>
+        Retry only the incorrect problems to complete the lesson.</li>
+      <li>Only incorrect problems are saved to review schedule</li>
+      <li>📅 Review Schedule (incorrect problems only):</li>
+      <li>After 3 days → 7 days → 14 days → 28 days</li>
+      <li>4 reviews complete = Long-term memory achieved!</li>
+      <li>⚠️ Don't cram - Your brain needs breaks</li>
+      <li>🎯 Follow the schedule for lasting memory</li>
+      <li><span class="highlight">🌏 Dates are based on UTC (Coordinated Universal Time)</span></li>
+    </ul>
+    <p style="text-align: center; margin-top: 15px; animation: blink 1s infinite;">
+      <span class="highlight">⏰ Problems to review today: <span id="reviewTodayCount">0</span></span> 
+    </p>
+  </div>
 </div>
 
 <!-- 통계 섹션 -->
@@ -439,6 +514,7 @@ header {
 <div class="accordion-content active">
   <div class="grade-section">
     <div class="game-buttons" id="grade1-1-buttons">
+    <!-- 버튼들이 여기에 동적으로 생성됩니다 -->
     </div>
   </div>
 </div>
@@ -451,23 +527,173 @@ header {
 <div class="accordion-content">
   <div class="grade-section">
     <div class="game-buttons" id="grade1-2-buttons">
+    <!-- 버튼들이 여기에 동적으로 생성됩니다 -->
     </div>
   </div>
 </div>
 
 <script>
+ const dailyThemes = {
+    
+1: { // 월요일
+    bg: '#145454',
+    white: '#F4F6F5',
+    black: '#1B2B2B',
+    primary: '#91b2c7',      // 청회색
+    sub: '#2F4B5C',
+    accent: '#E8956F',       // 코랄 
+    name: '월요일'
+},
+2: { // 화요일
+    bg: '#145454',
+    white: '#F4F6F5',
+    black: '#1B2B2B',
+    primary: '#7FA89A',      // 민트
+    sub: '#355F56',
+    accent: '#c18ff2',       // 스탬프 보라
+    name: '화요일'
+},
+3: { // 수요일
+    bg: '#145454',
+    white: '#F7F5F0',
+    black: '#2A2320',
+    primary: '#B8C46F',      // 밝은 올리브그린
+    sub: '#6B7A3F',
+    accent: '#f7b2e3',       // pink
+    name: '수요일'
+},
+4: { // 목요일
+    bg: '#145454',
+    white: '#F7F5F0',
+    black: '#2A2320',
+    primary: '#D08A5A',      // 오렌지브라운
+    sub: '#A85432',
+    accent: '#5AB8D0',       // 터코이즈 
+    name: '목요일'
+},
+5: { // 금요일
+    bg: '#145454',
+    white: '#F8F6FA',
+    black: '#241F2B',
+    primary: '#fcdd95',      // 밝은 노랑
+    sub: '#C8A24A',
+    accent: '#a5cbfa',       // 하늘
+    name: '금요일'
+},
+6: { // 토요일
+    bg: '#145454',
+    white: '#F8F6FA',
+    black: '#241F2B',
+    primary: '#ffaaa1',      // 산호
+    sub: '#9B4A4A',
+    accent: '#6FD0B8',       // 민트그린
+    name: '토요일'
+},
+0: { // 일요일
+    bg: '#145454',
+    white: '#F8F6FA',
+    black: '#241F2B',
+    primary: '#9A8FBF',      // 보라
+    sub: '#4E3F73',
+    accent: '#C5D08F',       // 라임 
+    name: '일요일'
+}
+};
+
+// 페이지 로드 시 요일별 테마 적용
+function applyDailyTheme() {
+    const today = new Date().getDay();
+    const theme = dailyThemes[today];
+    
+    const root = document.documentElement;
+    root.style.setProperty('--bg-color', theme.bg);
+    root.style.setProperty('--white-color', theme.white);
+    root.style.setProperty('--black-color', theme.black);
+    root.style.setProperty('--primary-color', theme.primary);
+    root.style.setProperty('--sub-color', theme.sub);
+    root.style.setProperty('--accent-color', theme.accent);
+    
+    console.log(`오늘의 테마: ${theme.name}`);
+}
+
+// 페이지 로드 시 즉시 실행
+applyDailyTheme();
+
+function toggleLanguage() {
+  const korean = document.getElementById('korean');
+  const english = document.getElementById('english');
+  const titleKo = document.getElementById('titleKo');
+  const titleEn = document.getElementById('titleEn');
+  const button = document.getElementById('langToggle');
+  
+  if (korean.style.display === 'none') {
+    korean.style.display = 'block';
+    english.style.display = 'none';
+    titleKo.style.display = 'inline';
+    titleEn.style.display = 'none';
+    button.textContent = 'EN';
+  } else {
+    korean.style.display = 'none';
+    english.style.display = 'block';
+    titleKo.style.display = 'none';
+    titleEn.style.display = 'inline';
+    button.textContent = '한';
+  }
+}
 // 1학년 1학기 문제 목록
 const grade1semester1 = [
-{ id: '0-1-1-1', title: '테스트(1)' },
-{ id: '0-1-1-2', title: '테스트(2)' },  
-{ id: '0-1-1-3', title: '테스트(3)' },  
-{ id: '0-1-1-4', title: '테스트(4)' },  
-{ id: '0-1-1-5', title: '테스트(5)' },
-{ id: '0-1-1-6', title: '테스트(6)' }
+{ id: '1-1-0-1', title: '한글놀이(1)' },
+{ id: '1-1-0-2', title: '한글놀이(2)' },  
+{ id: '1-1-0-3', title: '한글놀이(3)' },  
+{ id: '1-1-0-4', title: '한글놀이(4)' },  
+{ id: '1-1-0-5', title: '한글놀이(5)' },
+{ id: '1-1-0-6', title: '한글놀이(6)' },
+{ id: '1-1-1-1', title: '1.글자를 만들어요(1)' },
+{ id: '1-1-1-2', title: '1.글자를 만들어요(2)' },
+{ id: '1-1-1-3', title: '1.글자를 만들어요(3)' },
+{ id: '1-1-2-1', title: '2.받침이 있는 글자(1)' },
+{ id: '1-1-2-2', title: '2.받침이 있는 글자(2)' },
+{ id: '1-1-2-3', title: '2.받침이 있는 글자(3)' },
+{ id: '1-1-3-1', title: '3.낱말과 친해져요(1)' },
+{ id: '1-1-3-2', title: '3.낱말과 친해져요(2)' },
+{ id: '1-1-4-1', title: '4.여러 가지 낱말을 익혀요(1)' },
+{ id: '1-1-4-2', title: '4.여러 가지 낱말을 익혀요(2)' },
+{ id: '1-1-4-3', title: '4.여러 가지 낱말을 익혀요(3)' },
+{ id: '1-1-5-1', title: '5.반갑게 인사해요(1)' },
+{ id: '1-1-5-2', title: '5.반갑게 인사해요(2)' },
+{ id: '1-1-6-1', title: '6.또박또박 읽어요(1)' },
+{ id: '1-1-6-2', title: '6.또박또박 읽어요(2)' },
+{ id: '1-1-7-1', title: '7.알맞은 낱말을 찾아요(1)' },
+{ id: '1-1-7-2', title: '7.알맞은 낱말을 찾아요(2)' }
 ];
 
 // 1학년 2학기 문제 목록
 const grade1semester2 = [
+{ id: '1-2-1-1', title: '1. 기분을 말해요(1)' },
+{ id: '1-2-1-2', title: '1. 기분을 말해요(2)' },
+{ id: '1-2-1-3', title: '1. 기분을 말해요(3)' },
+{ id: '1-2-1-4', title: '1. 기분을 말해요(4)' },
+{ id: '1-2-2-1', title: '2. 낱말을 정확하게 읽어요(1)' },
+{ id: '1-2-2-2', title: '2. 낱말을 정확하게 읽어요(2)' },
+{ id: '1-2-2-3', title: '2. 낱말을 정확하게 읽어요(3)' },
+{ id: '1-2-2-4', title: '2. 낱말을 정확하게 읽어요(4)' },
+{ id: '1-2-3-1', title: '3. 그림일기를 써요(1)' },
+{ id: '1-2-3-2', title: '3. 그림일기를 써요(2)' },
+{ id: '1-2-4-1', title: '4. 감동을 나누어요(1)' },
+{ id: '1-2-4-2', title: '4. 감동을 나누어요(2)' },
+{ id: '1-2-4-3', title: '4. 감동을 나누어요(3)' },
+{ id: '1-2-4-4', title: '4. 감동을 나누어요(4)' },
+{ id: '1-2-5-1', title: '5. 생각을 키워요(1)' },
+{ id: '1-2-5-2', title: '5. 생각을 키워요(2)' },
+{ id: '1-2-5-3', title: '5. 생각을 키워요(3)' },
+{ id: '1-2-6-1', title: '6. 문장을 읽고 써요(1)' },
+{ id: '1-2-6-2', title: '6. 문장을 읽고 써요(2)' },
+{ id: '1-2-6-3', title: '6. 문장을 읽고 써요(3)' },
+{ id: '1-2-7-1', title: '7. 무엇이 중요할까요(1)' },
+{ id: '1-2-7-2', title: '7. 무엇이 중요할까요(2)' },
+{ id: '1-2-7-3', title: '7. 무엇이 중요할까요(3)' },
+{ id: '1-2-8-1', title: '8. 느끼고 표현해요(1)' },
+{ id: '1-2-8-2', title: '8. 느끼고 표현해요(2)' },
 { id: '1-2-8-3', title: '8. 느끼고 표현해요(3)' }
 ];
 
