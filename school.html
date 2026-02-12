@@ -629,14 +629,35 @@ function saveReviewData(wpName, reviewData) {
     }
 }
 
+// ===== 🔧 테스트 모드 =====
+// true: 간격을 분 단위로 (3일→1분, 7일→2분, 14일→3분, 28일→4분)
+// false: 원래 일 단위
+const TEST_MODE = true;
+const TEST_INTERVALS = [1, 2, 3, 4]; // 분 단위
+
 function getTodayUTC() {
+    if (TEST_MODE) {
+        // 테스트: 분 단위 타임스탬프 (예: "2026-02-12T14:35")
+        return new Date().toISOString().slice(0, 16);
+    }
     return new Date().toISOString().split('T')[0];
 }
 
 function addDays(dateStr, days) {
+    if (TEST_MODE) {
+        // 테스트: days를 분으로 변환 (intervals의 인덱스에 맞는 분 사용)
+        const minutes = days; // 이미 분 단위로 전달됨
+        const d = new Date(dateStr);
+        d.setMinutes(d.getMinutes() + minutes);
+        return d.toISOString().slice(0, 16);
+    }
     const d = new Date(dateStr + 'T00:00:00Z');
     d.setUTCDate(d.getUTCDate() + days);
     return d.toISOString().split('T')[0];
+}
+
+function getIntervals() {
+    return TEST_MODE ? TEST_INTERVALS : [3, 7, 14, 28];
 }
 
 // ===== 게임 모드 결정 =====
@@ -679,11 +700,19 @@ function determineGameMode() {
     
     if (today >= nextReviewDate) {
         // 복습 가능!
-        return { mode: 'review', step: completedReviews + 1 }; // 다음 단계
+        return { mode: 'review', step: completedReviews + 1 };
     } else {
         // 아직 복습 시기 아님
-        const daysLeft = Math.ceil((new Date(nextReviewDate + 'T00:00:00Z') - new Date(today + 'T00:00:00Z')) / (1000*60*60*24));
-        return { mode: 'waiting', step: completedReviews, nextDate: nextReviewDate, daysLeft: daysLeft };
+        let timeLeft;
+        if (TEST_MODE) {
+            const diffMs = new Date(nextReviewDate) - new Date(today);
+            const diffMin = Math.ceil(diffMs / (1000 * 60));
+            timeLeft = `${diffMin}분`;
+        } else {
+            const diffMs = new Date(nextReviewDate + 'T00:00:00Z') - new Date(today + 'T00:00:00Z');
+            timeLeft = `${Math.ceil(diffMs / (1000*60*60*24))}일`;
+        }
+        return { mode: 'waiting', step: completedReviews, nextDate: nextReviewDate, timeLeft: timeLeft };
     }
 }
 
@@ -750,7 +779,7 @@ function initGameMode() {
             
         case 'waiting':
             // 아직 복습 시기가 아님
-            alert(`⏰ 아직 복습 시기가 아닙니다!\n\n다음 복습일: ${modeInfo.daysLeft}일 후 (${modeInfo.nextDate})\n간격을 지켜야 효과적으로 기억할 수 있어요.`);
+            alert(`⏰ 아직 복습 시기가 아닙니다!\n\n다음 복습: ${modeInfo.timeLeft} 후 (${modeInfo.nextDate})\n간격을 지켜야 효과적으로 기억할 수 있어요.`);
             location.href = 'https://soosooland.com/school/index.html';
             return;
             
@@ -1148,7 +1177,7 @@ function handleStageComplete() {
                 wrongQuestions: firstAttemptWrongAnswers.map(q => ({ text: q.text, hint: q.hint })),
                 firstStudyDate: today,
                 completedReviews: 0,
-                nextReviewDate: addDays(today, 3),  // 3일 후 2차 복습
+                nextReviewDate: addDays(today, getIntervals()[0]),  // 3일(또는 1분) 후 2차 복습
                 reviewHistory: [
                     { step: 1, date: today }  // 1차 완료 기록
                 ]
@@ -1160,7 +1189,7 @@ function handleStageComplete() {
             reviewMsg.style.marginTop = '15px';
             reviewMsg.style.fontSize = '1.1em';
             reviewMsg.style.color = '#2196F3';
-            reviewMsg.innerHTML = `📝 1차 공부 완료!<br>틀린 ${firstAttemptWrongAnswers.length}문제는 3일 후(${addDays(today, 3)})에 복습합니다.`;
+            reviewMsg.innerHTML = `📝 1차 공부 완료!<br>틀린 ${firstAttemptWrongAnswers.length}문제는 ${TEST_MODE ? getIntervals()[0]+'분' : '3일'} 후에 복습합니다.`;
             finalAlert.appendChild(reviewMsg);
             
             console.log('1차 완료! 틀린 문제:', firstAttemptWrongAnswers.length, '다음 복습:', addDays(today, 3));
@@ -1185,7 +1214,7 @@ function handleStageComplete() {
         progress.attempts.push({ date: today, accuracy: 100 });
         
         // 다음 복습 간격 계산 (이번 복습 완료일 기준!)
-        const intervals = [3, 7, 14, 28]; // 1차→2차: 3일, 2차→3차: 7일, 3차→4차: 14일, 4차→5차: 28일
+        const intervals = getIntervals();
         // completedReviews: 1=2차완료, 2=3차완료, 3=4차완료, 4=5차완료
         
         const stepNames = ['2차', '3차', '4차', '5차'];
