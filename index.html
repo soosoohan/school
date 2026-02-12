@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>모음스쿨 Moeum School - 초등학교 교육과정 학습용 퀴즈 | Soosooland</title>
+
+<style>
+ :root {
+            --bg-color: #145454;
+            --white-color: #F4F6F5;
+            --black-color: #1B2B2B;
+            --primary-color: #6F8FA3;
+            --sub-color: #2F4B5C;
+            --accent-color: #2F4B5C;
+}
+* {
+      box-sizing: border-box;
+    }
+
+body {
+  font-family: Arial, sans-serif;
+  background: var(--bg-color);
+  text-align: center;
+  padding: 30px;
+  margin: 0;
+}
+.back-button {
+position: absolute;
+top: 20px;
+left: 20px;
+padding: 10px 20px;
+font-size: 1em;
+background: var(--accent-color);
+color: var(--black-color);
+border: none;
+border-radius: 8px;
+cursor: pointer;
+transition: all 0.3s ease;
+z-index: 100;
+}
+
+.back-button:hover {
+    background-color: #FF9494;
+    color: white;
+}
+
+h1 { font-size: 2.3em; margin-bottom:0; color: var(--primary-color); }
+h2 { font-size:1.3em; color: var(--primary-color); }
+
+header > div {
+  color:var(--black-color);
+  line-height: 140%;
+  margin:30px auto;
+}
+
+header {
+  min-height: auto;
+  margin-bottom: 20px;
+}
+
+/* 학습 안내 섹션 */
+.learning-guide {
+  background: var(--white-color);
+  border: 10px solid var(--primary-color);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 800px;
+  text-align: left;
+  color: var(--black-color);
+}
+
+.learning-guide h3 {
+  color: var(--black-color);
+  font-size: 1.5em;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.learning-guide p {
+  line-height: 1.8;
+  margin: 10px 0;
+  font-size: 1.2em;
+}
+
+.learning-guide ul {
+  margin: 10px 0;
+  padding-left: 25px;
+}
+
+.learning-guide li {
+  margin: 8px 0;
+  font-size: 1.1em;
+  line-height: 1.6;
+}
+
+.highlight {
+  color: var(--sub-color);
+  font-weight: bold;
+}
+
+/* 통계 섹션 */
+.stats-section {
+  background: var(--primary-color);
+  border-radius: 12px;
+  padding: 15px;
+  margin: 20px auto;
+  max-width: 800px;
+  color: var(--black-color);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.stat-item {
+  background: var(--white-color);
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: var(--sub-color);
+}
+
+.stat-label {
+  font-size: 1.2em;
+  margin-top: 5px;
+}
+
+/* 아코디언 헤더 스타일 */
+.accordion-header {
+  background: var(--accent-color);
+  color: var(--black-color);
+  padding: 20px;
+  margin: 10px auto;
+  width: 90%;
+  max-width: 800px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1.3em;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.accordion-header:hover {
+  background: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(27, 175, 143, 0.3);
+}
+
+.accordion-header .arrow {
+  font-size: 1.3em;
+  transition: transform 0.3s ease;
+}
+
+.accordion-header.active .arrow {
+  transform: rotate(180deg);
+}
+
+/* 아코디언 내용 */
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.accordion-content.active {
+  max-height: 5000px;
+}
+
+.grade-section {
+  background-color: var(--bg-color);
+  color: var(--white-color);
+  width: 90%;
+  max-width: 800px;
+  border-radius: 12px;
+  margin: 0 auto 20px;
+  padding: 20px;
+}
+
+.game-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.game-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  background-color: #1a6060;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.game-button {
+  flex: 0 0 200px;
+  height: 45px;
+  padding: 12px 0;
+  font-size: 1.2em;     
+  font-weight: 500;     
+  cursor: pointer;
+  border: none;
+  background-color: var(--primary-color);
+  color: var(--black-color);
+  border-radius: 12px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.game-button:hover {
+  background-color: var(--sub-color);
+  color: var(--black-color);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(27, 175, 143, 0.3);
+}
+
+.game-button.completed-5 {
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  color: #000;
+}
+
+.game-button.completed-4 {
+  background: linear-gradient(135deg, #FFD700, #FFED4E);
+  color: #000;
+}
+
+.game-button.completed-3 {
+  background: linear-gradient(135deg, #C0C0C0, #E8E8E8);
+  color: #000;
+}
+
+.game-button.completed-2 {
+  background: linear-gradient(135deg, #CD7F32, #E8956F);
+  color: #fff;
+}
+
+.game-button.review-today {
+  border: 3px solid #FFD700;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.2); }
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 10px #FFD700; }
+  50% { box-shadow: 0 0 20px #FFD700; }
+}
+
+.progress-boxes {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.progress-box {
+  width: 60px;
+  height: 35px;
+  border: 2px solid var(--primary-color);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75em;
+  color: var(--primary-color);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.progress-box.completed {
+  background-color: var(--bg-color);
+  border-color: var(--primary-color);
+  color: var(--white-color);
+  font-weight: bold;
+}
+
+.progress-box.review-soon {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+  color: white;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.medal {
+  font-size: 1.5em;
+  margin-right: 5px;
+}
+
+/* 반응형 레이아웃 */
+@media (max-width: 799px) {
+  .game-item {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .game-button {
+    flex: 1;
+    width: 100%;
+  }
+  
+  .progress-boxes {
+    justify-content: center;
+  }
+  
+  .progress-box {
+    width: 50px;
+    height: 30px;
+    font-size: 0.7em;
+  }
+}
+
+@media (max-width: 499px) {
+  .grade-section, .accordion-header {
+    width: 95%;
+  }
+
+  h1 {
+    font-size: 2em;
+  }
+  
+  .accordion-header {
+    font-size: 1.2em;
+  }
+  
+  .learning-guide {
+    padding: 15px;
+  }
+  
+  .learning-guide p, .learning-guide li {
+    font-size: 1em;
+  }
+  
+  .stat-number {
+    font-size: 1.5em;
+  }
+}
+
+</style>
+
+</head>
+<body>
+  <button class="back-button" onclick="location.href='https://soosooland.com/'">
+    ← Soosooland </button>
+
+<header>
+    <div class="moeum-main" id="moeum-main">
+        <h1>모음스쿨 (개발중)</h1>
+    </div>
+</header>
+
+<!-- 학습 안내 -->
+<div class="learning-guide">
+  <h3>
+    <span id="titleKo">📚 효과적인 기억법 - 간격 반복 학습</span>
+    <span id="titleEn" style="display: none;">📚 Effective Learning - Spaced Repetition</span>
+  </h3>
+  
+  <div id="korean" class="lang-content">
+    <p>독일 심리학자 헤르만 에빙하우스가 발견한 과학적 학습법입니다.<br>
+    외국어 학습과 장기기억에 매우 효과적입니다.</p>
+    <ul>
+      <li>🏆 첫 학습에서 100점을 맞으면 트로피 획득! 복습 면제!</li>
+      <li>📝 첫 학습에서 틀린 문제가 있으면<br>
+        틀린 문제만 바로 다시 풀면 학습이 완료됩니다.</li>
+      <li>첫 학습에서 틀린 문제만 복습 일정에 저장됩니다</li>
+      <li>📅 복습 일정 (첫판에서 틀린 문제만):</li>
+      <li>3일 후 → 7일 후 → 14일 후 → 28일 후 → 28일 후</li>
+      <li>총 5번의 복습으로 장기기억 완성!</li>
+      <li>⚠️ 한 번에 몰아서 공부하지 마세요 - 뇌가 힘들어요</li>
+      <li>🎯 날짜를 지켜서 반복하면 오래 기억됩니다</li>
+      <li> <span class="highlight"> 🌏 날짜는 세계표준시(UTC) 기준입니다.</span> </li>
+      <li> <span class="highlight"> 🌏 한국에서는 오전9시에 날짜가 바뀝니다.</span> </li>  
+
+    </ul>
+    <p style="text-align: center; margin-top: 15px; animation: blink 1s infinite;">
+      <span class="highlight">⏰ 오늘 복습할 문제: <span id="reviewTodayCount">0</span>개</span> 
+    </p>
+  </div>
+  
+  
+</div>
+
+<!-- 통계 섹션 -->
+
+<div class="stats-section">
+  <div class="stats-grid">
+    <div class="stat-item">
+      <div class="stat-number" id="inProgressCount">0</div>
+      <div class="stat-label">📝1차 공부</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number" id="bronzeCount">0</div>
+      <div class="stat-label">🥉2차 복습</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number" id="silverCount">0</div>
+      <div class="stat-label">🥈3차 복습</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number" id="goldCount">0</div>
+      <div class="stat-label">🥇4차 복습</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number" id="masterCount">0</div>
+      <div class="stat-label">🏆 완료</div>
+    </div>
+  </div>
+</div>
+
+<!-- 1학년 1학기 아코디언 -->
+
+<div class="accordion-header active" onclick="toggleAccordion(this)">
+  <span>🌱국어 1학년 1학기 완료</span>
+  <span class="arrow">▼</span>
+</div>
+<div class="accordion-content active">
+  <div class="grade-section">
+    <div class="game-buttons" id="grade1-1-buttons">
+    </div>
+  </div>
+</div>
+
+<!-- 1학년 2학기 아코디언 -->
+<div class="accordion-header" onclick="toggleAccordion(this)">
+  <span>🌿국어 1학년 2학기 완료</span>
+  <span class="arrow">▼</span>
+</div>
+<div class="accordion-content">
+  <div class="grade-section">
+    <div class="game-buttons" id="grade1-2-buttons">
+    </div>
+  </div>
+</div>
+
+<script>
+// 1학년 1학기 문제 목록
+const grade1semester1 = [
+{ id: '0-1-1-1', title: '테스트(1)' },
+{ id: '0-1-1-2', title: '테스트(2)' },  
+{ id: '0-1-1-3', title: '테스트(3)' },  
+{ id: '0-1-1-4', title: '테스트(4)' },  
+{ id: '0-1-1-5', title: '테스트(5)' },
+{ id: '0-1-1-6', title: '테스트(6)' }
+];
+
+// 1학년 2학기 문제 목록
+const grade1semester2 = [
+{ id: '1-2-8-3', title: '8. 느끼고 표현해요(3)' }
+];
+
+function toggleAccordion(header) {
+  const content = header.nextElementSibling;
+  const isActive = header.classList.contains('active');
+  
+  document.querySelectorAll('.accordion-header').forEach(h => {
+    h.classList.remove('active');
+  });
+  document.querySelectorAll('.accordion-content').forEach(c => {
+    c.classList.remove('active');
+  });
+  
+  if (!isActive) {
+    header.classList.add('active');
+    content.classList.add('active');
+  }
+}
+
+// ===== 🔧 테스트 모드 (school.html과 동일하게) =====
+const TEST_MODE = true;
+
+function getTodayUTC() {
+    if (TEST_MODE) {
+        return Date.now();
+    }
+    return new Date().toISOString().split('T')[0];
+}
+
+function getDaysDiff(date1, date2) {
+  if (TEST_MODE) {
+    return Math.ceil((date2 - date1) / 1000); // 초 단위
+  }
+  const d1 = new Date(date1 + 'T00:00:00Z');
+  const d2 = new Date(date2 + 'T00:00:00Z');
+  return Math.ceil((d2 - d1) / (1000 * 60 * 60 * 24));
+}
+
+function getProgress(wordpoolId) {
+  try {
+    const allProgress = JSON.parse(localStorage.getItem('moeumschool_progress') || '{}');
+    return allProgress[wordpoolId] || { attempts: [] };
+  } catch (error) {
+    return { attempts: [] };
+  }
+}
+
+function getReviewData(wordpoolId) {
+  try {
+    const allReviews = JSON.parse(localStorage.getItem('moeumschool_reviews') || '{}');
+    return allReviews[wordpoolId] || null;
+  } catch (error) {
+    return null;
+  }
+}
+
+// 복습 상태 확인 (새 데이터 구조)
+function getReviewStatus(wordpoolId) {
+  const progress = getProgress(wordpoolId);
+  const today = getTodayUTC();
+  
+  // 아직 시작 안 함
+  if (progress.attempts.length === 0) return 'not-started';
+  
+  // 🏆 트로피 (6회 완료)
+  if (progress.attempts.length >= 5) return 'completed-5';
+  
+  // 복습 데이터 확인
+  const reviewData = getReviewData(wordpoolId);
+  if (!reviewData) {
+    return `in-progress-${progress.attempts.length}`;
+  }
+  
+  // 다음 복습 날짜 확인
+  const nextReviewDate = reviewData.nextReviewDate;
+  if (!nextReviewDate) {
+    return `in-progress-${progress.attempts.length}`;
+  }
+  
+  // 오늘이 복습 날짜 이후인지 확인
+  if (today >= nextReviewDate) {
+    return 'review-today';
+  } else {
+    return `in-progress-${progress.attempts.length}`;
+  }
+}
+
+function playGame(wordpool, title) {
+  const progress = getProgress(wordpool);
+  const reviewData = getReviewData(wordpool);
+  const today = getTodayUTC();
+  
+  // 🏆 트로피 보유
+  if (progress.attempts.length >= 5) {
+    // school.html에서 처리하므로 바로 이동
+  }
+  // 복습 대기 중인 경우
+  else if (progress.attempts.length > 0 && reviewData && reviewData.nextReviewDate) {
+    if (today < reviewData.nextReviewDate) {
+      const daysLeft = getDaysDiff(today, reviewData.nextReviewDate);
+      const unit = TEST_MODE ? '초' : '일';
+      alert(`⏰ 아직 복습 시기가 아닙니다!\n\n다음 복습: ${daysLeft}${unit} 후\n간격을 지켜야 효과적으로 기억할 수 있어요.`);
+      return;
+    }
+  }
+  
+  const gameUrl = 'https://soosooland.com/school/school.html';
+  const wordpoolUrl = `https://soosooland.com/school/wordpools/${wordpool}.json`;
+  const titleParam = title ? `&title=${encodeURIComponent(title)}` : '';
+  location.href = `${gameUrl}?wordpool=${encodeURIComponent(wordpoolUrl)}${titleParam}`;
+}
+
+function getMedal(attemptCount, status) {
+  if (attemptCount >= 5 || status === 'completed-5') return '🏆';
+  return '';
+}
+
+// 진도 박스 생성 (새 데이터 구조)
+function createProgressBoxes(wordpoolId) {
+  const progress = getProgress(wordpoolId);
+  const reviewData = getReviewData(wordpoolId);
+  const today = getTodayUTC();
+  
+  // 🏆 트로피 - 5개 모두 완료 표시
+  if (progress.attempts.length >= 5) {
+    return progress.attempts.slice(0, 5).map((attempt, idx) => {
+      const label = ['1차','2차','3차','4차','5차'][idx];
+      let date;
+      if (typeof attempt.date === 'number') {
+        date = '✅';
+      } else {
+        date = attempt.date.substring(5);
+      }
+      return `<div class="progress-box completed">${date}</div>`;
+    }).join('');
+  }
+  
+  const boxes = [];
+  const labels = ['1차', '2차', '3차', '4차', '5차'];
+  
+  for (let i = 0; i < 5; i++) {
+    let boxClass = 'progress-box';
+    let content = '';
+    
+    if (i < progress.attempts.length) {
+      // 이미 완료한 단계
+      boxClass += ' completed';
+      if (typeof progress.attempts[i].date === 'number') {
+        content = '✅';
+      } else {
+        content = progress.attempts[i].date.substring(5);
+      }
+    } else if (i === progress.attempts.length) {
+      // 다음 할 단계
+      if (progress.attempts.length === 0) {
+        boxClass += ' review-soon';
+        content = '시작';
+      } else if (reviewData && reviewData.nextReviewDate) {
+        if (today >= reviewData.nextReviewDate) {
+          boxClass += ' review-soon';
+          content = '⏰';
+        } else {
+          // 대기 중 - 남은 일수 표시
+          const daysLeft = getDaysDiff(today, reviewData.nextReviewDate);
+          const unit = TEST_MODE ? '초' : '일';
+          content = `${daysLeft}${unit}`;
+        }
+      }
+    }
+    
+    boxes.push(`<div class="${boxClass}">${content}</div>`);
+  }
+  
+  return boxes.join('');
+}
+
+// 버튼 렌더링 함수 (공통)
+function renderButtons(items, containerId) {
+  const container = document.getElementById(containerId);
+  let html = '';
+  
+  items.forEach(item => {
+    const progress = getProgress(item.id);
+    const status = getReviewStatus(item.id);
+    const medal = getMedal(progress.attempts.length, status);
+    
+    let buttonClass = 'game-button';
+    if (status === 'review-today') {
+      buttonClass += ' review-today';
+    } else if (status === 'completed-5') {
+      buttonClass += ' completed-5';
+    }
+    
+    html += `
+      <div class="game-item">
+        <button class="${buttonClass}" onclick="playGame('${item.id}', '${item.title}')">
+          ${medal ? `<span class="medal">${medal}</span>` : ''}${item.title}
+        </button>
+        <div class="progress-boxes">
+          ${createProgressBoxes(item.id)}
+        </div>
+      </div>
+    `;
+  });
+  
+  container.innerHTML = html;
+}
+
+// 통계 업데이트
+function updateStats() {
+  let masterCount = 0;
+  let goldCount = 0;
+  let silverCount = 0;
+  let bronzeCount = 0;
+  let inProgressCount = 0;
+  let reviewTodayCount = 0;
+  
+  const allItems = [...grade1semester1, ...grade1semester2];
+  
+  allItems.forEach(item => {
+    const progress = getProgress(item.id);
+    const attemptCount = progress.attempts.length;
+    const status = getReviewStatus(item.id);
+    
+    if (attemptCount >= 5 || status === 'completed-5') masterCount++;
+    else if (attemptCount === 4) goldCount++;
+    else if (attemptCount === 3) silverCount++;
+    else if (attemptCount === 2) bronzeCount++;
+    else if (attemptCount === 1) inProgressCount++;
+    
+    if (status === 'review-today') reviewTodayCount++;
+  });
+  
+  document.getElementById('masterCount').textContent = masterCount;
+  document.getElementById('goldCount').textContent = goldCount;
+  document.getElementById('silverCount').textContent = silverCount;
+  document.getElementById('bronzeCount').textContent = bronzeCount;
+  document.getElementById('inProgressCount').textContent = inProgressCount;
+  document.getElementById('reviewTodayCount').textContent = reviewTodayCount;
+}
+
+// 페이지 로드 시 실행
+window.addEventListener('load', () => {
+  renderButtons(grade1semester1, 'grade1-1-buttons');
+  renderButtons(grade1semester2, 'grade1-2-buttons');
+  updateStats();
+});
+</script>
+
+</body>
+</html>
