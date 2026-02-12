@@ -493,15 +493,14 @@ const TEST_MODE = true;
 
 function getTodayUTC() {
     if (TEST_MODE) {
-        return new Date().toISOString().slice(0, 16);
+        return Date.now();
     }
     return new Date().toISOString().split('T')[0];
 }
 
 function getDaysDiff(date1, date2) {
   if (TEST_MODE) {
-    const diffMs = new Date(date2) - new Date(date1);
-    return Math.ceil(diffMs / (1000 * 60)); // 분 단위
+    return Math.ceil((date2 - date1) / 1000); // 초 단위
   }
   const d1 = new Date(date1 + 'T00:00:00Z');
   const d2 = new Date(date2 + 'T00:00:00Z');
@@ -570,7 +569,7 @@ function playGame(wordpool, title) {
   else if (progress.attempts.length > 0 && reviewData && reviewData.nextReviewDate) {
     if (today < reviewData.nextReviewDate) {
       const daysLeft = getDaysDiff(today, reviewData.nextReviewDate);
-      const unit = TEST_MODE ? '분' : '일';
+      const unit = TEST_MODE ? '초' : '일';
       alert(`⏰ 아직 복습 시기가 아닙니다!\n\n다음 복습: ${daysLeft}${unit} 후\n간격을 지켜야 효과적으로 기억할 수 있어요.`);
       return;
     }
@@ -595,8 +594,14 @@ function createProgressBoxes(wordpoolId) {
   
   // 🏆 트로피 - 5개 모두 완료 표시
   if (progress.attempts.length >= 5) {
-    return progress.attempts.slice(0, 5).map(attempt => {
-      const date = attempt.date.substring(5);
+    return progress.attempts.slice(0, 5).map((attempt, idx) => {
+      const label = ['1차','2차','3차','4차','5차'][idx];
+      let date;
+      if (typeof attempt.date === 'number') {
+        date = '✅';
+      } else {
+        date = attempt.date.substring(5);
+      }
       return `<div class="progress-box completed">${date}</div>`;
     }).join('');
   }
@@ -611,8 +616,11 @@ function createProgressBoxes(wordpoolId) {
     if (i < progress.attempts.length) {
       // 이미 완료한 단계
       boxClass += ' completed';
-      const date = progress.attempts[i].date.substring(5);
-      content = date;
+      if (typeof progress.attempts[i].date === 'number') {
+        content = '✅';
+      } else {
+        content = progress.attempts[i].date.substring(5);
+      }
     } else if (i === progress.attempts.length) {
       // 다음 할 단계
       if (progress.attempts.length === 0) {
@@ -625,7 +633,7 @@ function createProgressBoxes(wordpoolId) {
         } else {
           // 대기 중 - 남은 일수 표시
           const daysLeft = getDaysDiff(today, reviewData.nextReviewDate);
-          const unit = TEST_MODE ? '분' : '일';
+          const unit = TEST_MODE ? '초' : '일';
           content = `${daysLeft}${unit}`;
         }
       }
