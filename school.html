@@ -581,6 +581,11 @@ function applyDailyTheme() {
 
 applyDailyTheme();
 
+function wrapEmojis(text) {
+  const emojiRegex = /(\p{Emoji_Presentation}|\p{Extended_Pictographic})/gu;
+  return text.replace(emojiRegex, '<span class="emoji">$1</span>');
+}
+
 
 const urlParams = new URLSearchParams(window.location.search);
 const wordpoolUrl = urlParams.get('wordpool');
