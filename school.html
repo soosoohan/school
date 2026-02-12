@@ -630,26 +630,22 @@ function saveReviewData(wpName, reviewData) {
 }
 
 // ===== 🔧 테스트 모드 =====
-// true: 간격을 분 단위로 (3일→1분, 7일→2분, 14일→3분, 28일→4분)
+// true: 간격을 초 단위로 (3일→30초, 7일→60초, 14일→90초, 28일→120초)
 // false: 원래 일 단위
 const TEST_MODE = true;
-const TEST_INTERVALS = [1, 2, 3, 4]; // 분 단위
+const TEST_INTERVALS_SEC = [30, 60, 90, 120]; // 초 단위
 
 function getTodayUTC() {
     if (TEST_MODE) {
-        // 테스트: 분 단위 타임스탬프 (예: "2026-02-12T14:35")
-        return new Date().toISOString().slice(0, 16);
+        return Date.now(); // epoch ms
     }
     return new Date().toISOString().split('T')[0];
 }
 
 function addDays(dateStr, days) {
     if (TEST_MODE) {
-        // 테스트: days를 분으로 변환 (intervals의 인덱스에 맞는 분 사용)
-        const minutes = days; // 이미 분 단위로 전달됨
-        const d = new Date(dateStr);
-        d.setMinutes(d.getMinutes() + minutes);
-        return d.toISOString().slice(0, 16);
+        // days는 이미 초 단위
+        return dateStr + (days * 1000);
     }
     const d = new Date(dateStr + 'T00:00:00Z');
     d.setUTCDate(d.getUTCDate() + days);
@@ -657,7 +653,7 @@ function addDays(dateStr, days) {
 }
 
 function getIntervals() {
-    return TEST_MODE ? TEST_INTERVALS : [3, 7, 14, 28];
+    return TEST_MODE ? TEST_INTERVALS_SEC : [3, 7, 14, 28];
 }
 
 // ===== 게임 모드 결정 =====
@@ -705,9 +701,8 @@ function determineGameMode() {
         // 아직 복습 시기 아님
         let timeLeft;
         if (TEST_MODE) {
-            const diffMs = new Date(nextReviewDate) - new Date(today);
-            const diffMin = Math.ceil(diffMs / (1000 * 60));
-            timeLeft = `${diffMin}분`;
+            const diffSec = Math.ceil((nextReviewDate - today) / 1000);
+            timeLeft = `${diffSec}초`;
         } else {
             const diffMs = new Date(nextReviewDate + 'T00:00:00Z') - new Date(today + 'T00:00:00Z');
             timeLeft = `${Math.ceil(diffMs / (1000*60*60*24))}일`;
@@ -1189,7 +1184,7 @@ function handleStageComplete() {
             reviewMsg.style.marginTop = '15px';
             reviewMsg.style.fontSize = '1.1em';
             reviewMsg.style.color = '#2196F3';
-            reviewMsg.innerHTML = `📝 1차 공부 완료!<br>틀린 ${firstAttemptWrongAnswers.length}문제는 ${TEST_MODE ? getIntervals()[0]+'분' : '3일'} 후에 복습합니다.`;
+            reviewMsg.innerHTML = `📝 1차 공부 완료!<br>틀린 ${firstAttemptWrongAnswers.length}문제는 ${TEST_MODE ? getIntervals()[0]+'초' : '3일'} 후에 복습합니다.`;
             finalAlert.appendChild(reviewMsg);
             
             console.log('1차 완료! 틀린 문제:', firstAttemptWrongAnswers.length, '다음 복습:', addDays(today, 3));
