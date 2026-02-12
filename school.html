@@ -1,9 +1,31 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-   <meta charset="UTF-8" />
+ <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4YZHC1G9FN"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-4YZHC1G9FN');
+    </script>
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <title>모음스쿨 - 초등학생 학습 퀴즈 | Soosooland</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="초등학교 교육과정에서 배우는 내용을 퀴즈로 만들었습니다. 에빙하우스 망각곡선을 적용한 과학적 반복 학습으로 기억력 향상">
+    <meta name="keywords" content="기억력 향상, 반복 학습, 초등교육과정, 초등교육, 모음스쿨, 초등퀴즈, 에빙하우스">
+    <meta name="author" content="Soosooland">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="모음스쿨 - 초등학생 학습 퀴즈">
+    <meta property="og:description" content="초등학교 교육과정 기반 학습 퀴즈. 에빙하우스 망각곡선을 적용한 과학적 반복 학습으로 기억력 향상">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://soosooland.com/school/school.html">
+    <link rel="canonical" href="https://soosooland.com/school/school.html">
+    <link rel="stylesheet" href="https://soosooland.com/css/protection.css">
+    <script src="https://soosooland.com/js/protection.js"></script>
 <style>
         :root {
             --bg-color: #145454;
@@ -535,6 +557,30 @@ min-height: 80px;
 </div>
 
 <script>
+const dailyThemes = {
+1: { bg: '#145454', white: '#F4F6F5', black: '#1B2B2B', primary: '#91b2c7', sub: '#2F4B5C', accent: '#E8956F', name: '월요일' },
+2: { bg: '#145454', white: '#F4F6F5', black: '#1B2B2B', primary: '#7FA89A', sub: '#355F56', accent: '#c18ff2', name: '화요일' },
+3: { bg: '#145454', white: '#F7F5F0', black: '#2A2320', primary: '#B8C46F', sub: '#6B7A3F', accent: '#f7b2e3', name: '수요일' },
+4: { bg: '#145454', white: '#F7F5F0', black: '#2A2320', primary: '#D08A5A', sub: '#A85432', accent: '#5AB8D0', name: '목요일' },
+5: { bg: '#145454', white: '#F8F6FA', black: '#241F2B', primary: '#fcdd95', sub: '#C8A24A', accent: '#a5cbfa', name: '금요일' },
+6: { bg: '#145454', white: '#F8F6FA', black: '#241F2B', primary: '#ffaaa1', sub: '#9B4A4A', accent: '#6FD0B8', name: '토요일' },
+0: { bg: '#145454', white: '#F8F6FA', black: '#241F2B', primary: '#9A8FBF', sub: '#4E3F73', accent: '#C5D08F', name: '일요일' }
+};
+
+function applyDailyTheme() {
+    const today = new Date().getDay();
+    const theme = dailyThemes[today];
+    const root = document.documentElement;
+    root.style.setProperty('--bg-color', theme.bg);
+    root.style.setProperty('--white-color', theme.white);
+    root.style.setProperty('--black-color', theme.black);
+    root.style.setProperty('--primary-color', theme.primary);
+    root.style.setProperty('--sub-color', theme.sub);
+    root.style.setProperty('--accent-color', theme.accent);
+}
+
+applyDailyTheme();
+
 
 const urlParams = new URLSearchParams(window.location.search);
 const wordpoolUrl = urlParams.get('wordpool');
