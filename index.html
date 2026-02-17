@@ -10,23 +10,20 @@
                     window.location.protocol === 'file:';
 
     if (!isLocal) {
-      // 스크립트 동적 로드
       const script = document.createElement('script');
       script.async = true;
       script.src = 'https://www.googletagmanager.com/gtag/js?id=G-4YZHC1G9FN';
       document.head.appendChild(script);
 
-      // gtag 초기화
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
-      window.gtag = gtag; // 전역 스코프 확보
+      window.gtag = gtag;
       gtag('js', new Date());
       gtag('config', 'G-4YZHC1G9FN');
 
       console.log("GA4 활성화: 운용 환경");
     } else {
       console.log("GA4 비활성화: 로컬/개발 환경");
-      // 로컬에서 gtag 호출 시 에러 방지를 위한 빈 함수 정의
       window.gtag = function() { console.log("Local gtag call:", arguments); };
     }
   })();
@@ -40,7 +37,7 @@
 <meta name="keywords" content="초등학교, 한글 퀴즈, 학년별 학습, elementary school, Korean quiz, curriculum, educational game">
 <meta name="author" content="Soosooland">
 
-<!-- Open Graph (페이스북 카카오톡) -->
+<!-- Open Graph -->
 <meta property="og:title" content="모음스쿨 - 초등학생 학습 퀴즈 | Soosooland">
 <meta property="og:description" content="초등학교 교육과정 학습 퀴즈. Korean language quiz based on elementary school curriculum for grades 1-6.">
 <meta property="og:type" content="website">
@@ -72,16 +69,16 @@
 <script src="https://soosooland.com/js/protection.js"></script>
 <style>
  :root {
-            --bg-color: #145454;
-            --white-color: #F4F6F5;
-            --black-color: #1B2B2B;
-            --primary-color: #6F8FA3;
-            --sub-color: #2F4B5C;
-            --accent-color: #2F4B5C;
+    --bg-color: #145454;
+    --white-color: #F4F6F5;
+    --black-color: #1B2B2B;
+    --primary-color: #6F8FA3;
+    --sub-color: #2F4B5C;
+    --accent-color: #2F4B5C;
 }
 * {
-      box-sizing: border-box;
-    }
+  box-sizing: border-box;
+}
 
 body {
   font-family: Arial, sans-serif;
@@ -91,23 +88,23 @@ body {
   margin: 0;
 }
 .back-button {
-position: absolute;
-top: 20px;
-left: 20px;
-padding: 10px 20px;
-font-size: 1em;
-background: var(--accent-color);
-color: var(--black-color);
-border: none;
-border-radius: 8px;
-cursor: pointer;
-transition: all 0.3s ease;
-z-index: 100;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  padding: 10px 20px;
+  font-size: 1em;
+  background: var(--accent-color);
+  color: var(--black-color);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 100;
 }
 
 .back-button:hover {
-    background-color: #FF9494;
-    color: white;
+  background-color: #FF9494;
+  color: white;
 }
 
 h1 { font-size: 2.3em; margin-bottom:0; color: var(--primary-color); }
@@ -200,6 +197,72 @@ header {
   margin-top: 5px;
 }
 
+/* ===== 오늘 할 것 섹션 ===== */
+.today-section {
+  background: var(--white-color);
+  border-radius: 12px;
+  padding: 15px 20px;
+  margin: 20px auto;
+  max-width: 800px;
+  text-align: left;
+  color: var(--black-color);
+  display: none; /* 기본적으로 숨김, 항목 있을 때만 표시 */
+}
+
+.today-section h3 {
+  font-size: 1.2em;
+  margin: 0 0 12px 0;
+  color: var(--black-color);
+}
+
+.today-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.today-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--bg-color);
+  border-radius: 8px;
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.today-item:hover {
+  transform: translateX(4px);
+  background: var(--sub-color);
+}
+
+.today-item-badge {
+  font-size: 1.2em;
+  flex-shrink: 0;
+}
+
+.today-item-info {
+  flex: 1;
+}
+
+.today-item-grade {
+  font-size: 0.85em;
+  color: var(--primary-color);
+  margin-bottom: 2px;
+}
+
+.today-item-title {
+  font-size: 1em;
+  color: var(--white-color);
+  font-weight: bold;
+}
+
+.today-item-arrow {
+  color: var(--primary-color);
+  font-size: 1.1em;
+}
+
 /* 아코디언 헤더 스타일 */
 .accordion-header {
   background: var(--accent-color);
@@ -231,6 +294,23 @@ header {
 
 .accordion-header.active .arrow {
   transform: rotate(180deg);
+}
+
+/* 아코디언에 복습/공부 뱃지 */
+.accordion-header .header-badge {
+  font-size: 0.85em;
+  background: #FFD700;
+  color: #000;
+  padding: 2px 8px;
+  border-radius: 12px;
+  margin-left: 8px;
+  animation: pulse 1.5s infinite;
+}
+
+.accordion-header .header-badge.new-study {
+  background: var(--primary-color);
+  color: var(--white-color);
+  animation: none;
 }
 
 /* 아코디언 내용 */
@@ -422,7 +502,6 @@ header {
     font-size: 1.5em;
   }
 }
-
 </style>
 
 </head>
@@ -461,7 +540,6 @@ header {
       <li>🎯 날짜를 지켜서 반복하면 오래 기억됩니다</li>
       <li> <span class="highlight"> 🌏 날짜는 세계표준시(UTC) 기준입니다.</span> </li>
       <li> <span class="highlight"> 🌏 한국에서는 오전9시에 날짜가 바뀝니다.</span> </li>  
-
     </ul>
     <p style="text-align: center; margin-top: 15px; animation: blink 1s infinite;">
       <span class="highlight">⏰ 오늘 복습할 문제: <span id="reviewTodayCount">0</span>개</span> 
@@ -484,13 +562,12 @@ header {
       <li><span class="highlight">🌏 Dates are based on UTC (Coordinated Universal Time)</span></li>
     </ul>
     <p style="text-align: center; margin-top: 15px; animation: blink 1s infinite;">
-      <span class="highlight">⏰ Problems to review today: <span id="reviewTodayCount">0</span></span> 
+      <span class="highlight">⏰ Problems to review today: <span id="reviewTodayCountEn">0</span></span> 
     </p>
   </div>
 </div>
 
 <!-- 통계 섹션 -->
-
 <div class="stats-section">
   <div class="stats-grid">
     <div class="stat-item">
@@ -516,142 +593,81 @@ header {
   </div>
 </div>
 
-<!-- 1학년 1학기 아코디언 -->
+<!-- ===== 오늘 할 것 섹션 (넷플릭스 방식) ===== -->
+<div class="today-section" id="todaySection">
+  <h3 id="todaySectionTitle">⏰ 오늘 복습</h3>
+  <div class="today-list" id="todayList">
+    <!-- 동적으로 생성 -->
+  </div>
+</div>
 
-<div class="accordion-header active" onclick="toggleAccordion(this)">
-  <span>🌱국어 1학년 1학기</span>
+<!-- 1학년 1학기 아코디언 -->
+<div class="accordion-header" id="accordion-1-1" onclick="toggleAccordion(this)">
+  <span>🌱국어 1학년 1학기<span class="header-badge" id="badge-1-1" style="display:none"></span></span>
   <span class="arrow">▼</span>
 </div>
-<div class="accordion-content active">
+<div class="accordion-content">
   <div class="grade-section">
-    <div class="game-buttons" id="grade1-1-buttons">
-    <!-- 버튼들이 여기에 동적으로 생성됩니다 -->
-    </div>
+    <div class="game-buttons" id="grade1-1-buttons"></div>
   </div>
 </div>
 
 <!-- 1학년 2학기 아코디언 -->
-<div class="accordion-header" onclick="toggleAccordion(this)">
-  <span>🌱국어 1학년 2학기</span>
+<div class="accordion-header" id="accordion-1-2" onclick="toggleAccordion(this)">
+  <span>🌱국어 1학년 2학기<span class="header-badge" id="badge-1-2" style="display:none"></span></span>
   <span class="arrow">▼</span>
 </div>
 <div class="accordion-content">
   <div class="grade-section">
-    <div class="game-buttons" id="grade1-2-buttons">
-    <!-- 버튼들이 여기에 동적으로 생성됩니다 -->
-    </div>
+    <div class="game-buttons" id="grade1-2-buttons"></div>
   </div>
 </div>
+
 <!-- 2학년 1학기 아코디언 -->
-<div class="accordion-header" onclick="toggleAccordion(this)">
-  <span>🌿국어 2학년 1학기</span>
+<div class="accordion-header" id="accordion-2-1" onclick="toggleAccordion(this)">
+  <span>🌿국어 2학년 1학기<span class="header-badge" id="badge-2-1" style="display:none"></span></span>
   <span class="arrow">▼</span>
 </div>
 <div class="accordion-content">
   <div class="grade-section">
-    <div class="game-buttons" id="grade2-1-buttons">
-    <!-- 버튼들이 여기에 동적으로 생성됩니다 -->
-    </div>
+    <div class="game-buttons" id="grade2-1-buttons"></div>
   </div>
 </div>
+
 <!-- 2학년 2학기 아코디언 -->
-<div class="accordion-header" onclick="toggleAccordion(this)">
-  <span>🌿국어 2학년 2학기</span>
+<div class="accordion-header" id="accordion-2-2" onclick="toggleAccordion(this)">
+  <span>🌿국어 2학년 2학기<span class="header-badge" id="badge-2-2" style="display:none"></span></span>
   <span class="arrow">▼</span>
 </div>
 <div class="accordion-content">
   <div class="grade-section">
-    <div class="game-buttons" id="grade2-2-buttons">
-    <!-- 버튼들이 여기에 동적으로 생성됩니다 -->
-    </div>
+    <div class="game-buttons" id="grade2-2-buttons"></div>
   </div>
 </div>
 
 <script>
- const dailyThemes = {
-    
-1: { // 월요일
-    bg: '#145454',
-    white: '#F4F6F5',
-    black: '#1B2B2B',
-    primary: '#91b2c7',      // 청회색
-    sub: '#2F4B5C',
-    accent: '#E8956F',       // 코랄 
-    name: '월요일'
-},
-2: { // 화요일
-    bg: '#145454',
-    white: '#F4F6F5',
-    black: '#1B2B2B',
-    primary: '#7FA89A',      // 민트
-    sub: '#355F56',
-    accent: '#c18ff2',       // 스탬프 보라
-    name: '화요일'
-},
-3: { // 수요일
-    bg: '#145454',
-    white: '#F7F5F0',
-    black: '#2A2320',
-    primary: '#B8C46F',      // 밝은 올리브그린
-    sub: '#6B7A3F',
-    accent: '#f7b2e3',       // pink
-    name: '수요일'
-},
-4: { // 목요일
-    bg: '#145454',
-    white: '#F7F5F0',
-    black: '#2A2320',
-    primary: '#D08A5A',      // 오렌지브라운
-    sub: '#A85432',
-    accent: '#5AB8D0',       // 터코이즈 
-    name: '목요일'
-},
-5: { // 금요일
-    bg: '#145454',
-    white: '#F8F6FA',
-    black: '#241F2B',
-    primary: '#fcdd95',      // 밝은 노랑
-    sub: '#C8A24A',
-    accent: '#a5cbfa',       // 하늘
-    name: '금요일'
-},
-6: { // 토요일
-    bg: '#145454',
-    white: '#F8F6FA',
-    black: '#241F2B',
-    primary: '#ffaaa1',      // 산호
-    sub: '#9B4A4A',
-    accent: '#6FD0B8',       // 민트그린
-    name: '토요일'
-},
-0: { // 일요일
-    bg: '#145454',
-    white: '#F8F6FA',
-    black: '#241F2B',
-    primary: '#9A8FBF',      // 보라
-    sub: '#4E3F73',
-    accent: '#C5D08F',       // 라임 
-    name: '일요일'
-}
+const dailyThemes = {
+1: { bg: '#145454', white: '#F4F6F5', black: '#1B2B2B', primary: '#91b2c7', sub: '#2F4B5C', accent: '#E8956F', name: '월요일' },
+2: { bg: '#145454', white: '#F4F6F5', black: '#1B2B2B', primary: '#7FA89A', sub: '#355F56', accent: '#c18ff2', name: '화요일' },
+3: { bg: '#145454', white: '#F7F5F0', black: '#2A2320', primary: '#B8C46F', sub: '#6B7A3F', accent: '#f7b2e3', name: '수요일' },
+4: { bg: '#145454', white: '#F7F5F0', black: '#2A2320', primary: '#D08A5A', sub: '#A85432', accent: '#5AB8D0', name: '목요일' },
+5: { bg: '#145454', white: '#F8F6FA', black: '#241F2B', primary: '#fcdd95', sub: '#C8A24A', accent: '#a5cbfa', name: '금요일' },
+6: { bg: '#145454', white: '#F8F6FA', black: '#241F2B', primary: '#ffaaa1', sub: '#9B4A4A', accent: '#6FD0B8', name: '토요일' },
+0: { bg: '#145454', white: '#F8F6FA', black: '#241F2B', primary: '#9A8FBF', sub: '#4E3F73', accent: '#C5D08F', name: '일요일' }
 };
 
-// 페이지 로드 시 요일별 테마 적용
 function applyDailyTheme() {
-    const today = new Date().getDay();
-    const theme = dailyThemes[today];
-    
-    const root = document.documentElement;
-    root.style.setProperty('--bg-color', theme.bg);
-    root.style.setProperty('--white-color', theme.white);
-    root.style.setProperty('--black-color', theme.black);
-    root.style.setProperty('--primary-color', theme.primary);
-    root.style.setProperty('--sub-color', theme.sub);
-    root.style.setProperty('--accent-color', theme.accent);
-    
-    console.log(`오늘의 테마: ${theme.name}`);
+  const today = new Date().getDay();
+  const theme = dailyThemes[today];
+  const root = document.documentElement;
+  root.style.setProperty('--bg-color', theme.bg);
+  root.style.setProperty('--white-color', theme.white);
+  root.style.setProperty('--black-color', theme.black);
+  root.style.setProperty('--primary-color', theme.primary);
+  root.style.setProperty('--sub-color', theme.sub);
+  root.style.setProperty('--accent-color', theme.accent);
+  console.log(`오늘의 테마: ${theme.name}`);
 }
-
-// 페이지 로드 시 즉시 실행
 applyDailyTheme();
 
 function toggleLanguage() {
@@ -675,7 +691,8 @@ function toggleLanguage() {
     button.textContent = '한';
   }
 }
-// 1학년 1학기 문제 목록
+
+// ===== 문제 목록 =====
 const grade1semester1 = [
 { id: '1-1-0-1a', title: '한글놀이(1)' },
 { id: '1-1-0-2a', title: '한글놀이(2)' },  
@@ -702,7 +719,6 @@ const grade1semester1 = [
 { id: '1-1-7-2a', title: '7.알맞은 낱말을 찾아요(2)' }
 ];
 
-// 1학년 2학기 문제 목록
 const grade1semester2 = [
 { id: '1-2-1-1a', title: '1. 기분을 말해요(1)' },
 { id: '1-2-1-2a', title: '1. 기분을 말해요(2)' },
@@ -732,9 +748,9 @@ const grade1semester2 = [
 { id: '1-2-8-3a', title: '8. 느끼고 표현해요(3)' }
 ];
 
-// 2학년 1학기 문제 목록
 const grade2semester1 = [
-{ id: '2-1-1-1a', title: '1.만나서 반가워요(1)' }, { id: '2-1-2-1a', title: '2.말의 재미가 솔솔(1)' },
+{ id: '2-1-1-1a', title: '1.만나서 반가워요(1)' },
+{ id: '2-1-2-1a', title: '2.말의 재미가 솔솔(1)' },
 { id: '2-1-3-1a', title: '3.겪은 일을 나타내요(1)' },
 { id: '2-1-3-2a', title: '3.겪은 일을 나타내요(2)' },
 { id: '2-1-3-3a', title: '3.겪을 일을 나타내요(3)' },
@@ -749,7 +765,6 @@ const grade2semester1 = [
 { id: '2-1-8-1a', title: '8.다양한 작품을 감상해요(1)' }
 ];
 
-// 2학년 2학기 문제 목록
 const grade2semester2 = [
 { id: '2-2-1-1', title: '1.장면을 상상하며(1)' },
 { id: '2-2-1-2', title: '1.장면을 상상하며(2)' },
@@ -767,16 +782,20 @@ const grade2semester2 = [
 { id: '2-2-8-2', title: '8.나도 작가(2)' }
 ];
 
+// 학년/학기 메타 정보
+const gradeMeta = [
+  { items: grade1semester1, containerId: 'grade1-1-buttons', accordionId: 'accordion-1-1', badgeId: 'badge-1-1', label: '국어 1학년 1학기' },
+  { items: grade1semester2, containerId: 'grade1-2-buttons', accordionId: 'accordion-1-2', badgeId: 'badge-1-2', label: '국어 1학년 2학기' },
+  { items: grade2semester1, containerId: 'grade2-1-buttons', accordionId: 'accordion-2-1', badgeId: 'badge-2-1', label: '국어 2학년 1학기' },
+  { items: grade2semester2, containerId: 'grade2-2-buttons', accordionId: 'accordion-2-2', badgeId: 'badge-2-2', label: '국어 2학년 2학기' },
+];
+
 function toggleAccordion(header) {
   const content = header.nextElementSibling;
   const isActive = header.classList.contains('active');
   
-  document.querySelectorAll('.accordion-header').forEach(h => {
-    h.classList.remove('active');
-  });
-  document.querySelectorAll('.accordion-content').forEach(c => {
-    c.classList.remove('active');
-  });
+  document.querySelectorAll('.accordion-header').forEach(h => h.classList.remove('active'));
+  document.querySelectorAll('.accordion-content').forEach(c => c.classList.remove('active'));
   
   if (!isActive) {
     header.classList.add('active');
@@ -784,20 +803,16 @@ function toggleAccordion(header) {
   }
 }
 
-// ===== 🔧 테스트 모드 (school.html과 동일하게) =====
+// ===== 테스트 모드 =====
 const TEST_MODE = false;
 
 function getTodayUTC() {
-    if (TEST_MODE) {
-        return Date.now();
-    }
-    return new Date().toISOString().split('T')[0];
+  if (TEST_MODE) return Date.now();
+  return new Date().toISOString().split('T')[0];
 }
 
 function getDaysDiff(date1, date2) {
-  if (TEST_MODE) {
-    return Math.ceil((date2 - date1) / 1000); // 초 단위
-  }
+  if (TEST_MODE) return Math.ceil((date2 - date1) / 1000);
   const d1 = new Date(date1 + 'T00:00:00Z');
   const d2 = new Date(date2 + 'T00:00:00Z');
   return Math.ceil((d2 - d1) / (1000 * 60 * 60 * 24));
@@ -821,35 +836,21 @@ function getReviewData(wordpoolId) {
   }
 }
 
-// 복습 상태 확인 (새 데이터 구조)
 function getReviewStatus(wordpoolId) {
   const progress = getProgress(wordpoolId);
   const today = getTodayUTC();
   
-  // 아직 시작 안 함
   if (progress.attempts.length === 0) return 'not-started';
-  
-  // 🏆 트로피 (6회 완료)
   if (progress.attempts.length >= 5) return 'completed-5';
   
-  // 복습 데이터 확인
   const reviewData = getReviewData(wordpoolId);
-  if (!reviewData) {
-    return `in-progress-${progress.attempts.length}`;
-  }
+  if (!reviewData) return `in-progress-${progress.attempts.length}`;
   
-  // 다음 복습 날짜 확인
   const nextReviewDate = reviewData.nextReviewDate;
-  if (!nextReviewDate) {
-    return `in-progress-${progress.attempts.length}`;
-  }
+  if (!nextReviewDate) return `in-progress-${progress.attempts.length}`;
   
-  // 오늘이 복습 날짜 이후인지 확인
-  if (today >= nextReviewDate) {
-    return 'review-today';
-  } else {
-    return `in-progress-${progress.attempts.length}`;
-  }
+  if (today >= nextReviewDate) return 'review-today';
+  return `in-progress-${progress.attempts.length}`;
 }
 
 function playGame(wordpool, title) {
@@ -857,12 +858,7 @@ function playGame(wordpool, title) {
   const reviewData = getReviewData(wordpool);
   const today = getTodayUTC();
   
-  // 🏆 트로피 보유
-  if (progress.attempts.length >= 5) {
-    // school.html에서 처리하므로 바로 이동
-  }
-  // 복습 대기 중인 경우
-  else if (progress.attempts.length > 0 && reviewData && reviewData.nextReviewDate) {
+  if (progress.attempts.length > 0 && reviewData && reviewData.nextReviewDate) {
     if (today < reviewData.nextReviewDate) {
       const daysLeft = getDaysDiff(today, reviewData.nextReviewDate);
       const unit = TEST_MODE ? '초' : '일';
@@ -882,43 +878,27 @@ function getMedal(attemptCount, status) {
   return '';
 }
 
-// 진도 박스 생성 (새 데이터 구조)
 function createProgressBoxes(wordpoolId) {
   const progress = getProgress(wordpoolId);
   const reviewData = getReviewData(wordpoolId);
   const today = getTodayUTC();
   
-  // 🏆 트로피 - 5개 모두 완료 표시
   if (progress.attempts.length >= 5) {
-    return progress.attempts.slice(0, 5).map((attempt, idx) => {
-      const label = ['1차','2차','3차','4차','5차'][idx];
-      let date;
-      if (typeof attempt.date === 'number') {
-        date = '✅';
-      } else {
-        date = attempt.date.substring(5);
-      }
+    return progress.attempts.slice(0, 5).map((attempt) => {
+      const date = typeof attempt.date === 'number' ? '✅' : attempt.date.substring(5);
       return `<div class="progress-box completed">${date}</div>`;
     }).join('');
   }
   
   const boxes = [];
-  const labels = ['1차', '2차', '3차', '4차', '5차'];
-  
   for (let i = 0; i < 5; i++) {
     let boxClass = 'progress-box';
     let content = '';
     
     if (i < progress.attempts.length) {
-      // 이미 완료한 단계
       boxClass += ' completed';
-      if (typeof progress.attempts[i].date === 'number') {
-        content = '✅';
-      } else {
-        content = progress.attempts[i].date.substring(5);
-      }
+      content = typeof progress.attempts[i].date === 'number' ? '✅' : progress.attempts[i].date.substring(5);
     } else if (i === progress.attempts.length) {
-      // 다음 할 단계
       if (progress.attempts.length === 0) {
         boxClass += ' review-soon';
         content = '시작';
@@ -927,7 +907,6 @@ function createProgressBoxes(wordpoolId) {
           boxClass += ' review-soon';
           content = '⏰';
         } else {
-          // 대기 중 - 남은 일수 표시
           const daysLeft = getDaysDiff(today, reviewData.nextReviewDate);
           const unit = TEST_MODE ? '초' : '일';
           content = `${daysLeft}${unit}`;
@@ -941,7 +920,6 @@ function createProgressBoxes(wordpoolId) {
   return boxes.join('');
 }
 
-// 버튼 렌더링 함수 (공통)
 function renderButtons(items, containerId) {
   const container = document.getElementById(containerId);
   let html = '';
@@ -952,11 +930,8 @@ function renderButtons(items, containerId) {
     const medal = getMedal(progress.attempts.length, status);
     
     let buttonClass = 'game-button';
-    if (status === 'review-today') {
-      buttonClass += ' review-today';
-    } else if (status === 'completed-5') {
-      buttonClass += ' completed-5';
-    }
+    if (status === 'review-today') buttonClass += ' review-today';
+    else if (status === 'completed-5') buttonClass += ' completed-5';
     
     html += `
       <div class="game-item">
@@ -973,16 +948,121 @@ function renderButtons(items, containerId) {
   container.innerHTML = html;
 }
 
-// 통계 업데이트
+// ===== 오늘 할 것 섹션 + 아코디언 뱃지 업데이트 =====
+function updateTodaySection() {
+  const reviewItems = [];   // 복습할 것 (우선순위 1)
+  const newStudyItems = []; // 새로 공부할 것 (우선순위 2)
+
+  gradeMeta.forEach(grade => {
+    grade.items.forEach(item => {
+      const status = getReviewStatus(item.id);
+      if (status === 'review-today') {
+        reviewItems.push({ ...item, gradeLabel: grade.label });
+      } else if (status === 'not-started') {
+        newStudyItems.push({ ...item, gradeLabel: grade.label });
+      }
+    });
+  });
+
+  const todaySection = document.getElementById('todaySection');
+  const todayList = document.getElementById('todayList');
+  const todaySectionTitle = document.getElementById('todaySectionTitle');
+
+  const hasReview = reviewItems.length > 0;
+  const hasNewStudy = newStudyItems.length > 0;
+
+  if (!hasReview && !hasNewStudy) {
+    // 아무것도 없으면 섹션 숨김
+    todaySection.style.display = 'none';
+  } else {
+    todaySection.style.display = 'block';
+    
+    // 제목 결정
+    if (hasReview) {
+      todaySectionTitle.textContent = `⏰ 오늘 복습 (${reviewItems.length}개)`;
+    } else {
+      todaySectionTitle.textContent = `📝 오늘 공부할 것`;
+    }
+
+    let html = '';
+
+    // 복습 항목
+    reviewItems.forEach(item => {
+      html += `
+        <div class="today-item" onclick="playGame('${item.id}', '${item.title}')">
+          <span class="today-item-badge">🔁</span>
+          <div class="today-item-info">
+            <div class="today-item-grade">${item.gradeLabel}</div>
+            <div class="today-item-title">${item.title}</div>
+          </div>
+          <span class="today-item-arrow">▶</span>
+        </div>
+      `;
+    });
+
+    // 복습이 없을 때만 새 공부 항목 표시 (첫 번째만)
+    if (!hasReview && hasNewStudy) {
+      const nextItem = newStudyItems[0];
+      html += `
+        <div class="today-item" onclick="playGame('${nextItem.id}', '${nextItem.title}')">
+          <span class="today-item-badge">📝</span>
+          <div class="today-item-info">
+            <div class="today-item-grade">${nextItem.gradeLabel}</div>
+            <div class="today-item-title">${nextItem.title}</div>
+          </div>
+          <span class="today-item-arrow">▶</span>
+        </div>
+      `;
+    }
+
+    todayList.innerHTML = html;
+  }
+
+  // ===== 아코디언 뱃지 업데이트 =====
+  gradeMeta.forEach(grade => {
+    const badge = document.getElementById(grade.badgeId);
+    if (!badge) return;
+
+    let reviewCount = 0;
+    let newCount = 0;
+
+    grade.items.forEach(item => {
+      const status = getReviewStatus(item.id);
+      if (status === 'review-today') reviewCount++;
+      else if (status === 'not-started') newCount++;
+    });
+
+    if (reviewCount > 0) {
+      badge.style.display = 'inline';
+      badge.className = 'header-badge';
+      badge.textContent = `🔁 ${reviewCount}`;
+    } else if (newCount > 0) {
+      badge.style.display = 'inline';
+      badge.className = 'header-badge new-study';
+      badge.textContent = `📝`;
+    } else {
+      badge.style.display = 'none';
+    }
+  });
+
+  // ===== 기본 열릴 아코디언 결정 (오늘 할 것 없을 때만) =====
+  // 오늘 할 것 섹션이 있으면 아코디언 다 닫아둠
+  // 오늘 할 것이 전혀 없으면 1학년 1학기 열기
+  if (!hasReview && !hasNewStudy) {
+    const firstAccordion = document.getElementById('accordion-1-1');
+    if (firstAccordion) {
+      firstAccordion.classList.add('active');
+      firstAccordion.nextElementSibling.classList.add('active');
+    }
+  }
+}
+
+// ===== 통계 업데이트 =====
 function updateStats() {
-  let masterCount = 0;
-  let goldCount = 0;
-  let silverCount = 0;
-  let bronzeCount = 0;
-  let inProgressCount = 0;
-  let reviewTodayCount = 0;
+  let masterCount = 0, goldCount = 0, silverCount = 0, bronzeCount = 0, inProgressCount = 0, reviewTodayCount = 0;
   
-  const allItems = [...grade1semester1, ...grade1semester2, ...grade2semester1];
+  // ✅ grade2semester2 누락 수정
+  const allItems = [...grade1semester1, ...grade1semester2, ...grade2semester1, ...grade2semester2];
   
   allItems.forEach(item => {
     const progress = getProgress(item.id);
@@ -1004,15 +1084,19 @@ function updateStats() {
   document.getElementById('bronzeCount').textContent = bronzeCount;
   document.getElementById('inProgressCount').textContent = inProgressCount;
   document.getElementById('reviewTodayCount').textContent = reviewTodayCount;
+  
+  const reviewCountEn = document.getElementById('reviewTodayCountEn');
+  if (reviewCountEn) reviewCountEn.textContent = reviewTodayCount;
 }
 
-// 페이지 로드 시 실행
+// ===== 페이지 로드 =====
 window.addEventListener('load', () => {
   renderButtons(grade1semester1, 'grade1-1-buttons');
   renderButtons(grade1semester2, 'grade1-2-buttons');
   renderButtons(grade2semester1, 'grade2-1-buttons');
   renderButtons(grade2semester2, 'grade2-2-buttons');
   updateStats();
+  updateTodaySection();
 });
 </script>
 
