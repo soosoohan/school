@@ -537,9 +537,7 @@ header {
       <li>3일 후 → 7일 후 → 14일 후 → 28일 후 → 28일 후</li>
       <li>총 5번의 복습으로 장기기억 완성!</li>
       <li>⚠️ 한 번에 몰아서 공부하지 마세요 - 뇌가 힘들어요</li>
-      <li>🎯 날짜를 지켜서 반복하면 오래 기억됩니다</li>
-      <li> <span class="highlight"> 🌏 날짜는 세계표준시(UTC) 기준입니다.</span> </li>
-      <li> <span class="highlight"> 🌏 한국에서는 오전9시에 날짜가 바뀝니다.</span> </li>  
+      <li>🎯 날짜를 지켜서 반복하면 오래 기억됩니다</li> 
     </ul>
     <p style="text-align: center; margin-top: 15px; animation: blink 1s infinite;">
       <span class="highlight">⏰ 오늘 복습할 문제: <span id="reviewTodayCount">0</span>개</span> 
@@ -559,7 +557,6 @@ header {
       <li>4 reviews complete = Long-term memory achieved!</li>
       <li>⚠️ Don't cram - Your brain needs breaks</li>
       <li>🎯 Follow the schedule for lasting memory</li>
-      <li><span class="highlight">🌏 Dates are based on UTC (Coordinated Universal Time)</span></li>
     </ul>
     <p style="text-align: center; margin-top: 15px; animation: blink 1s infinite;">
       <span class="highlight">⏰ Problems to review today: <span id="reviewTodayCountEn">0</span></span> 
@@ -806,15 +803,19 @@ function toggleAccordion(header) {
 // ===== 테스트 모드 =====
 const TEST_MODE = false;
 
-function getTodayUTC() {
+function getTodayLocal() {
   if (TEST_MODE) return Date.now();
-  return new Date().toISOString().split('T')[0];
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
 }
 
 function getDaysDiff(date1, date2) {
   if (TEST_MODE) return Math.ceil((date2 - date1) / 1000);
-  const d1 = new Date(date1 + 'T00:00:00Z');
-  const d2 = new Date(date2 + 'T00:00:00Z');
+  const d1 = new Date(date1 + 'T00:00:00');
+  const d2 = new Date(date2 + 'T00:00:00'); 
   return Math.ceil((d2 - d1) / (1000 * 60 * 60 * 24));
 }
 
@@ -838,7 +839,7 @@ function getReviewData(wordpoolId) {
 
 function getReviewStatus(wordpoolId) {
   const progress = getProgress(wordpoolId);
-  const today = getTodayUTC();
+  const today = getTodayLocal();
   
   if (progress.attempts.length === 0) return 'not-started';
   if (progress.attempts.length >= 5) return 'completed-5';
@@ -856,7 +857,7 @@ function getReviewStatus(wordpoolId) {
 function playGame(wordpool, title) {
   const progress = getProgress(wordpool);
   const reviewData = getReviewData(wordpool);
-  const today = getTodayUTC();
+  const today = getTodayLocal();
   
   if (progress.attempts.length > 0 && reviewData && reviewData.nextReviewDate) {
     if (today < reviewData.nextReviewDate) {
@@ -881,7 +882,7 @@ function getMedal(attemptCount, status) {
 function createProgressBoxes(wordpoolId) {
   const progress = getProgress(wordpoolId);
   const reviewData = getReviewData(wordpoolId);
-  const today = getTodayUTC();
+  const today = getTodayLocal();
   
   if (progress.attempts.length >= 5) {
     return progress.attempts.slice(0, 5).map((attempt) => {
