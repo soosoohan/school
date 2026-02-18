@@ -686,21 +686,25 @@ function saveReviewData(wpName, reviewData) {
 const TEST_MODE = false;
 const TEST_INTERVALS_SEC = [30, 60, 90, 120]; // 초 단위
 
-function getTodayUTC() {
-    if (TEST_MODE) {
-        return Date.now(); // epoch ms
-    }
-    return new Date().toISOString().split('T')[0];
+function getTodayLocal() {
+    if (TEST_MODE) return Date.now();
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
 }
 
 function addDays(dateStr, days) {
     if (TEST_MODE) {
-        // days는 이미 초 단위
         return dateStr + (days * 1000);
     }
-    const d = new Date(dateStr + 'T00:00:00Z');
-    d.setUTCDate(d.getUTCDate() + days);
-    return d.toISOString().split('T')[0];
+    const d = new Date(dateStr + 'T00:00:00');  
+    d.setDate(d.getDate() + days);           
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
 }
 
 function getIntervals() {
@@ -712,7 +716,7 @@ function determineGameMode() {
     const wpName = getWordpoolName();
     const progress = getProgress(wpName);
     const reviewData = getReviewData(wpName);
-    const today = getTodayUTC();
+    const today = getTodayLocal();
     
     // 아직 시작 안 함
     if (progress.attempts.length === 0) {
@@ -1175,7 +1179,7 @@ function showFinalScore() {
 // ===== 단계 완료 처리 (핵심 로직) =====
 function handleStageComplete() {
     const wpName = getWordpoolName();
-    const today = getTodayUTC();
+    const today = getTodayLocal();
     
     if (gameMode === 'practice') {
         // 연습 모드 - 아무것도 저장 안 함
