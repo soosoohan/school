@@ -988,7 +988,7 @@ function renderButtons(items, containerId) {
 function updateTodaySection() {
   const reviewItems = [];   // 복습할 것 (우선순위 1)
   const newStudyItems = []; // 새로 공부할 것 (우선순위 2)
-
+  
   gradeMeta.forEach(grade => {
     grade.items.forEach(item => {
       const status = getReviewStatus(item.id);
@@ -999,17 +999,22 @@ function updateTodaySection() {
       }
     });
   });
-
+  
   const todaySection = document.getElementById('todaySection');
   const todayList = document.getElementById('todayList');
   const todaySectionTitle = document.getElementById('todaySectionTitle');
-
   const hasReview = reviewItems.length > 0;
   const hasNewStudy = newStudyItems.length > 0;
-
+  
   if (!hasReview && !hasNewStudy) {
-    // 아무것도 없으면 섹션 숨김
-    todaySection.style.display = 'none';
+    // 할 게 없을 때 안내 메시지
+    todaySection.style.display = 'block';
+    todaySectionTitle.textContent = '📅 오늘은 공부할 문제가 없어요';
+    todayList.innerHTML = `
+      <div style="text-align: center; padding: 20px; color: var(--black-color); font-size: 1.1em;">
+        다른 게임을 즐겨보세요!
+      </div>
+    `;
   } else {
     todaySection.style.display = 'block';
     
@@ -1019,9 +1024,9 @@ function updateTodaySection() {
     } else {
       todaySectionTitle.textContent = `📝 오늘 공부할 것`;
     }
-
+    
     let html = '';
-
+    
     // 복습 항목
     reviewItems.forEach(item => {
       html += `
@@ -1035,7 +1040,7 @@ function updateTodaySection() {
         </div>
       `;
     });
-
+    
     // 복습이 없을 때만 새 공부 항목 표시 (첫 번째만)
     if (!hasReview && hasNewStudy) {
       const nextItem = newStudyItems[0];
@@ -1050,7 +1055,7 @@ function updateTodaySection() {
         </div>
       `;
     }
-
+    
     todayList.innerHTML = html;
   }
 
