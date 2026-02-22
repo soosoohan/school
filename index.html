@@ -641,6 +641,16 @@ header {
     <div class="game-buttons" id="grade2-2-buttons"></div>
   </div>
 </div>
+<!-- 3학년 1학기 아코디언 -->
+<div class="accordion-header" id="accordion-3-1" onclick="toggleAccordion(this)">
+  <span>🌿국어 3학년 1학기<span class="header-badge" id="badge-3-1" style="display:none"></span></span>
+  <span class="arrow">▼</span>
+</div>
+<div class="accordion-content">
+  <div class="grade-section">
+    <div class="game-buttons" id="grade3-1-buttons"></div>
+  </div>
+</div>
 
 <script>
 const dailyThemes = {
@@ -779,12 +789,37 @@ const grade2semester2 = [
 { id: '2-2-8-2', title: '8.나도 작가(2)' }
 ];
 
+const grade3semester1 = [
+{ id: '3-1-0-1', title: '독서: 읽을 책을 소개해요(1)' },
+{ id: '3-1-1-1', title: '1.생생하게 표현해요(1)' },
+{ id: '3-1-1-2', title: '1.생생하게 표현해요(2)' },
+{ id: '3-1-1-3', title: '1.생생하게 표현해요(3)' },
+{ id: '3-1-2-1', title: '2.분명하고 유창하게(1)' },
+{ id: '3-1-2-2', title: '2.분명하고 유창하게(2)' },
+{ id: '3-1-3-1', title: '3.짜임새 있는 글(1)' },
+{ id: '3-1-3-2', title: '3.짜임새 있는 글(2)' },
+{ id: '3-1-7-1', title: '매체: 배려하고 소통해요(1)' },
+{ id: '3-1-7-2', title: '매체: 배려하고 소통해요(2)' },
+{ id: '3-1-4-1', title: '4.중요한 내용을 찾아요(1)' },
+{ id: '3-1-4-2', title: '4.중요한 내용을 찾아요(2)' },
+{ id: '3-1-4-3', title: '4.중요한 내용을 찾아요(3)' },
+{ id: '3-1-4-4', title: '4.중요한 내용을 찾아요(4)' },
+{ id: '3-1-5-1', title: '5.인물에게 마음을 전해요(1)' },
+{ id: '3-1-5-2', title: '5.인물에게 마음을 전해요(2)' },
+{ id: '3-1-5-3', title: '5.인물에게 마음을 전해요(3)' },
+{ id: '3-1-6-1', title: '6.자신있게 써요(1)' },
+{ id: '3-1-6-2', title: '6.자신있게 써요(2)' },
+{ id: '3-1-6-3', title: '6.자신있게 써요(3)' }
+];
+
+
 // 학년/학기 메타 정보
 const gradeMeta = [
   { items: grade1semester1, containerId: 'grade1-1-buttons', accordionId: 'accordion-1-1', badgeId: 'badge-1-1', label: '국어 1학년 1학기' },
   { items: grade1semester2, containerId: 'grade1-2-buttons', accordionId: 'accordion-1-2', badgeId: 'badge-1-2', label: '국어 1학년 2학기' },
   { items: grade2semester1, containerId: 'grade2-1-buttons', accordionId: 'accordion-2-1', badgeId: 'badge-2-1', label: '국어 2학년 1학기' },
   { items: grade2semester2, containerId: 'grade2-2-buttons', accordionId: 'accordion-2-2', badgeId: 'badge-2-2', label: '국어 2학년 2학기' },
+  { items: grade3semester1, containerId: 'grade3-1-buttons', accordionId: 'accordion-3-1', badgeId: 'badge-3-1', label: '국어 3학년 1학기' },
 ];
 
 function toggleAccordion(header) {
@@ -1062,8 +1097,8 @@ function updateTodaySection() {
 function updateStats() {
   let masterCount = 0, goldCount = 0, silverCount = 0, bronzeCount = 0, inProgressCount = 0, reviewTodayCount = 0;
   
-  // ✅ grade2semester2 누락 수정
-  const allItems = [...grade1semester1, ...grade1semester2, ...grade2semester1, ...grade2semester2];
+  // ✅ 학년 학기 추가
+  const allItems = [...grade1semester1, ...grade1semester2, ...grade2semester1, ...grade2semester2, ...grade3semester1];
   
   allItems.forEach(item => {
     const progress = getProgress(item.id);
@@ -1090,12 +1125,13 @@ function updateStats() {
   if (reviewCountEn) reviewCountEn.textContent = reviewTodayCount;
 }
 
-// ===== 페이지 로드 =====
+// ===== ✅ 페이지 로드 =====
 window.addEventListener('load', () => {
   renderButtons(grade1semester1, 'grade1-1-buttons');
   renderButtons(grade1semester2, 'grade1-2-buttons');
   renderButtons(grade2semester1, 'grade2-1-buttons');
   renderButtons(grade2semester2, 'grade2-2-buttons');
+  renderButtons(grade3semester1, 'grade3-1-buttons');
   updateStats();
   updateTodaySection();
 });
