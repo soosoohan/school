@@ -581,6 +581,12 @@ function applyDailyTheme() {
 
 applyDailyTheme();
 
+function wrapEmojis(text) {
+  const emojiRegex = /(\p{Emoji_Presentation}|\p{Extended_Pictographic})/gu;
+  return text.replace(emojiRegex, '<span class="emoji">$1</span>');
+}
+
+
 const urlParams = new URLSearchParams(window.location.search);
 const wordpoolUrl = urlParams.get('wordpool');
 const categoryTitle = urlParams.get('title') || '모음 스쿨';
@@ -823,7 +829,7 @@ function initGameMode() {
             
         case 'waiting':
             // 아직 복습 시기가 아님
-            alert(`⏰ 아직 복습 시기가 아닙니다!`);
+            alert(`⏰ 아직 복습 시기가 아닙니다!\n\n다음 복습: ${modeInfo.timeLeft} 후 (${modeInfo.nextDate})\n간격을 지켜야 효과적으로 기억할 수 있어요.`);
             location.href = 'https://soosooland.com/school/index.html';
             return;
             
@@ -1209,6 +1215,7 @@ function handleStageComplete() {
             trophyMsg.innerHTML = '🏆 만점입니다! 트로피를 드립니다!';
             finalAlert.appendChild(trophyMsg);
             
+            console.log('🏆 1차 만점! 트로피 획득!');
         } else {
             // 1차 공부에서 틀린 문제가 있었음 → 1차 완료 + 복습 일정 저장
             const progress = getProgress(wpName);
@@ -1232,9 +1239,10 @@ function handleStageComplete() {
             reviewMsg.style.marginTop = '15px';
             reviewMsg.style.fontSize = '1.1em';
             reviewMsg.style.color = '#2196F3';
-            reviewMsg.innerHTML = `📝 1차 공부 완료!`;
+            reviewMsg.innerHTML = `📝 1차 공부 완료!<br>틀린 ${firstAttemptWrongAnswers.length}문제는 ${TEST_MODE ? getIntervals()[0]+'초' : '3일'} 후에 복습합니다.`;
             finalAlert.appendChild(reviewMsg);
             
+            console.log('1차 완료! 틀린 문제:', firstAttemptWrongAnswers.length, '다음 복습:', addDays(today, 3));
         }
     }
     else if (gameMode === 'review' || gameMode === 'review-retry') {
@@ -1296,7 +1304,7 @@ function handleStageComplete() {
             reviewMsg.style.marginTop = '15px';
             reviewMsg.style.fontSize = '1.1em';
             reviewMsg.style.color = '#2196F3';
-            reviewMsg.innerHTML = `✅ ${currentStepName} 복습 완료!`;
+            reviewMsg.innerHTML = `✅ ${currentStepName} 복습 완료!<br>${nextStepName} 복습: ${nextInterval}일 후 (${reviewData.nextReviewDate})`;
             finalAlert.appendChild(reviewMsg);
             
             console.log(`${currentStepName} 복습 완료! 다음:`, reviewData.nextReviewDate);
@@ -1323,6 +1331,11 @@ function retryWrongAnswers() {
     document.querySelector('.game-board').style.display = 'block';
     document.getElementById('finalMessage').style.display = 'none';
     startRound();
+}
+
+function wrapEmojis(text) {
+    if (!text) return '';
+    return text.replace(/([\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F000}-\u{1F02F}\u{1F0A0}-\u{1F0FF}\u{1F100}-\u{1F64F}\u{1F680}-\u{1F6FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}])/gu, '<span class="emoji">$1</span>');
 }
 
 window.onload = async function () {
