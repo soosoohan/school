@@ -651,6 +651,16 @@ header {
     <div class="game-buttons" id="grade3-1-buttons"></div>
   </div>
 </div>
+<!-- 3학년 2학기 아코디언 -->
+<div class="accordion-header" id="accordion-3-2" onclick="toggleAccordion(this)">
+  <span>🌿국어 3학년 2학기<span class="header-badge" id="badge-3-2" style="display:none"></span></span>
+  <span class="arrow">▼</span>
+</div>
+<div class="accordion-content">
+  <div class="grade-section">
+    <div class="game-buttons" id="grade3-2-buttons"></div>
+  </div>
+</div>
 
 <script>
 const dailyThemes = {
@@ -809,9 +819,19 @@ const grade3semester1 = [
 { id: '3-1-5-3', title: '5.인물에게 마음을 전해요(3)' },
 { id: '3-1-6-1', title: '6.자신있게 써요(1)' },
 { id: '3-1-6-2', title: '6.자신있게 써요(2)' },
-{ id: '3-1-6-3', title: '6.자신있게 써요(3)' }
+{ id: '3-1-6-3', title: '6.자신있게 써요(3)' },
+{ id: '3-1-m', title: '수학' }
+]
+const grade3semester2 = [
+{ id: '3-2-0-1', title: '독서:계획대로 차근차근 읽어요' },
+{ id: '3-2-1-1', title: '1.경험과 관련지으며 이해해요(1)' },
+{ id: '3-2-1-2', title: '1.경험과 관련지으며 이해해요(2)' },
+{ id: '3-2-2-1', title: '2.유창하게 읽고  발표해요(1)' },
+{ id: '3-2-2-2', title: '2.유창하게 읽고  발표해요(2)' },
+{ id: '3-2-2-3', title: '2.유창하게 읽고  발표해요(3)' },
+{ id: '3-2-3-1', title: '3.정확하게 글을 써요(1)' },
+{ id: '3-2-3-2', title: '3.정확하게 글을 써요(2)' }
 ];
-
 
 // 학년/학기 메타 정보
 const gradeMeta = [
@@ -820,6 +840,7 @@ const gradeMeta = [
   { items: grade2semester1, containerId: 'grade2-1-buttons', accordionId: 'accordion-2-1', badgeId: 'badge-2-1', label: '국어 2학년 1학기' },
   { items: grade2semester2, containerId: 'grade2-2-buttons', accordionId: 'accordion-2-2', badgeId: 'badge-2-2', label: '국어 2학년 2학기' },
   { items: grade3semester1, containerId: 'grade3-1-buttons', accordionId: 'accordion-3-1', badgeId: 'badge-3-1', label: '국어 3학년 1학기' },
+  { items: grade3semester2, containerId: 'grade3-2-buttons', accordionId: 'accordion-3-2', badgeId: 'badge-3-2', label: '국어 3학년 2학기' },
 ];
 
 function toggleAccordion(header) {
@@ -1012,7 +1033,7 @@ function updateTodaySection() {
     todaySectionTitle.textContent = '📅 오늘은 공부할 문제가 없어요';
     todayList.innerHTML = `
       <div style="text-align: center; padding: 20px; color: var(--black-color); font-size: 1.1em;">
-        다른 게임을 즐겨보세요!
+        수수랜드의 다른 게임을 즐겨보세요!
       </div>
     `;
   } else {
@@ -1103,7 +1124,7 @@ function updateStats() {
   let masterCount = 0, goldCount = 0, silverCount = 0, bronzeCount = 0, inProgressCount = 0, reviewTodayCount = 0;
   
   // ✅ 학년 학기 추가
-  const allItems = [...grade1semester1, ...grade1semester2, ...grade2semester1, ...grade2semester2, ...grade3semester1];
+  const allItems = [...grade1semester1, ...grade1semester2, ...grade2semester1, ...grade2semester2, ...grade3semester1, ...grade3semester2];
   
   allItems.forEach(item => {
     const progress = getProgress(item.id);
@@ -1137,6 +1158,7 @@ window.addEventListener('load', () => {
   renderButtons(grade2semester1, 'grade2-1-buttons');
   renderButtons(grade2semester2, 'grade2-2-buttons');
   renderButtons(grade3semester1, 'grade3-1-buttons');
+  renderButtons(grade3semester2, 'grade3-2-buttons');
   updateStats();
   updateTodaySection();
 });
