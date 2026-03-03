@@ -23,7 +23,7 @@
 
       console.log("GA4 활성화: 운용 환경");
     } else {
-      console.log("GA4 비활성화: 로컬/개발 환경");
+      console.log("GA4 비활성화: 로컬/개발 환경"~);
       window.gtag = function() { console.log("Local gtag call:", arguments); };
     }
   })();
@@ -641,9 +641,10 @@ header {
     <div class="game-buttons" id="grade2-2-buttons"></div>
   </div>
 </div>
+
 <!-- 3학년 1학기 아코디언 -->
 <div class="accordion-header" id="accordion-3-1" onclick="toggleAccordion(this)">
-  <span>🌿국어 3학년 1학기<span class="header-badge" id="badge-3-1" style="display:none"></span></span>
+  <span>3학년 1학기<span class="header-badge" id="badge-3-1" style="display:none"></span></span>
   <span class="arrow">▼</span>
 </div>
 <div class="accordion-content">
@@ -651,14 +652,37 @@ header {
     <div class="game-buttons" id="grade3-1-buttons"></div>
   </div>
 </div>
+
 <!-- 3학년 2학기 아코디언 -->
 <div class="accordion-header" id="accordion-3-2" onclick="toggleAccordion(this)">
-  <span>🌿국어 3학년 2학기<span class="header-badge" id="badge-3-2" style="display:none"></span></span>
+  <span>3학년 2학기<span class="header-badge" id="badge-3-2" style="display:none"></span></span>
   <span class="arrow">▼</span>
 </div>
 <div class="accordion-content">
   <div class="grade-section">
     <div class="game-buttons" id="grade3-2-buttons"></div>
+  </div>
+</div>
+
+<!-- 4학년 1학기 아코디언 -->
+<div class="accordion-header" id="accordion-4-1" onclick="toggleAccordion(this)">
+  <span>4학년 1학기<span class="header-badge" id="badge-4-1" style="display:none"></span></span>
+  <span class="arrow">▼</span>
+</div>
+<div class="accordion-content">
+  <div class="grade-section">
+    <div class="game-buttons" id="grade4-1-buttons"></div>
+  </div>
+</div>
+
+<!-- 4학년 2학기 아코디언 -->
+<div class="accordion-header" id="accordion-4-2" onclick="toggleAccordion(this)">
+  <span>4학년 2학기<span class="header-badge" id="badge-4-2" style="display:none"></span></span>
+  <span class="arrow">▼</span>
+</div>
+<div class="accordion-content">
+  <div class="grade-section">
+    <div class="game-buttons" id="grade4-2-buttons"></div>
   </div>
 </div>
 
@@ -800,69 +824,93 @@ const grade2semester2 = [
 ];
 
 const grade3semester1 = [
-{ id: '3-1-0-1', title: '읽을 책 소개' },
-{ id: '3-1-1-1', title: '1.생생한 표현(1)' },
-{ id: '3-1-1-2', title: '1.생생한 표현(2)' },
-{ id: '3-1-1-3', title: '1.생생한 표현(3)' },
-{ id: '3-1-2-1', title: '2.실감나게 읽기(1)' },
-{ id: '3-1-2-2', title: '2.실감나게 읽기(2)' },
-{ id: '3-1-3-1', title: '3.글의 짜임새(1)' },
-{ id: '3-1-3-2', title: '3.글의 짜임새(2)' },
-{ id: '3-1-7-1', title: '배려와 소통(1)' },
-{ id: '3-1-7-2', title: '배려와 소통(2)' },
-{ id: '3-1-4-1', title: '4.설명하는 글(1)' },
-{ id: '3-1-4-2', title: '4.설명하는 글(2)' },
-{ id: '3-1-4-3', title: '4.설명하는 글(3)' },
-{ id: '3-1-4-4', title: '4.설명하는 글(4)' },
-{ id: '3-1-5-1', title: '5.마음 전하기(1)' },
-{ id: '3-1-5-2', title: '5.마음 전하기(2)' },
-{ id: '3-1-5-3', title: '5.마음 전하기(3)' },
-{ id: '3-1-6-1', title: '6.사실과 의견(1)' },
-{ id: '3-1-6-2', title: '6.사실과 의견(2)' },
-{ id: '3-1-6-3', title: '6.사실과 의견(3)' },
-{ id: '3-1-m', title: '3-1 수학' },
-{ id: '3-1-s-1', title: '3-1 사회(1)' },
-{ id: '3-1-s-2', title: '3-1 사회(2)' },
-{ id: '3-1-k-1', title: '3-1 과학 힘(1)' },
-{ id: '3-1-k-2', title: '3-1 과학 힘(2)' },
-{ id: '3-1-k-3', title: '3-1 과학 동물(1)' },
-{ id: '3-1-k-4', title: '3-1 과학 동물(2)' },
-{ id: '3-1-k-5', title: '3-1 과학 동물(3)' },
-{ id: '3-1-k-6', title: '3-1 과학 식물(1)' },
-{ id: '3-1-k-7', title: '3-1 과학 식물(2)' }
+{ id: '3-1-0-1', title: '국어 읽을 책 소개' },
+{ id: '3-1-1-1', title: '국어 생생한 표현1' },
+{ id: '3-1-1-2', title: '국어 생생한 표현2' },
+{ id: '3-1-1-3', title: '국어 생생한 표현3' },
+{ id: '3-1-2-1', title: '국어 실감나게 읽기1' },
+{ id: '3-1-2-2', title: '국어 실감나게 읽기2' },
+{ id: '3-1-3-1', title: '국어 글의 짜임새1' },
+{ id: '3-1-3-2', title: '국어 글의 짜임새2' },
+{ id: '3-1-7-1', title: '국어 배려와 소통1' },
+{ id: '3-1-7-2', title: '국어 배려와 소통2' },
+{ id: '3-1-4-1', title: '국어 설명하는 글1' },
+{ id: '3-1-4-2', title: '국어 설명하는 글2' },
+{ id: '3-1-4-3', title: '국어 설명하는 글3' },
+{ id: '3-1-4-4', title: '국어 설명하는 글4' },
+{ id: '3-1-5-1', title: '국어 마음 전하기1' },
+{ id: '3-1-5-2', title: '국어 마음 전하기2' },
+{ id: '3-1-5-3', title: '국어 마음 전하기3' },
+{ id: '3-1-6-1', title: '국어 사실과 의견1' },
+{ id: '3-1-6-2', title: '국어 사실과 의견2' },
+{ id: '3-1-6-3', title: '국어 사실과 의견3' },
+{ id: '3-1-m', title: '수학' },
+{ id: '3-1-s-1', title: '사회1' },
+{ id: '3-1-s-2', title: '사회2' },
+{ id: '3-1-k-1', title: '과학 힘1' },
+{ id: '3-1-k-2', title: '과학 힘2' },
+{ id: '3-1-k-3', title: '과학 동물1' },
+{ id: '3-1-k-4', title: '과학 동물2' },
+{ id: '3-1-k-5', title: '과학 동물3' },
+{ id: '3-1-k-6', title: '과학 식물1' },
+{ id: '3-1-k-7', title: '과학 식물2' }
 ];
 const grade3semester2 = [
-{ id: '3-2-0-1', title: '차근차근 읽어요' },
-{ id: '3-2-1-1', title: '1.글 간추리기(1)' },
-{ id: '3-2-1-2', title: '1.글 간추리기(2)' },
-{ id: '3-2-2-1', title: '2.발표하기(1)' },
-{ id: '3-2-2-2', title: '2.발표하기(2)' },
-{ id: '3-2-2-3', title: '2.발표하기(3)' },
-{ id: '3-2-3-1', title: '3.글 쓰기(1)' },
-{ id: '3-2-3-2', title: '3.글 쓰기(2)' },
-{ id: '3-2-7-1', title: '온라인 글 쓰기(1)' },
-{ id: '3-2-4-1', title: '4.높임 표현(1)' },
-{ id: '3-2-4-2', title: '4.높임 표현(2)' },
-{ id: '3-2-4-3', title: '4.높임 표현(3)' },
-{ id: '3-2-5-1', title: '5.국어사전(1)' },
-{ id: '3-2-5-2', title: '5.국어사전(2)' },
-{ id: '3-2-6-1', title: '6.감상과 표현' },
-{ id: '3-2-m', title: '3-2 수학' },
-{ id: '3-2-s-1', title: '3-2 사회 문화' },
-{ id: '3-2-s-2', title: '3-2 사회 풍습' },
-{ id: '3-2-s-3', title: '3-2 사회 세시 풍속(1)' },
-{ id: '3-2-s-4', title: '3-2 사회 세시 풍속(2)' },
-{ id: '3-2-s-5', title: '3-2 사회 교통(1)' },
-{ id: '3-2-s-6', title: '3-2 사회 교통(2)' },
-{ id: '3-2-s-8', title: '3-2 사회 교통(3)' },
-{ id: '3-2-s-7', title: '3-2 사회 직업' },
-{ id: '3-2-s-9', title: '3-2 사회 통신(1)' },
-{ id: '3-2-s-a', title: '3-2 사회 통신(2)' },
-{ id: '3-2-k-1', title: '3-2 과학 물체와 물질' },
-{ id: '3-2-k-2', title: '3-2 과학 지구와 바다' },
-{ id: '3-2-k-3', title: '3-2 과학 소리의 성질' },
-{ id: '3-2-k-3', title: '3-2 과학 소리의 성질' },
-{ id: '3-2-k-4', title: '3-2 과학 건강한 생활' }
+{ id: '3-2-0-1', title: '국어 차근차근 읽기' },
+{ id: '3-2-1-1', title: '국어 글 간추리기1' },
+{ id: '3-2-1-2', title: '국어 글 간추리기2' },
+{ id: '3-2-2-1', title: '국어 발표하기1' },
+{ id: '3-2-2-2', title: '국어 발표하기2' },
+{ id: '3-2-2-3', title: '국어 발표하기3' },
+{ id: '3-2-3-1', title: '국어 글 쓰기1' },
+{ id: '3-2-3-2', title: '국어 글 쓰기2' },
+{ id: '3-2-7-1', title: '국어 온라인 글 쓰기' },
+{ id: '3-2-4-1', title: '국어 높임 표현1' },
+{ id: '3-2-4-2', title: '국어 높임 표현2' },
+{ id: '3-2-4-3', title: '국어 높임 표현3' },
+{ id: '3-2-5-1', title: '국어 국어사전1' },
+{ id: '3-2-5-2', title: '국어 국어사전2' },
+{ id: '3-2-6-1', title: '국어 감상과 표현' },
+{ id: '3-2-m', title: '수학' },
+{ id: '3-2-s-1', title: '사회 문화' },
+{ id: '3-2-s-2', title: '사회 풍습' },
+{ id: '3-2-s-3', title: '사회 세시 풍속1' },
+{ id: '3-2-s-4', title: '사회 세시 풍속2' },
+{ id: '3-2-s-5', title: '사회 교통1' },
+{ id: '3-2-s-6', title: '사회 교통2' },
+{ id: '3-2-s-8', title: '사회 교통3' },
+{ id: '3-2-s-7', title: '사회 직업' },
+{ id: '3-2-s-9', title: '사회 통신1' },
+{ id: '3-2-s-a', title: '사회 통신2' },
+{ id: '3-2-k-1', title: '과학 물체와 물질' },
+{ id: '3-2-k-2', title: '과학 지구와 바다' },
+{ id: '3-2-k-3', title: '과학 소리의 성질' },
+{ id: '3-2-k-3', title: '과학 소리의 성질' },
+{ id: '3-2-k-4', title: '과학 건강한 생활' }
+];
+const grade4semester1 = [
+{ id: '4-1-1-1', title: '국어 깊이 읽기1' },
+{ id: '4-1-1-2', title: '국어 깊이 읽기2' },
+{ id: '4-1-1-3', title: '국어 깊이 읽기3' },
+{ id: '4-1-2-1', title: '국어 토의와 의견' },
+{ id: '4-1-3-1', title: '국어 자세하게 살피기' },
+{ id: '4-1-4-1', title: '국어 뜻을 파악하기' },
+{ id: '4-1-5-1', title: '국어 생각 전하기' },
+{ id: '4-1-6-1', title: '국어 경험을 쓰기1' },
+{ id: '4-1-6-2', title: '국어 경험을 쓰기2' },
+{ id: '4-1-m', title: '수학' },
+{ id: '4-1-s-1', title: '사회 지도1' },
+{ id: '4-1-s-2', title: '사회 지도2' },
+{ id: '4-1-s-3', title: '사회 국가유산' },
+{ id: '4-1-s-4', title: '사회 경제' },
+{ id: '4-1-k-1', title: '과학 자석' },
+{ id: '4-1-k-2', title: '과학 물의 상태 변화' },
+{ id: '4-1-k-3', title: '과학 땅의 변화' },
+{ id: '4-1-k-4', title: '과학 생물' }
+];
+
+const grade4semester2= [
+{ id: '4-2-m', title: '수학' }
 ];
 
 // 학년/학기 메타 정보
@@ -873,6 +921,8 @@ const gradeMeta = [
   { items: grade2semester2, containerId: 'grade2-2-buttons', accordionId: 'accordion-2-2', badgeId: 'badge-2-2', label: '국어 2학년 2학기' },
   { items: grade3semester1, containerId: 'grade3-1-buttons', accordionId: 'accordion-3-1', badgeId: 'badge-3-1', label: '국어 3학년 1학기' },
   { items: grade3semester2, containerId: 'grade3-2-buttons', accordionId: 'accordion-3-2', badgeId: 'badge-3-2', label: '국어 3학년 2학기' },
+  { items: grade4semester1, containerId: 'grade4-1-buttons', accordionId: 'accordion-4-1', badgeId: 'badge-4-1', label: '국어 4학년 1학기' },
+  { items: grade3semester2, containerId: 'grade4-2-buttons', accordionId: 'accordion-4-2', badgeId: 'badge-4-2', label: '국어 4학년 2학기' },
 ];
 
 function toggleAccordion(header) {
@@ -1156,7 +1206,7 @@ function updateStats() {
   let masterCount = 0, goldCount = 0, silverCount = 0, bronzeCount = 0, inProgressCount = 0, reviewTodayCount = 0;
   
   // ✅ 학년 학기 추가
-  const allItems = [...grade1semester1, ...grade1semester2, ...grade2semester1, ...grade2semester2, ...grade3semester1, ...grade3semester2];
+  const allItems = [...grade1semester1, ...grade1semester2, ...grade2semester1, ...grade2semester2, ...grade3semester1, ...grade3semester2, ...grade4semester1, ...grade4semester2];
   
   allItems.forEach(item => {
     const progress = getProgress(item.id);
@@ -1191,6 +1241,8 @@ window.addEventListener('load', () => {
   renderButtons(grade2semester2, 'grade2-2-buttons');
   renderButtons(grade3semester1, 'grade3-1-buttons');
   renderButtons(grade3semester2, 'grade3-2-buttons');
+  renderButtons(grade4semester1, 'grade4-1-buttons');
+  renderButtons(grade4semester2, 'grade4-2-buttons');
   updateStats();
   updateTodaySection();
 });
