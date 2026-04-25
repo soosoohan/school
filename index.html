@@ -686,6 +686,17 @@ header {
   </div>
 </div>
 
+<!-- 5학년 1학기 아코디언 -->
+<div class="accordion-header" id="accordion-5-1" onclick="toggleAccordion(this)">
+  <span>5학년 1학기<span class="header-badge" id="badge-5-1" style="display:none"></span></span>
+  <span class="arrow">▼</span>
+</div>
+<div class="accordion-content">
+  <div class="grade-section">
+    <div class="game-buttons" id="grade5-1-buttons"></div>
+  </div>
+</div>
+
 <script>
 const dailyThemes = {
 1: { bg: '#145454', white: '#F4F6F5', black: '#1B2B2B', primary: '#91b2c7', sub: '#2F4B5C', accent: '#E8956F', name: '월요일' },
@@ -941,6 +952,37 @@ const grade4semester2= [
 { id: '4-2-k-6', title: '과학 기후 변화' }
 ];
 
+const grade5semester1= [
+{ id: '5-1-1-1', title: '국어 대화 나누기1' },
+{ id: '5-1-1-2', title: '국어 대화 나누기2' },
+{ id: '5-1-2-1', title: '국어 체험 쓰기1' },
+{ id: '5-1-2-2', title: '국어 체험 쓰기2' },
+{ id: '5-1-3-1', title: '국어 발표와 질문' },
+{ id: '5-1-4-1', title: '국어 매체' },
+{ id: '5-1-5-1', title: '국어 대상 설명1' },
+{ id: '5-1-5-2', title: '국어 대상 설명2' },
+{ id: '5-1-5-3', title: '국어 대상 설명3' },
+{ id: '5-1-6-1', title: '국어 의논과 토의1' },
+{ id: '5-1-6-2', title: '국어 의논과 토의2' },
+{ id: '5-1-7-1', title: '국어 작품 감상1' },
+{ id: '5-1-7-2', title: '국어 작품 감상2' },
+{ id: '5-1-7-3', title: '국어 작품 감상3' },
+{ id: '5-1-m', title: '수학' },
+{ id: '5-1-s-1', title: '사회 국토 여행1' },
+{ id: '5-1-s-2', title: '사회 국토 여행2' },
+{ id: '5-1-s-3', title: '사회 지리 탐구1' },
+{ id: '5-1-s-4', title: '사회 지리 탐구2' },
+{ id: '5-1-s-5', title: '사회 지리 탐구3' },
+{ id: '5-1-s-6', title: '사회 법과 인권1' },
+{ id: '5-1-s-7', title: '사회 법과 인권2' },
+{ id: '5-1-s-8', title: '사회 법과 인권3' },
+{ id: '5-1-k-1', title: '과학 지층 화석' },
+{ id: '5-1-k-2', title: '과학 빛의 성질' },
+{ id: '5-1-k-3', title: '과학 용해 용액' },
+{ id: '5-1-k-4', title: '과학 우리 몸' }
+];
+
+
 // 학년/학기 메타 정보
 const gradeMeta = [
   { items: grade1semester1, containerId: 'grade1-1-buttons', accordionId: 'accordion-1-1', badgeId: 'badge-1-1', label: '국어 1학년 1학기' },
@@ -951,6 +993,7 @@ const gradeMeta = [
   { items: grade3semester2, containerId: 'grade3-2-buttons', accordionId: 'accordion-3-2', badgeId: 'badge-3-2', label: '국어 3학년 2학기' },
   { items: grade4semester1, containerId: 'grade4-1-buttons', accordionId: 'accordion-4-1', badgeId: 'badge-4-1', label: '국어 4학년 1학기' },
   { items: grade4semester2, containerId: 'grade4-2-buttons', accordionId: 'accordion-4-2', badgeId: 'badge-4-2', label: '국어 4학년 2학기' },
+  { items: grade5semester1, containerId: 'grade5-1-buttons', accordionId: 'accordion-5-1', badgeId: 'badge-5-1', label: '국어 5학년 1학기' },
 ];
 
 function toggleAccordion(header) {
@@ -1271,6 +1314,7 @@ window.addEventListener('load', () => {
   renderButtons(grade3semester2, 'grade3-2-buttons');
   renderButtons(grade4semester1, 'grade4-1-buttons');
   renderButtons(grade4semester2, 'grade4-2-buttons');
+  renderButtons(grade5semester1, 'grade5-1-buttons');
   updateStats();
   updateTodaySection();
 });
