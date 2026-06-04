@@ -485,7 +485,7 @@ header {
 </style>
 
 </head>
-<body>
+<body onload="initLanguage()">
   <button class="back-button" onclick="location.href='https://soosooland.com/'">
     ← Soosooland </button>
 
@@ -704,12 +704,25 @@ applyDailyTheme();
 
 function toggleLanguage() {
   const korean = document.getElementById('korean');
+  const isKo = korean.style.display !== 'none';
+  const next = isKo ? 'en' : 'ko';
+  localStorage.setItem('soosoo-lang', next);
+  setLanguage(next);
+}
+function initLanguage() {
+  const saved = localStorage.getItem('soosoo-lang');
+  const lang = saved || (navigator.language.startsWith('ko') ? 'ko' : 'en');
+  setLanguage(lang);
+}
+
+function setLanguage(lang) {
+  const korean = document.getElementById('korean');
   const english = document.getElementById('english');
   const titleKo = document.getElementById('titleKo');
   const titleEn = document.getElementById('titleEn');
   const button = document.getElementById('langToggle');
-  
-  if (korean.style.display === 'none') {
+
+  if (lang === 'ko') {
     korean.style.display = 'block';
     english.style.display = 'none';
     titleKo.style.display = 'inline';
