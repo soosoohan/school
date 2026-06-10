@@ -86,6 +86,26 @@ body {
   background-color: #FF9494;
   color: white;
 }
+#lang-toggle {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    background: var(--accent-color);
+    border-radius: 20px;
+    padding: 6px 14px;
+    color: var(--black-color);
+    font-size: 0.85rem;
+    cursor: pointer;
+    z-index: 100;
+    transition: background 0.2s;
+  }
+  #lang-toggle:hover { 
+  background: var(--accent-color);
+  }
+
+  .lang-ko, .lang-en { transition: opacity 0.2s; }
+  body.en .lang-ko { display: none; }
+  body.ko .lang-en { display: none; }
 
 h1 { font-size: 2.3em; margin-bottom:0; color: var(--primary-color); }
 h2 { font-size:1.3em; color: var(--primary-color); }
@@ -485,13 +505,17 @@ header {
 </style>
 
 </head>
-<body onload="initLanguage()">
+<body class="ko" onload="initLanguage()">
+
+<button id="lang-toggle" onclick="toggleLang()">English</button>
   <button class="back-button" onclick="location.href='https://soosooland.com/'">
     ← Soosooland </button>
 
 <header>
+
     <div class="moeum-main" id="moeum-main">
-        <h1>모음스쿨 (개발중)</h1>
+    <h1 class="lang-ko">모음스쿨</h1>
+  <h1 class="lang-en">Moeum School</h1>
     </div>
 </header>
 <!-- ===== 오늘 할 것 섹션===== -->
@@ -505,16 +529,17 @@ header {
 <!-- 학습 안내 -->
 <div class="learning-guide">
   <h3>
-    <button id="langToggle" onclick="toggleLanguage()" style="padding: 5px 12px; cursor: pointer; font-size: 14px; margin-right: 10px; border-radius: 5px; font-weight: bold;">
-      EN
-    </button>
-  <span id="titleKo">📚 효과적인 기억법 - 간격 반복 학습</span>
-    <span id="titleEn" style="display: none;">📚 Effective Learning - Spaced Repetition</span>
+    
+  <span class="lang-ko">📚 효과적인 기억법 - 간격 반복 학습</span>
+    <span class="lang-en">📚 Effective Learning - Spaced Repetition</span>
   </h3>
   
-  <div id="korean" class="lang-content">
-    <p>독일 심리학자 헤르만 에빙하우스가 발견한 과학적 학습법입니다.<br>
+  <div class="lang-ko">
+    <p>
+    독일 심리학자 헤르만 에빙하우스가 발견한 과학적 학습법입니다.<br>
     외국어 학습과 장기기억에 매우 효과적입니다.</p>
+
+
     <ul>
       <li>🏆 첫 학습에서 100점을 맞으면 트로피 획득! 복습 면제!</li>
       <li>📝 첫 학습에서 틀린 문제가 있으면<br>
@@ -531,9 +556,10 @@ header {
     </p>
   </div>
   
-  <div id="english" class="lang-content" style="display: none;">
-    <p>A scientifically proven learning method discovered by German psychologist Hermann Ebbinghaus.<br>
-    Highly effective for language learning and long-term memory.</p>
+  <div class="lang-en">
+      <p>
+A scientifically proven learning method discovered by German psychologist Hermann Ebbinghaus.<br>
+    Highly effective for language learning and long-term memory. </p>
     <ul>
       <li>🏆 Get 100% on first attempt?Trophy earned! Review exempted!</li>
       <li>📝 Made mistakes on first attempt?<br>
@@ -702,38 +728,30 @@ function applyDailyTheme() {
 }
 applyDailyTheme();
 
-function toggleLanguage() {
-  const korean = document.getElementById('korean');
-  const isKo = korean.style.display !== 'none';
-  const next = isKo ? 'en' : 'ko';
-  localStorage.setItem('soosoo-lang', next);
-  setLanguage(next);
+function toggleLang() {
+  const body = document.body;
+  const btn = document.getElementById('lang-toggle');
+  if (body.classList.contains('ko')) {
+    body.classList.replace('ko', 'en');
+    document.documentElement.lang = 'en';
+    btn.textContent = '한국어';
+    localStorage.setItem('soosoo-lang', 'en'); // 여기
+  } else {
+    body.classList.replace('en', 'ko');
+    document.documentElement.lang = 'ko';
+    btn.textContent = 'EN';
+    localStorage.setItem('soosoo-lang', 'ko'); // 여기
+  }
 }
-function initLanguage() {
+  function initLanguage() {
   const saved = localStorage.getItem('soosoo-lang');
   const lang = saved || (navigator.language.startsWith('ko') ? 'ko' : 'en');
-  setLanguage(lang);
-}
-
-function setLanguage(lang) {
-  const korean = document.getElementById('korean');
-  const english = document.getElementById('english');
-  const titleKo = document.getElementById('titleKo');
-  const titleEn = document.getElementById('titleEn');
-  const button = document.getElementById('langToggle');
-
-  if (lang === 'ko') {
-    korean.style.display = 'block';
-    english.style.display = 'none';
-    titleKo.style.display = 'inline';
-    titleEn.style.display = 'none';
-    button.textContent = 'EN';
-  } else {
-    korean.style.display = 'none';
-    english.style.display = 'block';
-    titleKo.style.display = 'none';
-    titleEn.style.display = 'inline';
-    button.textContent = '한';
+  const body = document.body;
+  const btn = document.getElementById('lang-toggle');
+  if (lang === 'en') {
+    body.classList.replace('ko', 'en');
+    document.documentElement.lang = 'en';
+    btn.textContent = '한국어';
   }
 }
 
