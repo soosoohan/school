@@ -88,13 +88,13 @@ body {
 }
 #lang-toggle {
     position: fixed;
-    top: 16px;
-    right: 16px;
+    top: 20px;
+    right: 20px;
     background: var(--accent-color);
-    border-radius: 20px;
+    border-radius: 8px;
     padding: 6px 14px;
     color: var(--black-color);
-    font-size: 0.85rem;
+    font-size: 1rem;
     cursor: pointer;
     z-index: 100;
     transition: background 0.2s;
@@ -507,7 +507,7 @@ header {
 </head>
 <body class="ko" onload="initLanguage()">
 
-<button id="lang-toggle" onclick="toggleLang()">English</button>
+<button id="lang-toggle" onclick="toggleLang()">EN</button>
   <button class="back-button" onclick="location.href='https://soosooland.com/'">
     ← Soosooland </button>
 
@@ -734,7 +734,7 @@ function toggleLang() {
   if (body.classList.contains('ko')) {
     body.classList.replace('ko', 'en');
     document.documentElement.lang = 'en';
-    btn.textContent = '한국어';
+    btn.textContent = '한';
     localStorage.setItem('soosoo-lang', 'en'); // 여기
   } else {
     body.classList.replace('en', 'ko');
@@ -751,7 +751,7 @@ function toggleLang() {
   if (lang === 'en') {
     body.classList.replace('ko', 'en');
     document.documentElement.lang = 'en';
-    btn.textContent = '한국어';
+    btn.textContent = '한';
   }
 }
 
