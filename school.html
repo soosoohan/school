@@ -511,7 +511,7 @@ min-height: 80px;
 
  <div class="header">
     <h1 class="title">모음 스쿨</h1>
-    <p class="subtitle" id="categoryTitle">게임을 시작하세요</p>
+    <p class="subtitle" id="categoryTitle">공부를 시작하세요</p>
 </div>
 
   <div class="game-board">
@@ -527,11 +527,11 @@ min-height: 80px;
 
 <div class="hint-section">
   <div class="hint-title">💡 </div>
-  <div class="hint-text" id="hintText">게임을 시작하세요!</div>
+  <div class="hint-text" id="hintText">공부를 시작하세요!</div>
 </div>
 <div class="sentence-display">
   <div class="sentence-area" id="sentenceArea">
-    게임을 시작하세요!
+    공부를 시작하세요!
   </div>
 </div>
 <div id="winMessage" class="win-message" style="display: none;">
@@ -544,7 +544,7 @@ min-height: 80px;
   </div>
   <div id="loseMessage" class="lose-message" style="display: none;">
     <div class="lose-alert">
-        😔 게임 종료! 정답을 확인하세요.
+        😔 공부가 끝났어요. 정답을 확인하세요.
     </div>
   </div>
 <div id="finalMessage" class="final-message" style="display: none;">
@@ -1264,7 +1264,7 @@ function handleStageComplete() {
             const trophyMsg = document.createElement('div');
             trophyMsg.style.marginTop = '15px';
             trophyMsg.style.fontSize = '1.3em';
-            trophyMsg.innerHTML = '🏆 만점입니다! 트로피를 드립니다!';
+            trophyMsg.innerHTML = '🏆 만점입니다! 트로피 받으세요!';
             finalAlert.appendChild(trophyMsg);
             
             console.log('🏆 1차 만점! 트로피 획득!');
