@@ -1,0 +1,169 @@
+
+Designing My Google Blog
+
+ Big Plans: Making it Look Like Netflix
+
+The Blogger card buttons were so big that only two or three could fit on the screen, which really bugged me. I tried tweaking the themes here and there, but I just couldn't get the look I had in mind.
+
+I envisioned something like Netflix—clean card buttons that featured just an image, a title, and maybe a small label. I wanted those near-square cards to scroll horizontally. But no matter what I tried, I couldn’t get the image to sit perfectly inside the card like a framed picture. Eventually, I gave up.
+
+In the end, I stripped out the body text preview from the cards, kept it minimal with just the label and title, and finally got them to scroll sideways. Spending two whole days adjusting the code bit by bit and checking the live preview felt endless.
+
+However, I managed to use HTML editing to inject a custom gadget into the body, linking it to Soosooland's games. It turned out so sleek that I completely forgot about the plain-looking cards at the top.
+
+I put so much time into fixing up Blogger. Since I’m fickle and get bored easily, I knew that if I kept tweaking until I was 100% satisfied, it would never end. It wasn't perfect, but I figured it had its own unique charm, so I promised myself to just live with it for a month.
+
+---
+
+The "Add a Gadget" Trick I Learned Later
+
+Look for "Add a Gadget" under the Layout tab. Depending on your theme, there may or may not be an option to add it directly to the body area. If it’s missing from the body, you have to add it to the sidebar menu first, then click and drag it over to the body area. 
+
+
+It was a real pain to drag and drop; it just wouldn't follow my mouse smoothly, taking quite a few frustrating attempts before it finally snapped into place.
+
+
+Alternatively, you could add it directly via HTML, but the code varies wildly by theme, making it a massive hassle.
+
+---
+
+A Blog with a Korean-English Toggle
+
+I realized that putting both English and Korean text into a single post would make the scrolling painfully long. So, I started publishing them separately, adding a `[Read in Korean]` button to the English posts and a `[Read in English]` button to the Korean ones.
+
+Every single post followed this rule until one day, I asked Claude:
+
+> *"Claude, is it possible to add a language toggle button on Blogger?"*
+
+Claude immediately showed me how. Moving forward, I’ll be using this toggle button. But for the older posts, I went back and removed the manual language buttons. Since English posts have English titles and Korean posts have Korean titles, the buttons felt redundant anyway. Plus, with the credit at the bottom (*"Written by Han Soosoo, translated by Claude"*) and the Soosooland button already there, adding another language switcher just felt too cluttered.
+
+---
+
+Giving the Blog a Facelift
+
+I told myself I’d put up with it for a month, but three months flew by.
+
+The horizontal scroll I set up back in April was supposed to give off Netflix vibes, but it lacked the width, and without images, the text-only cards just felt empty. On top of that, while the "Read More" link worked, there was no "Back" button at all. It was time for a change.
+
+When I consulted Claude, it suggested adding a gadget to the body and inserting a new snippet of code. Goodbye horizontal scroll, hello vertical layout.
+
+I cleared out the default "View Posts" and "Popular Posts" sections from the body. Then, I added labels to the cards and completely hid the body text preview, making the entire dashboard look much cleaner.
+
+---
+
+The Unkillable "footer test" Text
+
+Then another problem appeared. When you clicked a card, the post would load beautifully, but the words “footer test” kept appearing at the bottom of every page.
+
+
+
+I told Claude, and it threw some code at me to insert. It didn't work.
+*"It's still there."*
+*"Ah, try injecting this one instead."*
+*"Still there."*
+
+After a few rounds of this, I turned to Gemini. I explained the phantom "footer test" situation, and Gemini—just like Claude—told me to go to `Theme > Edit HTML` and search for the phrase. I searched. Nothing.
+
+So, I fed Gemini the exact code I had put into the gadget and asked it to debug it.
+*"I'll give you some powerful code. This will definitely obliterate it."*
+
+Gemini handed over a block of code packed with `!important` declarations, absolutely determined to exterminate "footer test" like a cockroach. it didn't work either.
+
+---
+
+I typed into the Google search bar:
+
+> *"Every post on my Google Blog has 'footer test' written at the bottom—tell me how to remove it."*
+
+The search results pointed out two potential culprits. The very first suggestion said to check `Blogger > Settings > Footer Feed`.
+
+I navigated there, and lo and behold, sitting right there in plain sight were those exact eleven characters: `footer test`.
+
+*"What on earth? Who wrote this? Is this some Google default?"*
+
+I paused, and then the realization hit me. *Wait... I wrote this, didn't I?*
+Last year, I had been curious about what a "footer feed" did, so I casually typed "footer test" to see what would happen. Because it didn't immediately show up on the main layout, I completely forgot about it and left it there.
+
+---
+
+I went back to the Google search bar and typed:
+
+> *"Neither Gemini nor Claude knew this, but you solved it instantly. Who are you?"*
+> *"Gemini and Claude generate answers based on their trained data, but I answer by searching the web in real-time. I am an AI assistant,"* it replied.
+> *"I see. You're cute."*
+
+Was it because of my compliment? Later, when checking Google Analytics under `Traffic > New User Acquisition > AI Assistant`, I noticed 1 user recorded from Gangwon-do, Korea. I guess compliments really do make AIs dance.
+
+---
+
+Picking the Perfect Theme Colors
+
+After finally getting rid of "footer test", I turned my attention to the typography and colors. A harsh, stark white background didn't feel right.
+
+I asked the Google search AI:
+
+> *"I'm styling my blog—pick a sophisticated color palette that feels like a classic newspaper."*
+
+The AI assistant, overachiever that it is, started listing all kinds of design tips I hadn't even asked for, alongside 3 color recommendations. From those, I chose a warm, paper-like off-white for the background instead of blinding white, and a soft charcoal for the text instead of pitch black.
+
+I dressed up my personal daily blog with these colors, and it looked gorgeous. Pure satisfaction.
+
+However, when I tried to apply the exact same palette to my official Soosooland blog, Claude interrupted me. It reminded me that we had agreed to keep my two personas distinct, suggesting that the official project blog should stick to its own branding. So, I opted for a sleek chalkboard theme instead.
+
+---
+
+The Story Behind Soosooland’s Signature Color
+
+There’s a reason why Soosooland's signature color is a chalkboard shade.
+
+About a year ago, when I was developing Numzzle, I wanted a defining color—something where anyone looking at it would instantly think, *"Oh, this is definitely a Soosooland game."* I wanted a clean, structured concept, almost like a "school uniform color." Fearing it might look too dull, I initially added a pop of neon, but it looked terrible. Pantone’s Color of the Year at the time was a chocolate brown, but it didn't resonate with me either.
+
+Then, the global trend forecasting agencies WGSN and Coloro announced their color for 2026:
+
+> *"The 2026 Color of the Year, 'Transformative Teal,' is a harmonious blend of a grounding dark blue and a vibrant aqua green. Symbolizing change and new direction, this color is set to define the upcoming era."*
+
+It looked remarkably like a deep chalkboard color, perfectly aligning with Soosooland’s vision. From that moment on, I rolled out this chalkboard shade across all my games, eventually bringing it over to the main Soosooland hub.
+
+---
+
+Embracing Google's Default Design
+
+While the chalkboard background worked beautifully for the text, using it as a solid background for the buttons made them pop out far too aggressively.
+
+That’s when my eyes wandered to the completely unstyled, raw Korean-English toggle button. It had zero CSS applied to it, yet its utter simplicity made it look incredibly fitting.
+
+*"Claude, this toggle button doesn't have any styling, but it actually looks great."*
+*"Then let’s lean into that 'effortless chic' (꾸안꾸) vibe and just stick with the default button."*
+
+And that is how the `[Soosooland]` button ended up being the plain, unvarnished default button provided by Google. Meanwhile, in the haunted spot where "footer test" used to live, I hardcoded a sleek, italicized, colored sign-off: *Written by Han Soosoo, translated by Claude.*
+
+To round everything out, I needed a background image that matched the new vibe. Google's default themes actually included a chalkboard texture, but it was way too intense. Instead, I searched Google, found a beautiful, high-quality chalkboard texture, and applied it. It gave the blog a calmer, more grounded atmosphere—a nice contrast to Soosooland's usual high-energy aesthetic.
+
+---
+
+Why Likes and Comments are Blocked
+
+As of right now, the "Like" and "Leave a Comment" features are completely disabled on my Blogger sites.
+
+There are a few metrics I actually track closely:
+
+1. **Google Analytics** — user growth, referral traffic, and behavioral flows
+2. **Google Search Console** — SEO performance and indexing
+3. **Brunch** — views and likes
+4. **Medium** — claps
+
+So, maybe the lack of engagement features on my personal blog is actually Claude being deeply considerate of my mental peace, deliberately keeping them out of sight.
+
+Not too long ago, a close friend left a comment on one of my Brunch posts. That particular post was titled *"How Omok Became Soosooland’s Golden Child,"* where I candidly wrote about the emotional roller coaster of running a platform—getting thrilled when users flood in, feeling deeply discouraged when traffic thins out, and riding high again when they return.
+
+I don't remember the exact wording of my friend's comment, but the core message was simple:
+
+> *"Don't let the numbers dictate your peace of mind. Stop riding the waves of the highs and lows."*
+
+My initial petty thought was, *"You could have just texted me this on KakaoTalk, why leave a public comment?"* But deep down, I knew they were entirely right.
+
+I promised myself I would only check Google Analytics once a week, on Fridays (there’s a specific reason for Friday too, but that’s a long story for another day). Yet, like an anxious habit, I still find myself opening the dashboard two or three times a day.
+
+But at the very least, on my two personal blogs, I can finally just write whatever I want, completely uninhibited.
+
+If you ever do want to reach out or have something to say, you can always find me through the `[Bug Report]` link in the Soosooland footer.
