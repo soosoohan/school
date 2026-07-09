@@ -31,9 +31,11 @@ A Blog with a Korean-English Toggle
 
 I realized that putting both English and Korean text into a single post would make the scrolling painfully long. So, I started publishing them separately, adding a `[Read in Korean]` button to the English posts and a `[Read in English]` button to the Korean ones.
 
-Every single post followed this rule until one day, I asked Claude:
+A close friend once left this comment on my Brunch post:
 
-> *"Claude, is it possible to add a language toggle button on Blogger?"*
+>*“Don’t get too caught up in whether your numbers go up or down. As long as you’re having fun, that’s what matters — even if just one person loves it, that’s enough. Fighting today!”*
+
+
 
 Claude immediately showed me how. Moving forward, I’ll be using this toggle button. But for the older posts, I went back and removed the manual language buttons. Since English posts have English titles and Korean posts have Korean titles, the buttons felt redundant anyway. Plus, with the credit at the bottom (*"Written by Han Soosoo, translated by Claude"*) and the Soosooland button already there, adding another language switcher just felt too cluttered.
 
@@ -156,9 +158,8 @@ So, maybe the lack of engagement features on my personal blog is actually Claude
 
 Not too long ago, a close friend left a comment on one of my Brunch posts. That particular post was titled *"How Omok Became Soosooland’s Golden Child,"* where I candidly wrote about the emotional roller coaster of running a platform—getting thrilled when users flood in, feeling deeply discouraged when traffic thins out, and riding high again when they return.
 
-I don't remember the exact wording of my friend's comment, but the core message was simple:
-
-> *"Don't let the numbers dictate your peace of mind. Stop riding the waves of the highs and lows."*
+A close friend once left this comment on my Brunch post:
+>*“Don’t get too caught up in whether your numbers go up or down. As long as you’re having fun, that’s what matters — even if just one person loves it, that’s enough. Fighting today!”*
 
 My initial petty thought was, *"You could have just texted me this on KakaoTalk, why leave a public comment?"* But deep down, I knew they were entirely right.
 
