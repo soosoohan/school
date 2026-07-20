@@ -1016,12 +1016,14 @@ function createConsonantButtons() {
     if (input) {
         const newInput = input.cloneNode(true);
         input.parentNode.replaceChild(newInput, input);
-        
+      
         newInput.addEventListener('input', function(e) {
             const value = e.target.value;
             if (value && consonants.includes(value)) {
                 handleConsonantClick(value);
                 setTimeout(() => { e.target.value = ''; }, 100);
+                  } else if (value) {
+        e.target.value = '';  
             }
         });
         
