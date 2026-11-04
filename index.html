@@ -731,6 +731,16 @@ margin-top: 30px;
     <div class="game-buttons" id="grade5-2-buttons"></div>
   </div>
 </div>
+<!-- 부록 수수께끼 아코디언 -->
+<div class="accordion-header" id="accordion-7-1" onclick="toggleAccordion(this)">
+  <span>부록: 수수께끼<span class="header-badge" id="badge-7-1" style="display:none"></span></span>
+  <span class="arrow">▼</span>
+</div>
+<div class="accordion-content">
+  <div class="grade-section">
+    <div class="game-buttons" id="grade7-1-buttons"></div>
+  </div>
+</div>
 
 <footer>
   <p>© 2025 Han Soosoo. All rights reserved.</p>
@@ -1062,6 +1072,19 @@ const grade5semester2 = [
 { id: '5-2-3-k', title: '5-2 과학 열과 생활' },
 { id: '5-2-4-k', title: '5-2 과학 자원과 에너지' }
 ];
+const grade7semester1 = [
+{ id: '7-1-01', title: '수수께끼 1' },
+{ id: '7-1-02', title: '수수께끼 2' },
+{ id: '7-1-03', title: '수수께끼 3' },
+{ id: '7-1-04', title: '수수께끼 4' },
+{ id: '7-1-05', title: '수수께끼 5' },
+{ id: '7-1-06', title: '수수께끼 6' },
+{ id: '7-1-07', title: '수수께끼 7' },
+{ id: '7-1-08', title: '수수께끼 8' },
+{ id: '7-1-08', title: '수수께끼 9' },
+{ id: '7-1-10', title: '수수께끼 10' },
+{ id: '7-1-11', title: '수수께끼 11' }
+];
 
 // 학년/학기 메타 정보
 const gradeMeta = [
@@ -1074,7 +1097,8 @@ const gradeMeta = [
   { items: grade4semester1, containerId: 'grade4-1-buttons', accordionId: 'accordion-4-1', badgeId: 'badge-4-1', label: '국어 4학년 1학기' },
   { items: grade4semester2, containerId: 'grade4-2-buttons', accordionId: 'accordion-4-2', badgeId: 'badge-4-2', label: '국어 4학년 2학기' },
   { items: grade5semester1, containerId: 'grade5-1-buttons', accordionId: 'accordion-5-1', badgeId: 'badge-5-1', label: '국어 5학년 1학기' },
-  { items: grade5semester2, containerId: 'grade5-2-buttons', accordionId: 'accordion-5-2', badgeId: 'badge-5-2', label: '국어 5학년 2학기' },
+  { items: grade5semester2, containerId: 'grade5-2-buttons', accordionId: 'accordion-5-2', badgeId: 'badge-5-2', label: '국어 5학년 2학기' }, 
+  { items: grade7semester1, containerId: 'grade7-1-buttons', accordionId: 'accordion-7-1', badgeId: 'badge-7-1', label: '부록 : 수수께끼' },
 ];
 
 function toggleAccordion(header) {
@@ -1358,7 +1382,7 @@ function updateStats() {
   let masterCount = 0, goldCount = 0, silverCount = 0, bronzeCount = 0, inProgressCount = 0, reviewTodayCount = 0;
   
   // ✅ 학년 학기 추가
-  const allItems = [...grade1semester1, ...grade1semester2, ...grade2semester1, ...grade2semester2, ...grade3semester1, ...grade3semester2, ...grade4semester1, ...grade4semester2,...grade5semester1, ...grade5semester2];
+  const allItems = [...grade1semester1, ...grade1semester2, ...grade2semester1, ...grade2semester2, ...grade3semester1, ...grade3semester2, ...grade4semester1, ...grade4semester2,...grade5semester1, ...grade5semester2, ...grade7semester1 ];
   
   allItems.forEach(item => {
     const progress = getProgress(item.id);
@@ -1397,6 +1421,7 @@ window.addEventListener('load', () => {
   renderButtons(grade4semester2, 'grade4-2-buttons');
   renderButtons(grade5semester1, 'grade5-1-buttons');
   renderButtons(grade5semester2, 'grade5-2-buttons');
+  renderButtons(grade7semester1, 'grade7-1-buttons');
   updateStats();
   updateTodaySection();
 });
