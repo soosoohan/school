@@ -741,6 +741,18 @@ margin-top: 30px;
     <div class="game-buttons" id="grade6-1-buttons"></div>
   </div>
 </div>
+
+<!-- 6학년 2학기 아코디언 -->
+<div class="accordion-header" id="accordion-6-2" onclick="toggleAccordion(this)">
+  <span>6학년 2학기<span class="header-badge" id="badge-6-2" style="display:none"></span></span>
+  <span class="arrow">▼</span>
+</div>
+<div class="accordion-content">
+  <div class="grade-section">
+    <div class="game-buttons" id="grade6-2-buttons"></div>
+  </div>
+</div>
+
 <!-- 부록 수수께끼 아코디언 -->
 <div class="accordion-header" id="accordion-7-1" onclick="toggleAccordion(this)">
   <span>부록: 속담<span class="header-badge" id="badge-7-1" style="display:none"></span></span>
@@ -1113,6 +1125,39 @@ const grade6semester1 = [
 { id: '6-1-k-3-2', title: '6-1 과학 식물의 구조와 기능2' },
 { id: '6-1-k-4', title: '6-1 과학 지구의 운동' }
 ];
+
+
+const grade6semester1 = [
+{ id: '6-2-0', title: '6-2 국어 독서' }, 
+{ id: '6-2-1-1', title: '6-2 국어 깊이있게 감상하기' }, 
+{ id: '6-2-1-2', title: '6-2 국어 깊이있게 감상하기' }, 
+{ id: '6-2-1-3', title: '6-2 국어 깊이있게 감상하기' }, 
+{ id: '6-2-1-4', title: '6-2 국어 깊이있게 감상하기' }, 
+{ id: '6-2-2-1', title: '6-2 국어 궁금한 점을 해결해요' }, 
+{ id: '6-2-3-1', title: '6-2 국어 보고 듣고 판단해요' }, 
+{ id: '6-2-3-2', title: '6-2 국어 보고 듣고 판단해요' }, 
+{ id: '6-2-3-3', title: '6-2 국어 매체' }, 
+{ id: '6-2-4-1', title: '6-2 국어 소중한 우리말' }, 
+{ id: '6-2-4-2', title: '6-2 국어 소중한 우리말' }, 
+{ id: '6-2-4-3', title: '6-2 국어 소중한 우리말' }, 
+{ id: '6-2-5-1', title: '6-2 국어 언어와 소통' },
+{ id: '6-2-6-1', title: '6-2 국어 시와 이야기' }, 
+{ id: '6-2-6-2', title: '6-2 국어 시와 이야기' }, 
+{ id: '6-2-6-3', title: '6-2 국어 시와 이야기' }, 
+{ id: '6-2-6-4', title: '6-2 국어 시와 이야기' }, 
+{ id: '6-2-sa-1-1', title: '6-2 사회 세계의 자연환경' }, 
+{ id: '6-2-sa-1-2', title: '6-2 사회 세계의 자연환경' }, 
+{ id: '6-2-sa-2-1', title: '6-2 사회 시장경제와 무역' }, 
+{ id: '6-2-sa-2-2', title: '6-2 사회 시장경제와 무역' }, 
+{ id: '6-2-sa-3-1', title: '6-2 사회 지구촌 사람들' }, 
+{ id: '6-2-sa-3-2', title: '6-2 사회 지구촌 사람들' }, 
+{ id: '6-2-su-1', title: '6-2 수학' }, 
+{ id: '6-2-k-1', title: '6-2 과학 계절의 변화' }, 
+{ id: '6-2-k-2', title: '6-2 과학 물질의 연소' }, 
+{ id: '6-2-k-3', title: '6-2 과학 전기의 이용' }, 
+{ id: '6-2-k-4', title: '6-2 과학 과학과 진로' } 
+];
+
   
 const grade7semester1 = [
 { id: '7-1-01', title: '속담 1' },
@@ -1154,6 +1199,7 @@ const gradeMeta = [
   { items: grade5semester1, containerId: 'grade5-1-buttons', accordionId: 'accordion-5-1', badgeId: 'badge-5-1', label: '국어 5학년 1학기' },
   { items: grade5semester2, containerId: 'grade5-2-buttons', accordionId: 'accordion-5-2', badgeId: 'badge-5-2', label: '국어 5학년 2학기' }, 
   { items: grade6semester1, containerId: 'grade6-1-buttons', accordionId: 'accordion-6-1', badgeId: 'badge-6-1', label: '국어 6학년 1학기' },
+  { items: grade6semester2, containerId: 'grade6-2-buttons', accordionId: 'accordion-6-2', badgeId: 'badge-6-2', label: '국어 6학년 2학기' },
   { items: grade7semester1, containerId: 'grade7-1-buttons', accordionId: 'accordion-7-1', badgeId: 'badge-7-1', label: '부록 : 수수께끼' },
 ];
 
@@ -1438,7 +1484,7 @@ function updateStats() {
   let masterCount = 0, goldCount = 0, silverCount = 0, bronzeCount = 0, inProgressCount = 0, reviewTodayCount = 0;
   
   // ✅ 학년 학기 추가
-  const allItems = [...grade1semester1, ...grade1semester2, ...grade2semester1, ...grade2semester2, ...grade3semester1, ...grade3semester2, ...grade4semester1, ...grade4semester2,...grade5semester1, ...grade5semester2, ...grade6semester1, ...grade7semester1 ];
+  const allItems = [...grade1semester1, ...grade1semester2, ...grade2semester1, ...grade2semester2, ...grade3semester1, ...grade3semester2, ...grade4semester1, ...grade4semester2,...grade5semester1, ...grade5semester2, ...grade6semester1, ...grade6semester2,...grade7semester1 ];
   
   allItems.forEach(item => {
     const progress = getProgress(item.id);
@@ -1478,6 +1524,7 @@ window.addEventListener('load', () => {
   renderButtons(grade5semester1, 'grade5-1-buttons');
   renderButtons(grade5semester2, 'grade5-2-buttons');
   renderButtons(grade6semester1, 'grade6-1-buttons');
+  renderButtons(grade6semester2, 'grade6-2-buttons');
   renderButtons(grade7semester1, 'grade7-1-buttons');
   updateStats();
   updateTodaySection();
