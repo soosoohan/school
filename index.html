@@ -1252,8 +1252,28 @@ const grade7semester1 = [
 { id: 'go41', title: '고유어 41' }
 ];
 
-  const grade7semester2 = [
+  const grade7semester3 = [
 { id: 'sa01', title: '사자성어 1' },
+{ id: 'sa02', title: '사자성어 2' },
+{ id: 'sa03', title: '사자성어 3' },
+{ id: 'sa04', title: '사자성어 4' },
+{ id: 'sa05', title: '사자성어 5' },
+{ id: 'sa06', title: '사자성어 6' },
+{ id: 'sa07', title: '사자성어 7' },
+{ id: 'sa08', title: '사자성어 8' },
+{ id: 'sa09', title: '사자성어 9' },
+{ id: 'sa10', title: '사자성어 10' },
+{ id: 'sa11', title: '사자성어 11' },
+{ id: 'sa12', title: '사자성어 12' },
+{ id: 'sa13', title: '사자성어 13' },
+{ id: 'sa14', title: '사자성어 14' },
+{ id: 'sa15', title: '사자성어 15' },
+{ id: 'sa16', title: '사자성어 16' },
+{ id: 'sa17', title: '사자성어 17' },
+{ id: 'sa18', title: '사자성어 18' },
+{ id: 'sa19', title: '사자성어 19' },
+{ id: 'sa20', title: '사자성어 20' },
+{ id: 'sa21', title: '사자성어 21' }
 ];
 
 // 학년/학기 메타 정보
@@ -1272,6 +1292,7 @@ const gradeMeta = [
   { items: grade6semester2, containerId: 'grade6-2-buttons', accordionId: 'accordion-6-2', badgeId: 'badge-6-2', label: '국어 6학년 2학기' },
   { items: grade7semester1, containerId: 'grade7-1-buttons', accordionId: 'accordion-7-1', badgeId: 'badge-7-1', label: '부록 : 수수께끼' },
   { items: grade7semester2, containerId: 'grade7-2-buttons', accordionId: 'accordion-7-2', badgeId: 'badge-7-2', label: '부록 : 고유어' },
+  { items: grade7semester3, containerId: 'grade7-3-buttons', accordionId: 'accordion-7-3', badgeId: 'badge-7-3', label: '부록 : 사자성어' },
 ];
 
 function toggleAccordion(header) {
@@ -1555,7 +1576,7 @@ function updateStats() {
   let masterCount = 0, goldCount = 0, silverCount = 0, bronzeCount = 0, inProgressCount = 0, reviewTodayCount = 0;
   
   // ✅ 학년 학기 추가
-  const allItems = [...grade1semester1, ...grade1semester2, ...grade2semester1, ...grade2semester2, ...grade3semester1, ...grade3semester2, ...grade4semester1, ...grade4semester2,...grade5semester1, ...grade5semester2, ...grade6semester1, ...grade6semester2,...grade7semester1,...grade7semester2 ];
+  const allItems = [...grade1semester1, ...grade1semester2, ...grade2semester1, ...grade2semester2, ...grade3semester1, ...grade3semester2, ...grade4semester1, ...grade4semester2,...grade5semester1, ...grade5semester2, ...grade6semester1, ...grade6semester2,...grade7semester1,...grade7semester2,...grade7semester3 ];
   
   allItems.forEach(item => {
     const progress = getProgress(item.id);
@@ -1598,6 +1619,7 @@ window.addEventListener('load', () => {
   renderButtons(grade6semester2, 'grade6-2-buttons');
   renderButtons(grade7semester1, 'grade7-1-buttons');
   renderButtons(grade7semester2, 'grade7-2-buttons');
+  renderButtons(grade7semester3, 'grade7-3-buttons');
   updateStats();
   updateTodaySection();
 });
