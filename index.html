@@ -114,6 +114,18 @@ body {
   body.ko .lang-en { display: none; }
 
 h1 { font-size: 2.3em; margin-bottom:0; color: var(--primary-color); }
+.banner-title {
+    margin: 0;
+    font-size: 0;
+}
+
+.banner-title img {
+    display: block;
+    width: 100%;
+    max-width: 900px;
+    height: auto;
+    margin: 0 auto;
+}
 h2 { font-size:1.3em; color: var(--primary-color); }
 
 header > div {
@@ -525,10 +537,9 @@ margin-top: 30px;
 <button id="lang-toggle" onclick="toggleLang()">EN</button>
 
 <header>
-
 <div class="moeum-main" id="moeum-main">
-  <h1 class="lang-ko">모음스쿨</h1>
-  <h1 class="lang-en">Moeum School</h1>
+<h1 class="lang-ko banner-title"><img src="banner.png" alt="모음 스쿨"></h1>
+<h1 class="lang-en banner-title"><img src="banner.png" alt="Moeum School"></h1>
 <h2 class="lang-ko">1학년 1학기 교과서 낱말부터 차근차근 배우고, 퀴즈로 복습해요!</h2>
 <h2 class="lang-en">Learn words from your school textbooks, step by step, and practice with quizzes!</h2>
 </div>
