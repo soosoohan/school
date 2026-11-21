@@ -550,7 +550,11 @@ min-height: 80px;
 
 </div>
 </div>
-  <div class="consonant-section">
+
+   
+<div class="consonant-section" id="consonantSection">
+
+   
  <h3 class="consonant-title">
     <span class="title-text-desktop">자음을 클릭하거나 입력하세요 →</span>
     <span class="title-text-mobile">자음을 클릭하세요</span>
@@ -818,6 +822,16 @@ function determineGameMode() {
     }
 }
 
+
+   
+// ===== 오늘 추가=====
+
+function showConsonants() {
+  document.getElementById('consonantSection').style.display = '';
+}
+
+
+   
 // ===== 게임 시작 시 모드 확인 및 분기 =====
 function initGameMode() {
     const modeInfo = determineGameMode();
@@ -1229,6 +1243,12 @@ function showFinalScore() {
         handleStageComplete();
     }
 }
+// ===== 오늘 추가=====
+
+   function hideConsonants() {
+  document.getElementById('consonantSection').style.display = 'none';
+}
+
 
 // ===== 단계 완료 처리 (핵심 로직) =====
 function handleStageComplete() {
