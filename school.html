@@ -1223,12 +1223,16 @@ function nextRound() {
    
    
 function hideConsonants() {
-  const el = document.querySelector('.consonant-section');
-  if (el) el.style.display = 'none';
+  const sec = document.querySelector('.consonant-section');
+  const stats = document.getElementById('gameStats');
+  if (sec) sec.style.display = 'none';
+  if (stats) stats.style.display = 'none';
 }
 function showConsonants() {
-  const el = document.querySelector('.consonant-section');
-  if (el) el.style.display = '';
+  const sec = document.querySelector('.consonant-section');
+  const stats = document.getElementById('gameStats');
+  if (sec) sec.style.display = '';
+  if (stats) stats.style.display = '';
 }
 
 
