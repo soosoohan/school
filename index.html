@@ -87,58 +87,89 @@ body {
   padding: 30px;
   margin: 0;
 }
-.back-button { position: fixed;  top: max(48px, env(safe-area-inset-top) + 20px);  left: 22px;  width: 44px; height: 44px; padding: 0; background: transparent; order: none; border-radius: 22%; cursor: pointer; z-index: 100; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.25); }
 
-.back-button img {width: 100%;height: 100%;object-fit: cover;display: block;}
+.toolbar {
+  margin: 0 auto;   
+  padding: 6px 0;    
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  width: 800px;
+  max-width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+ }
 
-.back-button:active {transform: scale(0.92);transition: transform 0.1s;}
-#lang-toggle {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: var(--accent-color);
-    border-radius: 8px;
-    padding: 6px 14px;
+ .back-button {
+  margin-left: 44px;
+  flex-shrink: 0;
+  width: 44px; height: 44px; padding: 0;
+  background: transparent; border: none;
+  border-radius: 22%; cursor: pointer; overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+}
+
+ .back-button img {width: 100%;height: 100%;object-fit: cover;display: block;}
+
+  .back-button:active {transform: scale(0.92);transition: transform 0.1s;}
+
+  #lang-toggle {
     color: var(--white-color);
-    font-size: 1.1rem;
-    font-weight:bold;
+    font-size: 1rem;
+    font-weight: bold;
     cursor: pointer;
     z-index: 100;
+    display: flex;
+    background: var(--bg-color);
+    border: 1px solid var(--white-color);
+    border-radius: 10px;
+    padding: 6px 8px;
+    gap: 4px;
     transition: background 0.2s;
   }
+
+  
   #lang-toggle:hover { 
-  background: var(--accent-color);
+  background: var(--bg-color);
   }
 
   .lang-ko, .lang-en { transition: opacity 0.2s; }
   body.en .lang-ko { display: none; }
   body.ko .lang-en { display: none; }
 
-.banner-title {
-    margin: 0;
-    font-size: 0;
+
+header {
+  min-height: auto;
+  text-align: center;
+  margin: 0 auto 10px;
+  max-width: 800px;
 }
 
-.banner-title img {
-  display: block;
-  width: 100%;
-  max-width: var(--content-width);
-  height: auto;
-  margin: 0 auto;
-  border-radius: 10px;
-}
-h2 { font-size:1.3em; color: var(--primary-color); }
 
 header > div {
   color:var(--black-color);
   line-height: 140%;
   margin:30px auto;
 }
-
-header {
-  min-height: auto;
-  margin-bottom: 20px;
+  
+.banner-title {
+    margin: 0;
+    font-size: 0;
 }
+
+  .banner-title img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 5px auto 20px;
+  max-width: 800px;
+  border-radius: 10px;  
+}
+
+h2 { font-size:1.3em; color: var(--primary-color); }
+
 
 /* 학습 안내 섹션 */
 .learning-guide {
@@ -478,70 +509,37 @@ color: #c3dbdb;
 font-size: 0.8rem;
 margin-top: 30px;
 }
+header { display: flow-root; height: auto !important; }
+.banner-title { height: auto !important; }
+.banner-title img { position: static !important; float: none !important; }
 
-/* 반응형 레이아웃 */
-@media (max-width: 799px) {
-  .game-item {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  
-  .game-button {
-    flex: 1;
-    width: 100%;
-  }
-  
-  .progress-boxes {
-    justify-content: center;
-  }
-  
-  .progress-box {
-    width: 50px;
-    height: 30px;
-    font-size: 0.7em;
-  }
-}
-
-@media (max-width: 499px) {
-  .back-button { top: max(30px, env(safe-area-inset-top) + 10px); left: 10px;  width: 40px; height: 40px; }
-  .grade-section, .accordion-header {
-    width: 95%;
-  }
-  
-  .accordion-header {
-    font-size: 1.2em;
-  }
-  
-  .learning-guide {
-    padding: 15px;
-  }
-  
-  .learning-guide p, .learning-guide li {
-    font-size: 1em;
-  }
-  
-  .stat-number {
-    font-size: 1.5em;
-  }
-}
 </style>
 
 </head>
 <body class="ko" onload="initLanguage()">
-<button class="back-button" onclick="location.href='https://soosooland.com/'" aria-label="수수랜드 홈으로">
-<img src="https://soosooland.com/images/home.png" alt="수수랜드 홈"></button>
+<link rel="stylesheet" href="toolbar.css">
 
-<button id="lang-toggle" onclick="toggleLang()">EN</button>
+<div class="toolbar">
+  <button class="back-button" onclick="location.href='https://soosooland.com/'" aria-label="수수랜드 홈으로">
+  <img src="https://soosooland.com/images/home.png" alt="수수랜드 홈">
+</button>
+  <div class="lang-toggle">
+<button id="lang-toggle" onclick="toggleLang()">English</button>
+ </div><!--lang-toggle  -->
+</div> <!-- .toolbar -->
+
 
 <header>
-<div class="moeum-main" id="moeum-main">
 <h1 class="lang-ko banner-title"><img src="banner.png" alt="모음 스쿨"></h1>
 <h1 class="lang-en banner-title"><img src="banner.png" alt="Moeum School"></h1>
-<h2 class="lang-ko">1학년 1학기 교과서 낱말부터 차근차근 배우고, 퀴즈로 복습해요!</h2>
-<h2 class="lang-en">Learn words from your school textbooks, step by step, and practice with quizzes!</h2>
-</div>
+<h2 class="lang-ko">1학년 교과서 낱말부터 차근차근 퀴즈로 공부해요!</h2>
+<h2 class="lang-en">Learn words from 1st-grade textbooks, step by step, with quizzes!</h2>
+
 </header>
+
+<div class="moeum-main" id="moeum-main">
 <!-- ===== 오늘 할 것 섹션===== -->
+
 <div class="today-section" id="todaySection">
   <h3 id="todaySectionTitle">⏰ 오늘 복습</h3>
   <div class="today-list" id="todayList">
@@ -829,12 +827,12 @@ function toggleLang() {
   if (body.classList.contains('ko')) {
     body.classList.replace('ko', 'en');
     document.documentElement.lang = 'en';
-    btn.textContent = '한';
+    btn.textContent = '한국어';
     localStorage.setItem('soosoo-lang', 'en'); // 여기
   } else {
     body.classList.replace('en', 'ko');
     document.documentElement.lang = 'ko';
-    btn.textContent = 'EN';
+    btn.textContent = 'English';
     localStorage.setItem('soosoo-lang', 'ko'); // 여기
   }
 }
@@ -846,7 +844,7 @@ function toggleLang() {
   if (lang === 'en') {
     body.classList.replace('ko', 'en');
     document.documentElement.lang = 'en';
-    btn.textContent = '한';
+    btn.textContent = '한국어';
   }
 }
 
